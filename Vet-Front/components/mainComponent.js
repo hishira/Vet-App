@@ -20,7 +20,7 @@ function HomeComponent(props){
     return (
         <View>
             {
-                props.store.getLoggedStatus? (<SecondView/>):(<LoginView/>)
+                props.store.getLoggedStatus? (<SecondView/>):(<LoginView navigator={props.navigation}/>)
             }
         </View>
     )

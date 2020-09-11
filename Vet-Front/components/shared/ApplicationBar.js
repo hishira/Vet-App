@@ -2,6 +2,8 @@ import * as React from "react";
 import { View, Image,Text } from "react-native";
 import { Appbar } from "react-native-paper";
 import { StyleSheet } from "react-native";
+import { inject, observer } from "mobx-react";
+
 const styles = StyleSheet.create({
   title: {
     fontSize: 40,
@@ -18,15 +20,18 @@ const styles = StyleSheet.create({
     color:"coral",
     fontSize:30,
     left:"38%"
-  }
+  },
 });
 
-const MyComponent = () => {
+function MyComponent(props){
   return (
     <View>
       <Appbar.Header>
         <Appbar.Content style={styles.title} title="Vet-App" />
-        <Appbar.Action icon="dots-vertical" />
+        {
+          props.store.getLoggedStatus?
+        (<Appbar.Action style={{position: 'absolute',right:0}} icon="logout" onPress={()=>props.store.setLoggedUser(false)}/>):(<Text/>)
+        }
       </Appbar.Header>
       <Image
         source={{
@@ -40,4 +45,4 @@ const MyComponent = () => {
   );
 };
 
-export default MyComponent;
+export default inject("store")(observer(MyComponent));

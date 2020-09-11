@@ -3,16 +3,15 @@ import {View,Text} from 'react-native'
 import {TextInput,Button} from 'react-native-paper'
 import { inject, observer } from "mobx-react";
 
-function LoginView(props){
+function SignUpView(props){
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
-    const loginHandle = async()=>{
+    const [repassword,setRepassword] = useState("")
+    const signUphandle = async()=>{
         props.store.setLoggedUser(true)
     }
-    const signUpHandle = ()=>{
-        props.navigator.navigate('SignUp')
-    }
     return <View style={{width:"50%",marginRight:"auto",marginLeft:"auto",marginTop:12}}>
+        <Text style={{fontSize:25,textAlign:"center",marginBottom:12}}>Create account</Text>
         <TextInput
         label="Email"
         value={email}
@@ -25,19 +24,20 @@ function LoginView(props){
         autoCompleteType="password"
         onChangeText={password=>setPassword(password)}
         />
+        <TextInput
+        style={{marginTop:24}}
+        label="Confirm password"
+        value={repassword}
+        autoCompleteType="password"
+        onChangeText={repassword=>setRepassword(repassword)}
+        />
         <Button
             mode='contained'
             style={{marginTop:30}}
-            onPress={()=>loginHandle()}
+            onPress={()=>signUphandle()}
+
         >
-            Login</Button>
-            <Text>Or</Text>
-            <Button
-            mode='contained'
-            style={{marginTop:30}}
-            onPress={()=>signUpHandle()}
-        >
-            SignUp</Button>
+            Sign Up</Button>
     </View>
 }
-export default inject("store")(observer(LoginView));
+export default inject("store")(observer(SignUpView));

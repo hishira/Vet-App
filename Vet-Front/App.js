@@ -9,6 +9,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import SecondView from './components/secondView'
 import {Provider} from 'mobx-react'
 import store from './store/mainStore'
+import SignUpview from './components/signup'
+
 const Stack = createStackNavigator();
 export default function Main() {
   return (
@@ -24,6 +26,9 @@ export default function Main() {
           <Stack.Screen
           name="Second"
           component={SecondView}/>
+          <Stack.Screen
+          name="SignUp"
+          component={SignUpview}/>
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
