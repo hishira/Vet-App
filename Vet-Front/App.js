@@ -7,9 +7,12 @@ import MainComponent from "./components/mainComponent.js";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import SecondView from './components/secondView'
+import {Provider} from 'mobx-react'
+import store from './store/mainStore'
 const Stack = createStackNavigator();
 export default function Main() {
   return (
+    <Provider store={store}>
     <PaperProvider>
       <ApplicationBar />
       <NavigationContainer>
@@ -24,6 +27,7 @@ export default function Main() {
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
+    </Provider>
   );
 }
 
