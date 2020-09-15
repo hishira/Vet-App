@@ -27,14 +27,14 @@ function LoginView(props){
         />
         <Button
             mode='contained'
-            style={{marginTop:30}}
+            style={{marginTop:30,marginBottom:10}}
             onPress={()=>loginHandle()}
         >
             Login</Button>
-            <Text>Or</Text>
+            <Text style={{textAlign:"center"}}>Or</Text>
             <Button
             mode='contained'
-            style={{marginTop:30}}
+            style={{marginTop:10}}
             onPress={()=>signUpHandle()}
         >
             SignUp</Button>

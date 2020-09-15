@@ -10,6 +10,7 @@ import SecondView from './components/secondView'
 import {Provider} from 'mobx-react'
 import store from './store/mainStore'
 import SignUpview from './components/signup'
+import UserView from './components/userView'
 
 const Stack = createStackNavigator();
 export default function Main() {
@@ -24,8 +25,8 @@ export default function Main() {
             component={MainComponent}
           />
           <Stack.Screen
-          name="Second"
-          component={SecondView}/>
+          name="User"
+          component={UserView}/>
           <Stack.Screen
           name="SignUp"
           component={SignUpview}/>

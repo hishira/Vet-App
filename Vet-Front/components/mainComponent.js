@@ -4,7 +4,7 @@ import {Button} from 'react-native-paper'
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import LoginView from './loginView'
-import SecondView from './secondView'
+import UserView from './userView'
 import { inject, observer } from "mobx-react";
 
 const styles = StyleSheet.create({
@@ -20,7 +20,7 @@ function HomeComponent(props){
     return (
         <View>
             {
-                props.store.getLoggedStatus? (<SecondView/>):(<LoginView navigator={props.navigation}/>)
+                props.store.getLoggedStatus? (<UserView/>):(<LoginView navigator={props.navigation}/>)
             }
         </View>
     )
