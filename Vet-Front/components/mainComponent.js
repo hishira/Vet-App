@@ -20,7 +20,7 @@ function HomeComponent(props){
     return (
         <View>
             {
-                props.store.getLoggedStatus? (<UserView/>):(<LoginView navigator={props.navigation}/>)
+                props.store.getLoggedStatus? (<UserView navigator={props.navigation}/>):(<LoginView navigator={props.navigation}/>)
             }
         </View>
     )

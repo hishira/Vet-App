@@ -2,12 +2,20 @@ import React,{useState} from 'react';
 import {View,Text} from 'react-native'
 import {TextInput,Button} from 'react-native-paper'
 import { inject, observer } from "mobx-react";
+import firebase from '../firebase'
 
 function LoginView(props){
     const [email,setEmail] = useState("")
     const [password,setPassword] = useState("")
     const loginHandle = async()=>{
-        props.store.setLoggedUser(true)
+        //props.store.setLoggedUser(true)
+        firebase.auth().signInWithEmailAndPassword(email,password).catch(err=>{})
+        let user = firebase.auth().onAuthStateChanged((user)=>{
+            if(user)
+                console.log(user)
+            else
+                console.log("Nie")
+        })
     }
     const signUpHandle = ()=>{
         props.navigator.navigate('SignUp')

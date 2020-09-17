@@ -1,3 +1,9 @@
 coverage/
 Vet-Front/.*
 Vet-Front/node_modules/
+Vet-Backend/node_modules
+Vet-Backend/firebaseconfig.json
+Vet-Backend/v*.json
+Vet-Backend/firebaseconfig.js
+Vet-Backend/.env
+Vet-Front/firebase.js

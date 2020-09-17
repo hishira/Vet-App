@@ -24,31 +24,21 @@ export default function UserView(props) {
             subtitle="Select your pets and reserve  visits in vet"
           />
           <Card.Cover source={{uri:"https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"}}/>
-          <Card.Actions style={{width:"100%"}}>
-            <Button>Go</Button>
-          </Card.Actions>
         </Card>
         <Card style={{ marginLeft:25,flex:.5 }}>
           <Card.Title title="Our Clinics" subtitle="Check clinics near by" />
           <Card.Cover source={{ uri: 'https://images.pexels.com/photos/4074726/pexels-photo-4074726.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260' }} />
 
-          <Card.Actions>
-            <Button>Go</Button>
-          </Card.Actions>
         </Card>
         </View>
         <View style={{
             flexDirection:"row"  ,
           padding: 20,
         }}>
-        <Card onPress={()=>console.log("hi")}
+        <Card onPress={()=>props.navigator.navigate("UserSettings")}
         style={{ flex:1 }}>
           <Card.Title style={{}} title="Settings" subtitle="change your account settings" />
           <Card.Cover source={{ uri: 'https://images.pexels.com/photos/171198/pexels-photo-171198.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500' }} />
-
-          <Card.Actions>
-            <Button></Button>
-          </Card.Actions>
         </Card>
       </View>
     </View>

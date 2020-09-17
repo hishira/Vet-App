@@ -11,6 +11,7 @@ import {Provider} from 'mobx-react'
 import store from './store/mainStore'
 import SignUpview from './components/signup'
 import UserView from './components/userView'
+import UserSetings from './components/settings'
 
 const Stack = createStackNavigator();
 export default function Main() {
@@ -30,6 +31,9 @@ export default function Main() {
           <Stack.Screen
           name="SignUp"
           component={SignUpview}/>
+          <Stack.Screen
+          name="UserSettings"
+          component={UserSetings}/>
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
