@@ -1,7 +1,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const visitSchema = Schema({
+const visitSchema = new Schema({
     description:{
         type:String,
     },
