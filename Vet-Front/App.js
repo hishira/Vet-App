@@ -12,7 +12,8 @@ import store from './store/mainStore'
 import SignUpview from './components/signup'
 import UserView from './components/userView'
 import UserSetings from './components/settings'
-
+import UserPets from './components/userPets'
+import AddPet from './components/addpet'
 const Stack = createStackNavigator();
 export default function Main() {
   return (
@@ -34,6 +35,12 @@ export default function Main() {
           <Stack.Screen
           name="UserSettings"
           component={UserSetings}/>
+          <Stack.Screen
+          name="UserPets"
+          component={UserPets}/>
+          <Stack.Screen
+          name="AddPet"
+          component={AddPet}/>
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>

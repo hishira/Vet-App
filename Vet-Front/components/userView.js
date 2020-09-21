@@ -18,10 +18,12 @@ export default function UserView(props) {
           marginTop:30
         }}
       >
-        <Card style={{ flex:.5 }}>
+        <Card style={{ flex:.5 }}
+        onPress={()=>props.navigator.navigate("UserPets")}>
           <Card.Title
             title="Your pets"
             subtitle="Select your pets and reserve  visits in vet"
+            
           />
           <Card.Cover source={{uri:"https://images.pexels.com/photos/46024/pexels-photo-46024.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"}}/>
         </Card>

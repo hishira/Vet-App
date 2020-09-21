@@ -12,13 +12,17 @@ function LoginView(props){
         firebase.auth().signInWithEmailAndPassword(email,password).catch(err=>{})
         let user = firebase.auth().onAuthStateChanged((user)=>{
             if(user)
-                console.log(user)
+                props.store.setLoggedUser(true)
             else
                 console.log("Nie")
         })
     }
     const signUpHandle = ()=>{
-        props.navigator.navigate('SignUp')
+        firebase.auth().signOut().then(()=>{
+            props.navigator.navigate('SignUp')
+            props.store.setLoggedUser(false)
+        }).catch((err)=>console.log("problem with singout"))
+        
     }
     return <View style={{width:"50%",marginRight:"auto",marginLeft:"auto",marginTop:12}}>
         <TextInput

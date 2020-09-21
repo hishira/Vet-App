@@ -8,6 +8,8 @@ require("dotenv").config();
 const mongoose = require("mongoose");
 const petrouter = require("./routes/pet")
 const bodypareser = require("body-parser")
+const cors = require('cors')
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: process.env.DB_URL,
@@ -15,7 +17,7 @@ admin.initializeApp({
 /*firebase.auth().createUserWithEmailAndPassword("abc@abc.com",'123456').catch(err=>{
     console.log(err.message)
 })*/
-firebase.auth().signInWithEmailAndPassword("abc@abc.com",'123456').catch(err=>{})
+/*firebase.auth().signInWithEmailAndPassword("abc@abc.com",'123456').catch(err=>{})*/
 let uri = `mongodb+srv://admin:${process.env.PASSWORD}@${process.env.MONGOURL}/${process.env.DATABASE}?retryWrites=true&w=majority`;
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -24,13 +26,16 @@ mongoose
 let db = mongoose.connection;
 app.use(bodypareser.json())
 app.use(bodypareser.urlencoded({ extended: true }));
+app.use(cors({ credentials: true, origin: true }));
 app.use("/pet",petrouter)
 db.once("open", () => {
   app.get("/", async (req, res) => {
-
+    /*
     let user = firebase.auth().currentUser;
     let token = await user.getIdToken().then(res=>res)
-    res.json(token);
+    let userid = user.uid
+    res.json({token:token,id:userid});
+    */
   });
   app.listen(port, () => {
     console.log("App listen on port 9000");

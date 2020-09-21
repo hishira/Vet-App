@@ -9,6 +9,7 @@ app.post("/registerpet", checkifAuthenticated, async (req, res) => {
       name: req.body.name,
       age: req.body.age,
       species: req.body.species,
+      userID:req.body.userID
     });
     console.log(pet);
     await pet.save();
