@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Text, View, Picker } from "react-native";
-import { TextInput, Button } from "react-native-paper";
+import { TextInput, Button,IconButton } from "react-native-paper";
 import firebase from "../firebase";
 import { addPet } from "../api/petApi";
 export default function AddPet(props) {
@@ -20,23 +20,18 @@ export default function AddPet(props) {
     let token = 0;
     try {
       token = await user.getIdToken().then((res) => res);
-      console.log(token);
     } catch (e) {
-      console.log("error");
       return;
     }
     let data = false;
     try {
       data = await addPet(obj, token).then((res) => {
-        console.log(res);
         if (res.status === 200) return true;
         else return false;
       });
     } catch (e) {
-      console.log(e);
       data = false;
     }
-    console.log(data);
     if (data) console.log("OK");
   };
   return (
@@ -48,6 +43,7 @@ export default function AddPet(props) {
         marginRight: "auto",
       }}
     >
+      <IconButton icon='arrow-left-bold' size={30} style={{marginLeft:"auto",marginRight:"auto"}} onPress={()=>props.navigation.navigate("UserPets")}/>
       <Text>Add pet</Text>
       <TextInput
         label="Pet name"

@@ -19,7 +19,9 @@ export default function UserView(props) {
         }}
       >
         <Card style={{ flex:.5 }}
-        onPress={()=>props.navigator.navigate("UserPets")}>
+        onPress={()=>{
+          props.navigator? props.navigator.navigate("UserPets"):props.navigation.navigate("UserPets")
+          }}>
           <Card.Title
             title="Your pets"
             subtitle="Select your pets and reserve  visits in vet"

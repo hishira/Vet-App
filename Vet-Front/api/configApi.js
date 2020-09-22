@@ -46,7 +46,7 @@ function getDeleteFetchObject(obj) {
 }
 
 function getApiLink(str) {
-  let url = `https://nasty-lion-31.loca.lt//${str}`;
+  let url = `https://d145de73ae89.ngrok.io/${str}`;
   return url;
 }
 function getFetchPostObject(obj) {
