@@ -7,6 +7,10 @@ const visitSchema = new Schema({
     },
     when:{
         type:Date
+    },
+    pet:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref:"Pet"
     }
 })
 
