@@ -2,11 +2,12 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const visitSchema = new Schema({
-    description:{
-        type:String,
-    },
     when:{
         type:Date
+    },
+    time:{
+        type:String,
+        required:true
     },
     pet:{
         type: mongoose.Schema.Types.ObjectId,
