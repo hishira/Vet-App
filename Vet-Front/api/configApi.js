@@ -31,6 +31,19 @@ function getFetchPostObjectWithAuth(obj, id) {
     body: JSON.stringify(obj),
   };
 }
+function getFetchObjectWithAuth(obj, id) {
+  return {
+      mode: "cors",
+      headers: {
+      Authorization: `Bearer ${id}`,
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    method: "POST",
+    body: JSON.stringify(obj),
+  };
+}
 function getDeleteFetchObject(obj) {
   return {
     mode: "cors",
@@ -46,7 +59,7 @@ function getDeleteFetchObject(obj) {
 }
 
 function getApiLink(str) {
-  let url = `https://c0591ca7790e.ngrok.io/${str}`;
+  let url = `https://24109953f731.ngrok.io/${str}`;
   return url;
 }
 function getFetchPostObject(obj) {
@@ -79,5 +92,6 @@ export {
   getFetchPutObject,
   fetchDeleteObject,
   getDeleteFetchObject,
-  getFetchPostObjectWithAuth
+  getFetchPostObjectWithAuth,
+  getFetchObjectWithAuth
 };

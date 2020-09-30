@@ -7,6 +7,7 @@ const firebase = require("./firebaseconfig");
 require("dotenv").config();
 const mongoose = require("mongoose");
 const petrouter = require("./routes/pet")
+const visitrouter = require('./routes/visit')
 const bodypareser = require("body-parser")
 const cors = require('cors')
 
@@ -28,6 +29,7 @@ app.use(bodypareser.json())
 app.use(bodypareser.urlencoded({ extended: true }));
 app.use(cors({ credentials: true, origin: true }));
 app.use("/pet",petrouter)
+app.use("/visit",visitrouter)
 db.once("open", () => {
   app.get("/", async (req, res) => {
     /*

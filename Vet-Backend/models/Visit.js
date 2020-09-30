@@ -12,6 +12,9 @@ const visitSchema = new Schema({
     pet:{
         type: mongoose.Schema.Types.ObjectId,
         ref:"Pet"
+    },
+    user:{
+        type:String
     }
 })
 
