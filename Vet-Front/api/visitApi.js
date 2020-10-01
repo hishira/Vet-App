@@ -8,7 +8,12 @@ async function getUserVisits(obj,id){
     let url = getApiLink('visit/uservisits')
     return await fetch(url,getFetchObjectWithAuth(obj,id))
 }
+async function deleteVisitByID(obj,id){
+    let url = getApiLink('visit/deletevisit')
+    return await fetch(url,getFetchObjectWithAuth(obj,id))
+}
 export {
     createVisit,
-    getUserVisits
+    getUserVisits,
+    deleteVisitByID
 }

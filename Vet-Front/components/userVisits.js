@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
-import { Button, Card, Title, Paragraph } from "react-native-paper";
+import { View, Text,ScrollView } from "react-native";
+import { Button, Card, Title, Paragraph,Dialog,Portal } from "react-native-paper";
 import { IconButton } from "react-native-paper";
 import firebase from "../firebase";
 import {getUserVisits} from '../api/visitApi'
-export default function UserVisits(props) {
+import { inject, observer } from "mobx-react";
+import CancelVisitDialog from './cancelVisitDialog'
+
+function UserVisits(props) {
   const [loading, setLoading] = useState("false");
   const [uservisits, setUserVisits] = useState([]);
+  const [visitIDToCancel,setVisitIDToCancel] = useState("")
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -20,16 +24,21 @@ export default function UserVisits(props) {
         console.log(data);
         if (data === false) throw new Error("err");
         setUserVisits(data);
+        console.log(data)
         setLoading("true");
       } catch (e) {
         setLoading("error");
       }
     };
     fetchData();
-  }, [props.navigation]);
-
+  }, [props.store.getVisitReload]);
+  const cancelVisitHandle = async (visitID)=>{
+    console.log(visitID)
+    setVisitIDToCancel(visitID)
+    props.store.setCancelVisit(true)
+  }
   return (
-    <View>
+    <ScrollView>
       <IconButton
         icon="arrow-left-bold"
         size={30}
@@ -43,17 +52,19 @@ export default function UserVisits(props) {
           <Text> Error </Text>
         </View>
       ) : (
-        <View style={{display:"flex",flexDirection:"row",flexWrap:"wrap"}}>
+        <View >
           {uservisits.map((visit) => (
-            <Card style={{marginLeft: "auto",marginRight: "auto",width:"45%",marginTop:10}}>
-              <Card.Title style={{}} title={visit.when}/>
-              <Card.Content>
+            <Card key={visit._id} style={{marginLeft: "auto",marginRight: "auto",width:"90%",marginTop:10}}>
+              <Card.Title  title={visit.when}/>
+              <Card.Content >
                   <Text>Date: {visit.when}</Text>
                   <Text>Time: {visit.time}</Text>
               </Card.Content>
-              <Card.Actions>
-                  <Button>Reserve visit</Button>
-                  <Button>See history</Button>
+              <Card.Actions >
+                  <Button
+                  style={{marginLeft:"auto",marginRight:"auto"}}
+                  onPress={()=>cancelVisitHandle(visit._id)}
+                  >Cancel visit</Button>
                   </Card.Actions>
             </Card>
           ))}
@@ -66,11 +77,14 @@ export default function UserVisits(props) {
           width: "50%",
           marginLeft: "auto",
           marginRight: "auto",
+          marginBottom: 10
         }}
         mode="contained"
       >
         Make new visit
       </Button>
-    </View>
+      <CancelVisitDialog visitID={visitIDToCancel}/>
+    </ScrollView>
   );
 }
+export default inject("store")(observer(UserVisits))

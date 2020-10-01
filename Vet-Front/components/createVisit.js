@@ -72,6 +72,7 @@ function CreateVisit(props) {
       })
       if(data === true){
         console.log("Tak")
+        props.store.setVisitReload(!props.store.getVisitReload)
         props.navigation.navigate("Visits")
       }else
         console.log("Nie")

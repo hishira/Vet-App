@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const visitModel = require('../models/Visit')
 const checkifAuthenticated = require("../middleware/authentication");
+const { model } = require('../models/Visit');
 
 app.post('/visitcreate',checkifAuthenticated,async(req,res)=>{
     try{
@@ -22,8 +23,19 @@ app.post('/visitcreate',checkifAuthenticated,async(req,res)=>{
 })
 app.post("/uservisits",checkifAuthenticated,async(req,res)=>{
     try{
-        const userVisits = await visitModel.find({user:req.body.userID})
+        const userVisits = await visitModel.find({user:req.body.userID}).lean()
+        for(let i of userVisits){ 
+            i['when'] = i['when'].toISOString().split('T')[0]
+        }
         return res.status(200).json(userVisits)
+    }catch(e){
+        return res.status(500).send("Server error")
+    }
+})
+app.post("/deletevisit",checkifAuthenticated,async(req,res)=>{
+    try{
+        const visit = await visitModel.findByIdAndDelete(req.body.visitID)
+        return res.status(200).json(visit)
     }catch(e){
         return res.status(500).send("Server error")
     }

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text,ScrollView } from "react-native";
 import { Button, Card, Title, Paragraph } from "react-native-paper";
 import { IconButton } from "react-native-paper";
 import { getUserPets } from "../api/petApi";
@@ -28,7 +28,7 @@ export default function UserPets(props) {
     fetchData();
   }, [props.navigation]);
   return (
-    <View>
+    <ScrollView>
       <IconButton
         icon="arrow-left-bold"
         size={30}
@@ -70,6 +70,6 @@ export default function UserPets(props) {
       >
         Add new pet
       </Button>
-    </View>
+    </ScrollView>
   );
 }
