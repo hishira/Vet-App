@@ -3,7 +3,8 @@ import { Text, View, Picker } from "react-native";
 import { TextInput, Button,IconButton } from "react-native-paper";
 import firebase from "../firebase";
 import { addPet } from "../api/petApi";
-export default function AddPet(props) {
+import { inject, observer } from "mobx-react";
+function AddPet(props) {
   const [petName, setPetName] = useState("");
   const [age, setAge] = useState("");
   const [species, setSpecies] = useState("Dog");
@@ -32,7 +33,11 @@ export default function AddPet(props) {
     } catch (e) {
       data = false;
     }
-    if (data) console.log("OK");
+    if (data) {
+      props.store.setVisitReload(!props.store.getVisitReload);
+      console.log("OK");
+      props.navigation.navigate("UserPets")
+    }
   };
   return (
     <View
@@ -82,3 +87,4 @@ export default function AddPet(props) {
     </View>
   );
 }
+export default inject("store")(observer(AddPet))

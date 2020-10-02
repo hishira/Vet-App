@@ -2,27 +2,8 @@ import React, { useState, useEffect } from "react";
 import { View } from "react-native";
 import { Dialog, Portal, Paragraph, Button } from "react-native-paper";
 import { inject, observer } from "mobx-react";
-import {deleteVisitByID} from '../api/visitApi'
-import firebase from '../firebase'
+
 function CancelVisitDialog(props) {
-    const cancelvisitHandle = async()=>{
-        console.log(props.visitID)
-        let user = firebase.auth().currentUser
-        let token = await user.getIdToken().then(res=>res)
-        let obj = {
-            visitID: props.visitID
-        }
-        console.log(token)
-        let data = await deleteVisitByID(obj,token).then(res=>{
-            if(res.status === 200)
-                return true
-            return false
-        })
-        if(data){
-            props.store.setVisitReload(!props.store.getVisitReload)
-            props.store.setCancelVisit(false)
-        }
-    }
   return (
     <View>
       <Portal>
@@ -32,11 +13,11 @@ function CancelVisitDialog(props) {
         >
           <Dialog.Title>Are you sure?</Dialog.Title>
           <Dialog.Content>
-            <Paragraph>Dou you wana delete visit?</Paragraph>
+  <Paragraph>{props.message}</Paragraph>
           </Dialog.Content>
           <Button
           
-          onPress={()=>cancelvisitHandle()}>
+          onPress={()=>props.cancelvisitHandle(props.visitID)}>
               Yes
           </Button>
           <Button

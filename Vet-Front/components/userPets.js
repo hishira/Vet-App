@@ -1,12 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { View, Text,ScrollView } from "react-native";
+import React, { useState, useEffect,useRef } from "react";
+import { View, Text,ScrollView,Animated} from "react-native";
 import { Button, Card, Title, Paragraph } from "react-native-paper";
 import { IconButton } from "react-native-paper";
-import { getUserPets } from "../api/petApi";
+import { getUserPets,deletePet } from "../api/petApi";
 import firebase from "../firebase";
-export default function UserPets(props) {
+import CancelVisitDialog from "./cancelVisitDialog";
+import { inject, observer } from "mobx-react";
+
+function UserPets(props) {
   const [loading, setLoading] = useState("false");
   const [userPets, setUserPets] = useState([]);
+  const [petToDelete,setPetToDelete] = useState("")
+  const  fadeAnim = useRef(new Animated.Value(0)).current
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -26,8 +31,36 @@ export default function UserPets(props) {
       }
     };
     fetchData();
-  }, [props.navigation]);
+    Animated.timing(fadeAnim,{
+      toValue:1,
+      duration:1000
+    }).start()
+  }, [props.store.getVisitReload]);
+  const deletePetHandle = (id) =>{
+    setPetToDelete(id)
+    console.log(id)
+    props.store.setCancelVisit(true);
+  }
+  const deletepetfunction = async(id)=>{
+    let user = firebase.auth().currentUser
+    let token = await user.getIdToken().then(res=>res)
+    let obj = {
+      petID:id
+    }
+    let data = await deletePet(obj,token).then(response=>{
+      if (response.status === 200)
+        return true
+      return false
+    })
+    if(data){
+      props.store.setVisitReload(!props.store.getVisitReload);
+      props.store.setCancelVisit(false);
+    }
+  }
   return (
+    <Animated.View
+    style={{opacity:fadeAnim}}
+    >
     <ScrollView>
       <IconButton
         icon="arrow-left-bold"
@@ -42,17 +75,17 @@ export default function UserPets(props) {
           <Text> Error </Text>
         </View>
       ) : (
-        <View style={{display:"flex",flexDirection:"row",flexWrap:"wrap"}}>
+        <View style={{}}>
           {userPets.map((pet) => (
-            <Card style={{marginLeft: "auto",marginRight: "auto",width:"45%",marginTop:10}}>
-              <Card.Title style={{}} title={pet.name}/>
+            <Card key={pet._id} style={{marginLeft: "auto",marginRight: "auto",marginTop:10}}>
+              <Card.Title style={{}} title={`Pet name: ${pet.name}`}/>
               <Card.Content>
                   <Text>Age: {pet.age}</Text>
                   <Text>Species: {pet.species}</Text>
               </Card.Content>
-              <Card.Actions>
+              <Card.Actions >
                   <Button>Reserve visit</Button>
-                  <Button>See history</Button>
+                  <Button onPress={()=>deletePetHandle(pet._id)}>Delete pet</Button>
                   </Card.Actions>
             </Card>
           ))}
@@ -71,5 +104,13 @@ export default function UserPets(props) {
         Add new pet
       </Button>
     </ScrollView>
+    <CancelVisitDialog
+      visitID={petToDelete}
+      message={"Are you sure to delete these pet?"}
+      cancelvisitHandle={deletepetfunction}
+    />
+
+    </Animated.View>
   );
 }
+export default inject("store")(observer(UserPets))

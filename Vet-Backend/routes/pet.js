@@ -27,4 +27,12 @@ app.post("/userpets", checkifAuthenticated,async(req,res)=>{
     return res.status(500).send("Server error")
   }
 })
+app.post("/deletepet",checkifAuthenticated,async(req,res)=>{
+  try{
+    const pet = await petModel.findByIdAndDelete(req.body.petID)
+    return res.status(200).json(pet)
+  }catch(e){
+    return res.status(500).send("Server error")
+  }
+})
 module.exports = app;
