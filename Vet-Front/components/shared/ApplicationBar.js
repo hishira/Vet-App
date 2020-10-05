@@ -3,12 +3,13 @@ import { View, Image,Text } from "react-native";
 import { Appbar } from "react-native-paper";
 import { StyleSheet } from "react-native";
 import { inject, observer } from "mobx-react";
-
+import {useNavigation} from '@react-navigation/native'
 const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     position: "absolute",
     right: "50%",
+    transform:[{translateX:45},{translateY:0}]
   },
   logo:{
     width: "100%",
@@ -19,19 +20,17 @@ const styles = StyleSheet.create({
     top:"50%",
     color:"coral",
     fontSize:30,
-    left:"38%"
+    left:"30%",
+    transform:[{translateX:0},{translateY:0}]
   },
 });
+
 
 function MyComponent(props){
   return (
     <View>
       <Appbar.Header>
         <Appbar.Content style={styles.title} title="Vet-App" />
-        {
-          props.store.getLoggedStatus?
-        (<Appbar.Action style={{position: 'absolute',right:0}} icon="logout" onPress={()=>props.store.setLoggedUser(false)}/>):(<Text/>)
-        }
       </Appbar.Header>
       <Image
         source={{

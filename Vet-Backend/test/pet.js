@@ -7,6 +7,7 @@ let should = chai.should();
 require("dotenv").config();
 chai.use(chaiHttp);
 const firebase = require("../firebaseconfig");
+let token = ""
 describe("Test", () => {
   before(async () => {
     let uri = `mongodb+srv://admin:${process.env.PASSWORD}@${process.env.MONGOURL}/${process.env.DATABASE}?retryWrites=true&w=majority`;
@@ -21,7 +22,10 @@ describe("Test", () => {
       .signInWithEmailAndPassword(email, pass)
       .catch((err) => {console.log("Problem big")});
   });
-
+  beforeEach(async()=>{
+    let user = firebase.auth().currentUser
+    token = await user.getIdToken().then((res) => res)
+  })
   it("Something", (done) => {
     chai
       .request(server)
@@ -31,15 +35,15 @@ describe("Test", () => {
         done();
       });
   });
-  it("check if authorization token work", async () => {
-      let user = firebase.auth().currentUser
-      let token = await user.getIdToken().then((res) => res)
+  
+  it("check if authorization token work", (done) => {
       chai
       .request(server)
       .get("/pet/petswithauth")
       .set({ Authorization: `Bearer ${token}` })
       .end((err, res) => {
         res.should.have.status(200);
+        done()
       });
   });
 });

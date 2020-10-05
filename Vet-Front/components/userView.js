@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
-import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
+import { Avatar, Button, Card, Title, Paragraph,IconButton } from "react-native-paper";
+import { inject, observer } from "mobx-react";
 
-export default function UserView(props) {
+function UserView(props) {
+  const logoutHandle = async()=>{
+    props.store.setLoggedUser(false)
+  }
   return (
     <ScrollView>
+      <IconButton icon='logout' style={{ position:"absolute",right:0,top:14}} onPress={()=>logoutHandle()}/>
       <View>
         <Avatar.Icon
           style={{ marginTop: 10, marginRight: "auto", marginLeft: "auto" }}
@@ -37,7 +42,13 @@ export default function UserView(props) {
               }}
             />
           </Card>
-          <Card style={{ marginLeft: 25, flex: 0.5 }}>
+          <Card style={{ marginLeft: 25, flex: 0.5 }}
+            onPress={() => {
+              props.navigator
+                ? props.navigator.navigate("OurClinics")
+                : props.navigation.navigate("OurClinics");
+            }}
+          >
             <Card.Title title="Our Clinics" subtitle="Check clinics near by" />
             <Card.Cover
               source={{
@@ -98,3 +109,4 @@ export default function UserView(props) {
     </ScrollView>
   );
 }
+export default inject("store")(observer(UserView))

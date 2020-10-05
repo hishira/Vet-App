@@ -16,6 +16,7 @@ import UserPets from "./components/userPets";
 import AddPet from "./components/addpet";
 import UserVisits from "./components/userVisits";
 import CreateVisit from "./components/createVisit";
+import OurClinics from './components/ourClinics'
 const Stack = createStackNavigator();
 export default function Main() {
   return (
@@ -32,6 +33,7 @@ export default function Main() {
             <Stack.Screen name="AddPet" component={AddPet} />
             <Stack.Screen name="Visits" component={UserVisits} />
             <Stack.Screen name="CreateVisit" component={CreateVisit} />
+            <Stack.Screen name='OurClinics' component={OurClinics} />
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>
