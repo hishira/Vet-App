@@ -3,11 +3,10 @@ import {
   ScrollView,
   Text,
   Picker,
-  Button,
   View,
   ActivityIndicator,
 } from "react-native";
-import { IconButton, Card, Title, Paragraph } from "react-native-paper";
+import { IconButton, Card, Title, Paragraph,Button } from "react-native-paper";
 import { getClinicByCity } from "../api/clinicApi";
 export default function OurClinics(props) {
   const [city, setCity] = useState("Kraków");
@@ -99,10 +98,12 @@ export default function OurClinics(props) {
           }}
         >
           <Button
-            title="Show clinics"
             color="blue"
+            mode='contained'
             onPress={() => showClinicsHandle()}
-          />
+          >
+          Show clinics
+          </Button>
         </View>
       ) : (
         <View />
@@ -112,11 +113,14 @@ export default function OurClinics(props) {
       ) : loading === "end" ? (
         <View>
           {clinics.map((clinic) => (
-            <Card key={clinic._id} style={{marginTop:10}}>
-              <Card.Content>
+            <Card key={clinic._id} style={{marginTop:10,height:100}}>
+              <Card.Content style={{width:"45%"}}>
                 <Title>{clinic.city}</Title>
                 <Paragraph>{clinic.address}</Paragraph>
               </Card.Content>
+              <Card.Actions style={{position:"absolute",right:0,top:"25%"}}>
+                <Button onPress={()=>props.navigation.navigate("Doctors")}>See doctors</Button>
+              </Card.Actions>
             </Card>
           ))}
         </View>
