@@ -6,6 +6,7 @@ import { inject, observer } from "mobx-react";
 function UserView(props) {
   const logoutHandle = async()=>{
     props.store.setLoggedUser(false)
+    props.navigator ? props.navigator.navigate("Home") : props.navigation.navigate("Home");
   }
   return (
     <ScrollView>

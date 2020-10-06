@@ -15,6 +15,10 @@ const visitSchema = new Schema({
     },
     user:{
         type:String
+    },
+    clinic:{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Clinic"
     }
 })
 

@@ -92,6 +92,7 @@ function UserVisits(props) {
               <Card.Content>
                 <Text>Date: {visit.when}</Text>
                 <Text>Time: {visit.time}</Text>
+                <Text>Clinic: {`${visit.clinic.city} : ${visit.clinic.address}  `}</Text>
               </Card.Content>
               <Card.Actions>
                 <Button

@@ -9,6 +9,8 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { color } from "react-native-reanimated";
 import { inject, observer } from "mobx-react";
 import { createVisit } from "../api/visitApi";
+import {getAllClinics} from '../api/clinicApi'
+
 function CreateVisit(props) {
   const [loading, setLoading] = useState("false");
   const [selectedDays, setSelectedDays] = useState({});
@@ -16,7 +18,8 @@ function CreateVisit(props) {
   const [visitTime, setTime] = useState("");
   const [userPets, setUserPets] = useState([]);
   const [pet, setPet] = useState("");
-
+  const [clinics,setClinics] = useState([])
+  const [choicenClinic,setChoicenClinic] = useState("")
   const [clicked, setClicked] = useState(-1);
   useEffect(() => {
     const createTimeArrays = () => {
@@ -43,10 +46,16 @@ function CreateVisit(props) {
           if (response.status === 200) return response.json();
           return false;
         });
+        let data2 = await getAllClinics().then(response=>{
+          if(response.status === 200) return response.json()
+          return false
+        })
         console.log(data);
-        if (data === false) throw new Error("err");
+        if (data === false || data2 === false) throw new Error("err");
         if (data !== []) setPet(data[0]._id);
+        if (data2 !== []) setChoicenClinic(data2[0]._id);
         setUserPets(data);
+        setClinics(data2)
         setLoading("true");
       } catch (e) {
         setLoading("error");
@@ -60,6 +69,7 @@ function CreateVisit(props) {
       visitDay: Object.keys(selectedDays)[0],
       time: visitTime,
       petID: pet,
+      clinicID:choicenClinic
     };
     try {
       let user = firebase.auth().currentUser;
@@ -195,6 +205,7 @@ function CreateVisit(props) {
         ) : loading === "error" ? (
           <Text>Error</Text>
         ) : (
+          <View>
           <Picker
             style={{ marginTop: 30 }}
             selectedValue={pet}
@@ -203,6 +214,7 @@ function CreateVisit(props) {
               width: 150,
               marginLeft: "auto",
               marginRight: "auto",
+              borderBottomColor:"red"
             }}
             onValueChange={(itemValue, index) => setPet(itemValue)}
           >
@@ -214,6 +226,29 @@ function CreateVisit(props) {
               />
             ))}
           </Picker>
+          <Picker
+            style={{
+              marginTop:30,
+              height:50,
+              width:150,
+              marginLeft:"auto",
+              marginRight:"auto",
+
+            }}
+            selectedValue={choicenClinic}
+            onValueChange={(itemValue,index)=>setChoicenClinic(itemValue)}
+          >
+            {
+              clinics.map(clinic=>
+                <Picker.Item
+                  key={clinic._id}
+                  label={`${clinic.city} : ${clinic.address} `}
+                  value={clinic._id}
+                />
+              )
+            }
+            </Picker>
+          </View>
         )}
       </View>
       {Object.keys(selectedDays).length > 0 && visitTime !== "" ? (

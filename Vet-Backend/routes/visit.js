@@ -11,7 +11,8 @@ app.post('/visitcreate',checkifAuthenticated,async(req,res)=>{
             when: req.body.visitDay,
             time: req.body.time,
             pet: req.body.petID,
-            user: req.body.userID
+            user: req.body.userID,
+            clinic:req.body.clinicID
         })
         console.log(newVisit)
         await newVisit.save()
@@ -23,11 +24,17 @@ app.post('/visitcreate',checkifAuthenticated,async(req,res)=>{
 })
 app.post("/uservisits",checkifAuthenticated,async(req,res)=>{
     try{
-        const userVisits = await visitModel.find({user:req.body.userID}).lean()
-        for(let i of userVisits){ 
+        const userVisits = await visitModel.find({user:req.body.userID})
+        let arr = []
+        for(let i of userVisits){
+            i = await (await i.populate('clinic').execPopulate()).toJSON();
+            arr.push(i)
+        }
+        for(let i of arr){
+            console.log(i)
             i['when'] = i['when'].toISOString().split('T')[0]
         }
-        return res.status(200).json(userVisits)
+        return res.status(200).json(arr)
     }catch(e){
         return res.status(500).send("Server error")
     }

@@ -21,4 +21,12 @@ app.post("/clinicsbycity",async(req,res)=>{
         return res.status(500).send("Server error")
     }
 })
+app.get("/getallclinic",async(req,res)=>{
+    try{
+        const allclinics = await clinicModel.find({})
+        return res.status(200).json(allclinics)
+    }catch(e){
+        return res.status(500).send("Server error")
+    }
+})
 module.exports = app
