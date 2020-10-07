@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const petrouter = require("./routes/pet")
 const visitrouter = require('./routes/visit')
 const clinicrouter = require('./routes/clinic')
+const doctorrouter = require('./routes/doctor')
 const bodypareser = require("body-parser")
 const cors = require('cors')
 admin.initializeApp({
@@ -33,6 +34,7 @@ app.use(cors({ credentials: true, origin: true }));
 app.use("/pet",petrouter)
 app.use("/visit",visitrouter)
 app.use('/clinic',clinicrouter)
+app.use("/doctor",doctorrouter)
 app.get("/", async (req, res) => {
   /*
   let user = firebase.auth().currentUser;

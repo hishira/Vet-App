@@ -8,10 +8,14 @@ import {
 } from "react-native";
 import { IconButton, Card, Title, Paragraph,Button } from "react-native-paper";
 import { getClinicByCity } from "../api/clinicApi";
+import {getDoctorsbyClinic} from '../api/doctorApi'
 export default function OurClinics(props) {
   const [city, setCity] = useState("Kraków");
   const [loading, setLoading] = useState("false");
   const [clinics, setClinics] = useState([]);
+  const [mode,setMode] = useState("clinic");
+  const [doctors,setDoctors] = useState([])
+  const [doctorsLoading,setDoctorsLoading] = useState("false")
   const showClinicsHandle = async () => {
     let obj = {
       city: city,
@@ -30,6 +34,26 @@ export default function OurClinics(props) {
       setClinics(data);
     }
   };
+  const showDoctorshandle = async(id)=>{
+    console.log(id);
+    let obj = {
+      clinicID:id
+    }
+    setMode("doctor")
+    setDoctorsLoading("true")
+    try{
+    let data = await getDoctorsbyClinic(obj).then(resp=>{
+      if(resp.status === 200)
+        return resp.json()
+      return false
+    })
+    if (data === false) throw new Error("error")
+    setDoctors(data)
+    setDoctorsLoading("false")
+    }catch(e){
+      setDoctorsLoading("error")
+    }
+  }
   const cities = [
     {
       key: 1,
@@ -59,7 +83,9 @@ export default function OurClinics(props) {
   ];
   return (
     <ScrollView>
-      <IconButton
+      {
+        mode === "clinic"?(<View>
+          <IconButton
         icon="arrow-left-bold"
         size={30}
         style={{ marginLeft: "auto", marginRight: "auto" }}
@@ -119,7 +145,7 @@ export default function OurClinics(props) {
                 <Paragraph>{clinic.address}</Paragraph>
               </Card.Content>
               <Card.Actions style={{position:"absolute",right:0,top:"25%"}}>
-                <Button onPress={()=>props.navigation.navigate("Doctors")}>See doctors</Button>
+                <Button onPress={()=>showDoctorshandle(clinic._id)}>See doctors</Button>
               </Card.Actions>
             </Card>
           ))}
@@ -131,6 +157,27 @@ export default function OurClinics(props) {
           <Text>Error</Text>
         </View>
       )}
+      </View>):(<View>
+        <IconButton
+          icon="arrow-left-bold"
+          size={30}
+          style={{ marginLeft: "auto", marginRight: "auto" }}
+          onPress={() => setMode("clinic")}
+      />
+      {
+        doctorsLoading === "true"? (<ActivityIndicator size="large" />):doctorsLoading === "false"?(<View>
+          {doctors.map(doctor=>
+            <Card key={doctor._id} style={{marginTop:10,height:100}}>
+                <Card.Content style={{width:"45%"}}>
+                <Title>{`${doctor.name} ${doctor.lastName}`}</Title>
+                <Paragraph>{doctor.phoneNumber}</Paragraph>
+              </Card.Content>
+          </Card>)}
+        </View>
+        ):(<Text>Error</Text>)
+      }
+      </View>)
+    }
     </ScrollView>
   );
 }
