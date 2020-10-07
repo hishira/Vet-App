@@ -59,7 +59,7 @@ function getDeleteFetchObject(obj) {
 }
 
 function getApiLink(str) {
-  let url = `https://1b10554edd4a.ngrok.io/${str}`;
+  let url = `https://7b7759fe8698.ngrok.io/${str}`;
   return url;
 }
 function getFetchPostObject(obj) {
