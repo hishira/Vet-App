@@ -7,3 +7,5 @@ Vet-Backend/v*.json
 Vet-Backend/firebaseconfig.js
 Vet-Backend/.env
 Vet-Front/firebase.js
+Vet-Front/app.json
+Vet-Front/*.apk

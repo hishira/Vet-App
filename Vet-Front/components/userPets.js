@@ -77,14 +77,13 @@ function UserPets(props) {
       ) : (
         <View style={{}}>
           {userPets.map((pet) => (
-            <Card key={pet._id} style={{marginLeft: "auto",marginRight: "auto",marginTop:10}}>
+            <Card key={pet._id} style={{marginTop:10}}>
               <Card.Title style={{}} title={`Pet name: ${pet.name}`}/>
               <Card.Content>
                   <Text>Age: {pet.age}</Text>
                   <Text>Species: {pet.species}</Text>
               </Card.Content>
               <Card.Actions >
-                  <Button>Reserve visit</Button>
                   <Button onPress={()=>deletePetHandle(pet._id)}>Delete pet</Button>
                   </Card.Actions>
             </Card>

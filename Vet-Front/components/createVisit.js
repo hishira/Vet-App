@@ -209,13 +209,6 @@ function CreateVisit(props) {
           <Picker
             style={{ marginTop: 30 }}
             selectedValue={pet}
-            style={{
-              height: 50,
-              width: 150,
-              marginLeft: "auto",
-              marginRight: "auto",
-              borderBottomColor:"red"
-            }}
             onValueChange={(itemValue, index) => setPet(itemValue)}
           >
             {userPets.map((p) => (
@@ -228,12 +221,8 @@ function CreateVisit(props) {
           </Picker>
           <Picker
             style={{
-              marginTop:30,
-              height:50,
-              width:150,
-              marginLeft:"auto",
-              marginRight:"auto",
-
+              marginTop:10,
+              marginBottom:10
             }}
             selectedValue={choicenClinic}
             onValueChange={(itemValue,index)=>setChoicenClinic(itemValue)}
