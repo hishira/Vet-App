@@ -6,19 +6,21 @@ import {
   View,
   ActivityIndicator,
   StyleSheet,
+  Dimensions,
 } from "react-native";
 import { IconButton, Card, Title, Paragraph, Button } from "react-native-paper";
 import { getClinicByCity } from "../api/clinicApi";
 import { getDoctorsbyClinic } from "../api/doctorApi";
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
-export default function OurClinics(props) {
+import { inject, observer } from "mobx-react";
+
+function OurClinics(props) {
   const [city, setCity] = useState("Kraków");
   const [loading, setLoading] = useState("false");
   const [clinics, setClinics] = useState([]);
   const [mode, setMode] = useState("clinic");
   const [doctors, setDoctors] = useState([]);
   const [doctorsLoading, setDoctorsLoading] = useState("false");
-  const [mapView, setMapView] = useState(false);
+  const {width,height} = Dimensions.get('window')
   const styles = StyleSheet.create({
     container: {
       flex: 1,
@@ -27,8 +29,13 @@ export default function OurClinics(props) {
       justifyContent: 'center',
     },
     map: {
-      ...StyleSheet.absoluteFillObject,
-      height:550
+      
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      width: width,
+      height: height,
     },
   });
   const showClinicsHandle = async () => {
@@ -95,6 +102,16 @@ export default function OurClinics(props) {
       value: "Wrocław",
     },
   ];
+  const mapViewHandle = (clinic)=>{
+    let obj = {
+      citylatitude: clinic.citylatitude,
+      citylongitude: clinic.citylongitude,
+      addresslatitude: clinic.addresslatitude,
+      addresslongitude:clinic.addresslongitude
+    }
+    props.store.setMapInfo(obj)
+    props.navigation.navigate("MapView")
+  }
   return (
     <ScrollView>
       {mode === "clinic" ? (
@@ -164,7 +181,7 @@ export default function OurClinics(props) {
                     <Button onPress={() => showDoctorshandle(clinic._id)}>
                       See doctors
                     </Button>
-                    <Button onPress={() => setMapView(true)}>See on map</Button>
+                    <Button onPress={() => mapViewHandle(clinic)}>See on map</Button>
                   </Card.Actions>
                 </Card>
               ))}
@@ -204,23 +221,8 @@ export default function OurClinics(props) {
           )}
         </View>
       )}
-      {mapView === true ? (
-        <View style={styles.container}>
-          <IconButton
-            icon="arrow-left-bold"
-            size={30}
-            style={{ marginLeft: "auto", marginRight: "auto" }}
-            onPress={() => setMapView(false)}
-          />
-          <MapView
-            provider={PROVIDER_GOOGLE}
-            style={styles.map}
-            
-          />
-        </View>
-      ) : (
-        <View />
-      )}
     </ScrollView>
   );
 }
+
+export default inject("store")(observer(OurClinics))

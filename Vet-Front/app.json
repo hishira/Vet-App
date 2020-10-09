@@ -22,13 +22,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "android":{
-      "package":"vetapp.com",
-      "config":{
-        "googleMaps":{
-          "apiKey":""
+    "android": {
+      "package": "vetapp.com",
+      "config": {
+        "googleMaps": {
+          "apiKey": ""
         }
       }
-    }
+    }	  
   }
 }

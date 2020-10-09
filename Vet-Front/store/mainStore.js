@@ -5,6 +5,7 @@ class MainStore{
     timesArrayInCreateView = []
     cancelVisitDialog=false
     visitRelod=false
+    mapinfo={}
     get getLoggedStatus(){
         return this.isLogged
     }
@@ -29,6 +30,12 @@ class MainStore{
     get getVisitReload(){
         return this.visitRelod
     }
+    setMapInfo = info =>{
+        this.mapinfo = info
+    }
+    get getMapInfo(){
+        return toJS(this.mapinfo)
+    }
 }
 decorate(MainStore,{
     isLogged:observable,
@@ -42,6 +49,9 @@ decorate(MainStore,{
     setCancelVisit:action,
     visitRelod:observable,
     getVisitReload:computed,
-    setVisitReload:action
+    setVisitReload:action,
+    mapinfo:observable,
+    getMapInfo:computed,
+    setMapInfo:action
 })
 export default new MainStore()
