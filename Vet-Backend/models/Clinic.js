@@ -8,6 +8,18 @@ const clinicSchema = new Schema({
     address:{
         type:String,
         required:true
+    },
+    citylatitude:{
+        type:Number,
+    },
+    citylongitude:{
+        type:Number
+    },
+    addresslatitude:{
+        type:Number
+    },
+    addresslongitude:{
+        type:Number
     }
 })
 
