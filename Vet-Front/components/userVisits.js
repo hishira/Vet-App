@@ -13,7 +13,7 @@ import firebase from "../firebase";
 import { getUserVisits } from "../api/visitApi";
 import { inject, observer } from "mobx-react";
 import CancelVisitDialog from "./cancelVisitDialog";
-import {deleteVisitByID} from '../api/visitApi'
+import { deleteVisitByID } from "../api/visitApi";
 
 function UserVisits(props) {
   const [loading, setLoading] = useState("false");
@@ -62,6 +62,16 @@ function UserVisits(props) {
       props.store.setCancelVisit(false);
     }
   };
+  const seeOnMapHandle = (visit) => {
+    let obj = {
+      citylatitude: visit.clinic.citylatitude,
+      citylongitude: visit.clinic.citylongitude,
+      addresslatitude: visit.clinic.addresslatitude,
+      addresslongitude: visit.clinic.addresslongitude,
+    };
+    props.store.setMapInfo(obj)
+    props.navigation.navigate("MapView")
+  };
   return (
     <ScrollView>
       <IconButton
@@ -92,14 +102,16 @@ function UserVisits(props) {
               <Card.Content>
                 <Text>Date: {visit.when}</Text>
                 <Text>Time: {visit.time}</Text>
-                <Text>Clinic: {`${visit.clinic.city} : ${visit.clinic.address}  `}</Text>
+                <Text>
+                  Clinic: {`${visit.clinic.city} : ${visit.clinic.address}  `}
+                </Text>
               </Card.Content>
               <Card.Actions>
-                <Button
-                  style={{ marginLeft: "auto", marginRight: "auto" }}
-                  onPress={() => cancelVisitHandle(visit._id)}
-                >
+                <Button onPress={() => cancelVisitHandle(visit._id)}>
                   Cancel visit
+                </Button>
+                <Button onPress={() => seeOnMapHandle(visit)}>
+                  See on map
                 </Button>
               </Card.Actions>
             </Card>

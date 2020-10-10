@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import { View, ScrollView } from "react-native";
 import { Avatar, Button, Card, Title, Paragraph,IconButton } from "react-native-paper";
 import { inject, observer } from "mobx-react";
-
+import firebase from '../firebase'
 function UserView(props) {
   const logoutHandle = async()=>{
     props.store.setLoggedUser(false)
+    firebase.auth().signOut().then(()=>{}).catch(e=>{console.log(e)})
     props.navigator ? props.navigator.navigate("Home") : props.navigation.navigate("Home");
   }
   return (

@@ -113,7 +113,7 @@ function OurClinics(props) {
     props.navigation.navigate("MapView")
   }
   return (
-    <ScrollView>
+    <ScrollView style={{marginBottom:10}}>
       {mode === "clinic" ? (
         <View>
           <IconButton
@@ -168,7 +168,7 @@ function OurClinics(props) {
           {loading === "false" ? (
             <View />
           ) : loading === "end" ? (
-            <View>
+            <View style={{padding:10}}>
               {clinics.map((clinic) => (
                 <Card key={clinic._id} style={{ marginTop: 10, height: 100 }}>
                   <Card.Content style={{ width: "45%" }}>
