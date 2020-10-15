@@ -12,8 +12,13 @@ async function deletePet(obj,id){
     let url = getApiLink("pet/deletepet");
     return await fetch(url,getFetchPostObjectWithAuth(obj,id))
 }
+async function getPetByID(obj,id){
+    let url = getApiLink("pet/petbyid")
+    return await fetch(url,getFetchPostObjectWithAuth(obj,id))
+}
 export{
     addPet,
     getUserPets,
-    deletePet
+    deletePet,
+    getPetByID
 }

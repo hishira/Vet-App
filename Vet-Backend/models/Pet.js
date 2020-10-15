@@ -16,6 +16,10 @@ const petSchema = new Schema({
   userID:{
     type:String,
     required:true
-  }
+  },
+  visitHistory:[{
+    type: mongoose.Types.ObjectId,
+    ref:"Visit"
+  }]
 });
 module.exports = mongoose.model("Pet",petSchema)

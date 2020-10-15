@@ -18,6 +18,8 @@ import UserVisits from "./components/userVisits";
 import CreateVisit from "./components/createVisit";
 import OurClinics from './components/ourClinics'
 import ClinicMapView from './components/clinicMapView'
+import PetClinicHistory from './components/petClinicHistory'
+
 const Stack = createStackNavigator();
 export default function Main() {
   return (
@@ -36,6 +38,7 @@ export default function Main() {
             <Stack.Screen name="CreateVisit" component={CreateVisit} />
             <Stack.Screen name='OurClinics' component={OurClinics} />
             <Stack.Screen name='MapView' component={ClinicMapView} />
+            <Stack.Screen name='PetClinicHistory' component={PetClinicHistory}/>
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>

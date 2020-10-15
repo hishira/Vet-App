@@ -1,5 +1,5 @@
 const visitModel = require("../models/Visit");
-
+const petModel = require("../models/Pet")
 class VisitController {
   static async createVisit(req, res) {
     try {
@@ -13,6 +13,9 @@ class VisitController {
       });
       console.log(newVisit);
       await newVisit.save();
+      const petToVisit = await petModel.findById(req.body.petID);
+      petToVisit.visitHistory.push(newVisit._id);
+      await petToVisit.save();
       return res.status(200).json(newVisit);
     } catch (e) {
       console.log(e);

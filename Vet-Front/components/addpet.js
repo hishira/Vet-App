@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Text, View, Picker } from "react-native";
+import { Text, View, Picker,ScrollView } from "react-native";
 import { TextInput, Button,IconButton } from "react-native-paper";
 import firebase from "../firebase";
 import { addPet } from "../api/petApi";
@@ -40,7 +40,7 @@ function AddPet(props) {
     }
   };
   return (
-    <View
+    <ScrollView
       style={{
         width: "50%",
         marginTop: 30,
@@ -84,7 +84,7 @@ function AddPet(props) {
       >
         Add new pet
       </Button>
-    </View>
+    </ScrollView>
   );
 }
 export default inject("store")(observer(AddPet))
