@@ -7,6 +7,7 @@ import {
   Paragraph,
   Dialog,
   Portal,
+  ActivityIndicator
 } from "react-native-paper";
 import { IconButton } from "react-native-paper";
 import firebase from "../firebase";
@@ -22,6 +23,7 @@ function UserVisits(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading("true");
         let user = firebase.auth().currentUser;
         let token = await user.getIdToken().then((res) => res);
         let obj = { userID: user.uid };
@@ -33,7 +35,7 @@ function UserVisits(props) {
         if (data === false) throw new Error("err");
         setUserVisits(data);
         console.log(data);
-        setLoading("true");
+        setLoading("end")
       } catch (e) {
         setLoading("error");
       }
@@ -82,7 +84,7 @@ function UserVisits(props) {
       />
       {loading === "false" ? (
         <View />
-      ) : loading === "error" ? (
+      ):loading === "true"?(<ActivityIndicator size="large"/>): loading === "error" ? (
         <View>
           <Text> Error </Text>
         </View>

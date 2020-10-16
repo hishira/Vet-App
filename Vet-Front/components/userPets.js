@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { View, Text, ScrollView, Animated } from "react-native";
+import { View, Text, ScrollView, Animated,ActivityIndicator } from "react-native";
 import { Button, Card, Title, Paragraph } from "react-native-paper";
 import { IconButton } from "react-native-paper";
 import { getUserPets, deletePet } from "../api/petApi";
@@ -15,6 +15,7 @@ function UserPets(props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        setLoading("true")
         let user = firebase.auth().currentUser;
         let token = await user.getIdToken().then((res) => res);
         let obj = { userID: user.uid };
@@ -25,7 +26,7 @@ function UserPets(props) {
         console.log(data);
         if (data === false) throw new Error("err");
         setUserPets(data);
-        setLoading("true");
+        setLoading("end");
       } catch (e) {
         setLoading("error");
       }
@@ -72,7 +73,7 @@ function UserPets(props) {
           <View>
             <Text> Error </Text>
           </View>
-        ) : (
+        ) : loading === "true"?(<ActivityIndicator size='large' />) : (
           <View style={{}}>
             {userPets.map((pet) => (
               <Card key={pet._id} style={{ marginTop: 10 }}>
