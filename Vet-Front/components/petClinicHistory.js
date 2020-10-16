@@ -58,10 +58,26 @@ function PetClinicHistory(props) {
           <ActivityIndicator size='large'/>
       ): (
         <ScrollView>
-            <Text>{pet.name} visit history</Text>
+            <Text
+              style={{
+                fontSize: 20,
+                textAlign:"center"
+              }}
+            >{pet.name} visit history</Text>
             {
-                pet.visitHistory.map(hist=><Card>
-                    <Card.Title title={hist.when.split("T")[0]} subtitle={hist.time}/>
+                pet.visitHistory.map(hist=>
+                <Card
+                  style={{
+                    marginTop: 10,
+                    marginRight:5,
+                    marginLeft:5,
+                    padding:10,
+                    paddingTop:0,
+                    paddingLeft:0
+                  }}
+                  key={hist._id}
+                >
+                    <Card.Title title={`Date: ${hist.when.split("T")[0]}`} subtitle={`Time: ${hist.time}`}/>
                 </Card>)
             }
         </ScrollView>
