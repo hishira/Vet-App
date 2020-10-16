@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Text, View, Picker,ScrollView } from "react-native";
-import { TextInput, Button,IconButton } from "react-native-paper";
+import { Text, View, Picker, ScrollView,TextInput } from "react-native";
+import {  Button, IconButton } from "react-native-paper";
 import firebase from "../firebase";
 import { addPet } from "../api/petApi";
 import { inject, observer } from "mobx-react";
@@ -36,35 +36,57 @@ function AddPet(props) {
     if (data) {
       props.store.setVisitReload(!props.store.getVisitReload);
       console.log("OK");
-      props.navigation.navigate("UserPets")
+      props.navigation.navigate("UserPets");
     }
   };
   return (
     <ScrollView
       style={{
-        width: "50%",
         marginTop: 30,
+        width:"70%",
         marginLeft: "auto",
         marginRight: "auto",
       }}
     >
-      <IconButton icon='arrow-left-bold' size={30} style={{marginLeft:"auto",marginRight:"auto"}} onPress={()=>props.navigation.navigate("UserPets")}/>
+      <IconButton
+        icon="arrow-left-bold"
+        size={30}
+        style={{ marginLeft: "auto", marginRight: "auto" }}
+        onPress={() => props.navigation.navigate("UserPets")}
+      />
       <Text>Add pet</Text>
       <TextInput
-        label="Pet name"
+        placeholder="Pet name"
+        style={{
+          height:50,
+          borderColor:"gray",
+          borderWidth:0.5,
+          borderRadius:15,
+          padding:10,
+          marginTop:15
+        }}
         value={petName}
         onChangeText={(text) => setPetName(text)}
       />
       <TextInput
-        label="Age"
+        style={{
+          height:50,
+          borderColor:"gray",
+          borderWidth:0.5,
+          borderRadius:15,
+          padding:10,
+          marginTop:15
+        }}
+        placeholder="Age"
         value={age}
         onChangeText={(text) => setAge(text)}
       />
       <Picker
-        style={{ marginTop: 30 }}
+        style={{ marginTop: 50 }}
         selectedValue={species}
-        style={{ height: 50, width: 150 }}
+        style={{ height: 50, width: 150,marginLeft:"auto",textAlign:"center",marginRight:"auto" }}
         onValueChange={(itemValue, index) => setSpecies(itemValue)}
+        itemStyle={{textAlign:"center"}}
       >
         <Picker.Item label="Dog" value="Dog" />
         <Picker.Item label="Cat" value="Cat" />
@@ -75,10 +97,10 @@ function AddPet(props) {
       <Button
         onPress={() => addPetHandle()}
         style={{
-          marginTop: 40,
           width: "50%",
-          marginLeft: "auto",
-          marginRight: "auto",
+          marginLeft:"auto",
+          marginRight:"auto",
+          marginVertical:15
         }}
         mode="contained"
       >
@@ -87,4 +109,4 @@ function AddPet(props) {
     </ScrollView>
   );
 }
-export default inject("store")(observer(AddPet))
+export default inject("store")(observer(AddPet));
