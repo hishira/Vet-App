@@ -44,6 +44,9 @@ class PetController {
   static async getPetByID(req, res) {
     try {
       const pet = await petModel.findById(req.body.petID).populate("visitHistory");
+      for(let i of pet.visitHistory){
+        await i.populate("clinic").execPopulate();
+      }
       return res.status(200).json(pet);
     } catch (e) {
       return res.status(500).send("Server error");
