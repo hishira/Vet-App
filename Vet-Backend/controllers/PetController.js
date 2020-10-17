@@ -9,7 +9,6 @@ class PetController {
         species: req.body.species,
         userID: req.body.userID,
       });
-      console.log(pet);
       await pet.save();
       return res.status(200).json(pet);
     } catch (e) {
@@ -19,7 +18,6 @@ class PetController {
   static async getUserPet(req, res) {
     try {
       const pets = await petModel.find({ userID: req.body.userID });
-      console.log(pets);
       return res.status(200).json(pets).end();
     } catch (err) {
       return res.status(500).send("Server error");

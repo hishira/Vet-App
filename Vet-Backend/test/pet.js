@@ -7,8 +7,9 @@ let should = chai.should();
 require("dotenv").config();
 chai.use(chaiHttp);
 const firebase = require("../firebaseconfig");
-let token = ""
-let user
+let token = "";
+let user;
+let petModel = require("../models/Pet")
 describe("Test", () => {
   before(async () => {
     let uri = `mongodb+srv://admin:${process.env.PASSWORD}@${process.env.MONGOURL}/${process.env.DATABASETEST}?retryWrites=true&w=majority`;
@@ -60,6 +61,35 @@ describe("Test", () => {
     .end((err,res)=>{
       res.should.have.status(400)
       done()
-    })
+    });
+  });
+  it("Authorized user can add pet",(done)=>{
+    let pet = {
+      name:"Stefan",
+      age:12,
+      species:"Dog",
+      userID: user.uid
+    };
+    chai.request(server)
+    .post("/pet/registerpet")
+    .set({Authorization: `Bearer ${token}`})
+    .send(pet)
+    .end((err,res)=>{
+      res.should.have.status(200);
+      done();
+    }) 
+  })
+  it("User can see pet which belong to him",(done)=>{
+    chai.request(server)
+    .post("/pet/userpets")
+    .set({Authorization:`Bearer ${token}`})
+    .send({userID:user.uid})
+    .end((err,res)=>{
+      res.should.have.status(200);
+      done();
+    });
+  });
+  after(async ()=>{
+    await petModel.deleteMany({})
   })
 });
