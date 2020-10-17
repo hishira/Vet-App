@@ -75,7 +75,11 @@ describe("Test", () => {
     .set({Authorization: `Bearer ${token}`})
     .send(pet)
     .end((err,res)=>{
+      should.not.exist(err)
       res.should.have.status(200);
+      res.should.have.property("body").and.to.be.an("object")
+      res.should.have.property("body")
+      .and.have.all.keys("name","age","species","userID","visitHistory","__v","_id")
       done();
     }) 
   })
@@ -86,6 +90,9 @@ describe("Test", () => {
     .send({userID:user.uid})
     .end((err,res)=>{
       res.should.have.status(200);
+      res.should.have.property("body");
+      res.should.have.property("body").to.be.an("array");
+      res.should.have.property("body").to.be.an("array").that.is.not.empty;
       done();
     });
   });

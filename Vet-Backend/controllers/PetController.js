@@ -2,7 +2,6 @@ const petModel = require("../models/Pet");
 class PetController {
   static async createPet(req, res) {
     try {
-      console.log(req.body);
       const pet = new petModel({
         name: req.body.name,
         age: req.body.age,
