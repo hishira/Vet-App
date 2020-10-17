@@ -10,3 +10,4 @@ Vet-Front/firebase.js
 Vet-Front/*.apk
 Vet-Front/app.json
 Vet-Front/VSCodeUser*
+Vet-Backend/.nyc_output
