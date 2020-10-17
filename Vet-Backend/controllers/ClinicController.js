@@ -5,6 +5,10 @@ class ClinicController {
       const createClinic = new clinicModel({
         city: req.body.city,
         address: req.body.address,
+        citylatitude: req.body.citylatitude,
+        citylongitude: req.body.citylongitude,
+        addresslatitude: req.body.addresslatitude,
+        addresslongitude: req.body.addresslongitude,
       });
       await createClinic.save();
       return res.status(200).json(createClinic);
