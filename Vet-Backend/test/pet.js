@@ -8,9 +8,10 @@ require("dotenv").config();
 chai.use(chaiHttp);
 const firebase = require("../firebaseconfig");
 let token = ""
+let user
 describe("Test", () => {
   before(async () => {
-    let uri = `mongodb+srv://admin:${process.env.PASSWORD}@${process.env.MONGOURL}/${process.env.DATABASE}?retryWrites=true&w=majority`;
+    let uri = `mongodb+srv://admin:${process.env.PASSWORD}@${process.env.MONGOURL}/${process.env.DATABASETEST}?retryWrites=true&w=majority`;
     await mongoose
       .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
       .then(() => console.log("Connect to mongoodb"))
@@ -23,7 +24,7 @@ describe("Test", () => {
       .catch((err) => {console.log("Problem big")});
   });
   beforeEach(async()=>{
-    let user = firebase.auth().currentUser
+    user = firebase.auth().currentUser
     token = await user.getIdToken().then((res) => res)
   })
   it("Something", (done) => {
@@ -46,4 +47,19 @@ describe("Test", () => {
         done()
       });
   });
+  it("Unauthorized user cannot create pet",(done)=>{
+    let pet = {
+      name:"Stefan",
+      age:12,
+      species:"Dog",
+      userID: user.uid
+    }
+    chai.request(server)
+    .post("/pet/registerpet")
+    .send(pet)
+    .end((err,res)=>{
+      res.should.have.status(400)
+      done()
+    })
+  })
 });
