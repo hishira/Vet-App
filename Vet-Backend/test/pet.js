@@ -10,6 +10,7 @@ const firebase = require("../firebaseconfig");
 let token = "";
 let user;
 let petModel = require("../models/Pet")
+let petid 
 describe("Test", () => {
   before(async () => {
     let uri = `mongodb+srv://admin:${process.env.PASSWORD}@${process.env.MONGOURL}/${process.env.DATABASETEST}?retryWrites=true&w=majority`;
@@ -77,10 +78,11 @@ describe("Test", () => {
     .end((err,res)=>{
       should.not.exist(err)
       res.should.have.status(200);
-      res.should.have.property("body").and.to.be.an("object")
+      res.should.have.property("body")
+      .and.to.be.an("object");
       res.should.have.property("body")
       .and.have.all
-      .keys("name","age","species","userID","visitHistory","__v","_id")
+      .keys("name","age","species","userID","visitHistory","__v","_id");
       done();
     }) 
   })
@@ -90,16 +92,93 @@ describe("Test", () => {
     .set({Authorization:`Bearer ${token}`})
     .send({userID:user.uid})
     .end((err,res)=>{
+      petid = res.body[0]._id;
       res.should.have.status(200);
       res.should.have.property("body");
       res.should.have.property("body")
       .to.be.an("array");
       res.should.have.property("body")
-      .to.be.an("array").that.is.not.empty;
+      .to.be.an("array")
+      .that.is.not.empty;
       done();
     });
   });
+  it("User can delete pet",(done)=>{
+    chai.request(server)
+    .post("/pet/deletepet")
+    .set({Authorization:`Bearer ${token}`})
+    .send({petID:petid})
+    .end((err,res)=>{
+      res.should.have.status(200);
+      res.should.have.property("body")
+      .to.be.an("object")
+      done();
+    })
+  })
+  it("Can we get all pet, is it secure?",(done)=>{
+    chai.request(server)
+    .get("/pet/pets")
+    .end((err,res)=>{
+      res.should.have.status(200);
+      res.should.have.property("body");
+      res.should.have.property("body")
+      .to.be.an("array")
+      .and.that.is.empty;
+      done();
+    })
+  })
+  it("Get all pet but with auth",(done)=>{
+    chai.request(server)
+    .get("/pet/petswithauth")
+    .set({Authorization:`Bearer ${token}`})
+    .end((err,res)=>{
+      res.should.have.status(200);
+      res.should.have.property("body");
+      res.should.have.property("body")
+      .to.be.an("array")
+      .and.that.is.empty;
+      done();
+    })
+  })
+  it("Prepare pet",(done)=>{
+    let pet = {
+      name:"Stefan",
+      age:12,
+      species:"Dog",
+      userID: user.uid
+    };
+    chai.request(server)
+    .post("/pet/registerpet")
+    .set({Authorization: `Bearer ${token}`})
+    .send(pet)
+    .end((err,res)=>{
+      should.not.exist(err)
+      petid = res.body._id;
+      res.should.have.status(200);
+      done();
+    }) 
+  })
+  it("Get pet by id with usefull information",(done)=>{
+    chai.request(server)
+    .post("/pet/petbyid")
+    .set({Authorization: `Bearer ${token}`})
+    .send({petID:petid})
+    .end((err,res)=>{
+      should.not.exist(err);
+      res.should.have.status(200);
+      res.should.have.property("body")
+      .to.be.an("object");
+      res.should.have.property("body")
+      .to.be.an("object").
+      and.have.all.keys("name","age","species","userID","visitHistory","__v","_id");
+      res.should.have.property("body")
+      .to.be.an("object")
+      .and.have.property("visitHistory")
+      .to.be.an("array");
+      done();
+    }) 
+  })
   after(async ()=>{
-    await petModel.deleteMany({})
+    await petModel.deleteMany({});
   })
 });

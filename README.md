@@ -10,7 +10,7 @@ Backend with database created using:
 - MongoDb using mongoose with atlas to store data outside
 - Firebase to store user and make it more secured
 - Ngrok using to tunneling localhost
-- To test endpoints  used mocha + chai
+- To test endpoints used nyc + mocha + chai
 
 ## Frontend
 
