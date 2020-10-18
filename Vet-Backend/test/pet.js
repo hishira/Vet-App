@@ -10,8 +10,9 @@ const firebase = require("../firebaseconfig");
 let token = "";
 let user;
 let petModel = require("../models/Pet")
-let clinicModel = require('../models/Clinic')
-let petid 
+let clinicModel = require('../models/Clinic');
+let petid;
+let visitid;
 describe("Test", () => {
   before(async () => {
     let uri = `mongodb+srv://admin:${process.env.PASSWORD}@${process.env.MONGOURL}/${process.env.DATABASETEST}?retryWrites=true&w=majority`;
@@ -196,6 +197,7 @@ describe("Test", () => {
       .post("/clinic/createclinic")
       .send(clinic)
       .end((err,res)=>{
+        clinicid = res.body._id;
         res.should.have.status(200)
         res.should.have.property("body")
         .to.be.an("object");
@@ -230,6 +232,59 @@ describe("Test", () => {
         res.should.have.property("body")
         .to.be.an("array")
         .and.have.length.gt(0);
+        done();
+      })
+    });
+  })
+  describe("Visit controller, visit routes",()=>{
+    it("User can create visit",(done)=>{
+      let visit = {
+        visitDay:  new Date(),
+        time: "9:50",
+        petID: petid,
+        userID: user.uid,
+        clinicID: clinicid 
+      }
+      chai.request(server)
+      .post("/visit/visitcreate")
+      .set({Authorization:`Bearer ${token}`})
+      .send(visit)
+      .end((err,res)=>{
+        visitid = res.body._id;
+        res.should.have.status(200);
+        res.should.have.property("body");
+        res.should.have.property("body")
+        .to.be.an("object");
+        res.should.have.property("body")
+        .to.be.an("object")
+        .and.have.keys("when","time","pet","user","clinic","__v","_id");
+        done();
+      })
+    })
+    it("User can see visits",(done)=>{
+      chai.request(server)
+      .post("/visit/uservisits")
+      .set({Authorization:`Bearer ${token}`})
+      .send({userID:user.uid})
+      .end((err,res)=>{
+        should.not.exist(err);
+        res.should.have.status(200);
+        res.should.have.property("body");
+        res.should.have.property("body")
+        .and.to.be.an("array");
+        res.body.should.be.an("array").and.have.length.gt(0);
+        done();
+      });
+    });
+    it("User can delete own visit",(done)=>{
+      chai.request(server)
+      .post("/visit/deletevisit")
+      .set({Authorization:`Bearer ${token}`})
+      .send({visitID:visitid})
+      .end((err,res)=>{
+        res.should.have.status(200);
+        res.should.have.property("body");
+        res.body.should.be.an("object");
         done();
       })
     });
