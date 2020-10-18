@@ -197,11 +197,42 @@ describe("Test", () => {
       .send(clinic)
       .end((err,res)=>{
         res.should.have.status(200)
-        res.should.have.property("body").to.be.an("object");
-        done()
+        res.should.have.property("body")
+        .to.be.an("object");
+        res.should.have.property("body")
+        .to.be.an("object")
+        .and.have.any.keys("city","address");
+        done();
       });
     });
-    it("")
+    it("We can fetch clinics by city",(done)=>{
+      chai.request(server)
+      .post("/clinic/clinicsbycity")
+      .send({city:"Warszawa"})
+      .end((err,res)=>{
+        res.should.have.status(200);
+        res.should.have.property("body");
+        res.should.have.property("body").and.be.an("array");
+        res.should.have.property("body")
+        .to.be.an("array")
+        .to.have.length.gt(0);
+        done();
+      });
+    });
+    it("We can get all citied",(done)=>{
+      chai.request(server)
+      .get("/clinic/getallclinic")
+      .end((err,res)=>{
+        res.should.have.status(200);
+        res.should.have.property("body");
+        res.should.have.property("body")
+        .to.be.an("array");
+        res.should.have.property("body")
+        .to.be.an("array")
+        .and.have.length.gt(0);
+        done();
+      })
+    });
   })
   after(async ()=>{
     await petModel.deleteMany({});
