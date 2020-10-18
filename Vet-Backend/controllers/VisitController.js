@@ -3,7 +3,6 @@ const petModel = require("../models/Pet")
 class VisitController {
   static async createVisit(req, res) {
     try {
-      console.log(req.body);
       const newVisit = new visitModel({
         when: req.body.visitDay,
         time: req.body.time,
@@ -11,14 +10,12 @@ class VisitController {
         user: req.body.userID,
         clinic: req.body.clinicID,
       });
-      console.log(newVisit);
       await newVisit.save();
       const petToVisit = await petModel.findById(req.body.petID);
       petToVisit.visitHistory.push(newVisit._id);
       await petToVisit.save();
       return res.status(200).json(newVisit);
     } catch (e) {
-      console.log(e);
       return res.status(500).send("Server error");
     }
   }
@@ -31,7 +28,6 @@ class VisitController {
         arr.push(i);
       }
       for (let i of arr) {
-        console.log(i);
         i["when"] = i["when"].toISOString().split("T")[0];
       }
       return res.status(200).json(arr);
