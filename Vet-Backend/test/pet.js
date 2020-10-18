@@ -11,8 +11,11 @@ let token = "";
 let user;
 let petModel = require("../models/Pet")
 let clinicModel = require('../models/Clinic');
+let visitModel = require("../models/Visit");
+let doctorModel = require("../models/Doctor");
 let petid;
 let visitid;
+let clinicid;
 describe("Test", () => {
   before(async () => {
     let uri = `mongodb+srv://admin:${process.env.PASSWORD}@${process.env.MONGOURL}/${process.env.DATABASETEST}?retryWrites=true&w=majority`;
@@ -221,7 +224,7 @@ describe("Test", () => {
         done();
       });
     });
-    it("We can get all citied",(done)=>{
+    it("We can get all clinics",(done)=>{
       chai.request(server)
       .get("/clinic/getallclinic")
       .end((err,res)=>{
@@ -260,7 +263,7 @@ describe("Test", () => {
         .and.have.keys("when","time","pet","user","clinic","__v","_id");
         done();
       })
-    })
+    });
     it("User can see visits",(done)=>{
       chai.request(server)
       .post("/visit/uservisits")
@@ -289,8 +292,46 @@ describe("Test", () => {
       })
     });
   })
+  describe("Doctor controller, doctor routes",()=>{
+    it("Anyone can add doctor",(done)=>{
+      let doctor = {
+        name: "Anna",
+        lastName:"Kowalska",
+        phoneNumber:"567945043",
+        animalCareType:["Dog","Cat","Parrot"],
+        clinic:clinicid
+      }
+      chai.request(server)
+      .post("/doctor/adddoctor")
+      .send(doctor)
+      .end((err,res)=>{
+        should.not.exist(err);
+        res.should.have.status(200);
+        res.should.have.property("body");
+        res.body.should.be.an("object");
+        res.body.should.be.an("object")
+        .and.have.keys("name","lastName",
+        "phoneNumber","animalCareType","clinic","__v","_id");
+        done();
+      });
+    });
+    it("We can get doctors by clinic",(done)=>{
+      chai.request(server)
+      .post("/doctor/doctorsbyclinic")
+      .send({clinicID:clinicid})
+      .end((err,res)=>{
+        res.should.have.status(200);
+        res.should.have.property("body");
+        res.body.should.be.an("array")
+        .and.length.gt(0);
+        done();
+      })
+    })
+  })
   after(async ()=>{
     await petModel.deleteMany({});
     await clinicModel.deleteMany({});
+    await visitModel.deleteMany({});
+    await doctorModel.deleteMany({});
   })
 });
