@@ -6,11 +6,11 @@ import {
   Text,
   ActivityIndicator,
 } from "react-native";
-import { IconButton, Card } from "react-native-paper";
+import { IconButton, Card, Chip } from "react-native-paper";
 import { getPetByID } from "../api/petApi";
 import firebase from "../firebase";
 import { inject, observer } from "mobx-react";
-
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 function PetClinicHistory(props) {
   const [pet, setPet] = useState({});
   const [loading, setLoading] = useState("false");
@@ -41,7 +41,6 @@ function PetClinicHistory(props) {
         if (data === false) throw new Error("err");
         setPet(data);
         setLoading("end");
-        console.log(data);
       } catch (e) {
         setLoading("error");
       }
@@ -92,6 +91,21 @@ function PetClinicHistory(props) {
                 <Text>Clinic: </Text>
                 <Text>{`City: ${hist.clinic.city}`}</Text>
                 <Text>{`Address: ${hist.clinic.address}`}</Text>
+                {hist.whendate === "future" ? (
+                  <MaterialCommunityIcons
+                    name="calendar-clock"
+                    size={34}
+                    color="black"
+                    style={{ position: "absolute", right: 20, top: 0 }}
+                  />
+                ) : (
+                  <MaterialCommunityIcons
+                    name="calendar-remove-outline"
+                    size={34}
+                    color="black"
+                    style={{ position: "absolute", right: 20, top: 0 }}
+                  />
+                )}
               </Card.Content>
             </Card>
           ))}

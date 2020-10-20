@@ -42,9 +42,17 @@ class PetController {
     try {
       const pet = await petModel.findById(req.body.petID).populate("visitHistory");
       for(let i of pet.visitHistory){
-        await i.populate("clinic").execPopulate();
+        await i.populate("clinic").execPopulate()
       }
-      return res.status(200).json(pet);
+      let newpet = JSON.parse(JSON.stringify(pet))
+      for(let i of newpet.visitHistory){
+        if(new Date(i.when) < Date.now())
+          i["whendate"]="outdate"
+        else
+        i["whendate"] = "future"
+      }
+      console.log(newpet)
+      return res.status(200).json(newpet);
     } catch (e) {
       return res.status(500).send("Server error");
     }
