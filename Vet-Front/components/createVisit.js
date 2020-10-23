@@ -142,39 +142,30 @@ function CreateVisit(props) {
       {secondStage ? (
         <View
           style={{
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: "wrap",
-            justifyContent: "center",
+          
           }}
         >
-          {props.store.getTimesArray.map((times) => (
-            <Button
-              style={{
-                width: "40%",
-                marginTop: 30,
-                marginRight: 10,
-                padding: 5,
-                color: "black",
-                backgroundColor: times[1] === clicked ? "red" : "white",
-              }}
-              mode="text"
+          <Picker
+            style={{
+              width:"80%",
+              marginLeft:"auto",
+              marginRight:"auto",
+              marginTop:10,
+              marginBottom:10,
+              
+            }}
+            itemStyle={{fontSize:20}}
+            selectedValue={visitTime}
+            onValueChange={(itemValue,index)=>setTime(itemValue)}
+          >
+          {props.store.getTimesArray.map((times) => 
+            <Picker.Item
               key={times[0]}
-              onPress={() => {
-                setClicked(times[1]);
-                setTime(times[0]);
-              }}
-              contentStyle={{ color: "white" }}
-            >
-              <Text
-                style={{
-                  fontSize: 25,
-                }}
-              >
-                {times[0]}
-              </Text>
-            </Button>
-          ))}
+              label={times[0]}
+              value={times[0]}
+            /> 
+          )}
+          </Picker>
         </View>
       ) : (
         <View />
@@ -207,7 +198,11 @@ function CreateVisit(props) {
         ) : (
           <View>
           <Picker
-            style={{ marginTop: 30 }}
+            style={{ 
+              marginTop: 30,
+              width:"80%",
+              marginLeft:"auto",
+              marginRight:"auto", }}
             selectedValue={pet}
             onValueChange={(itemValue, index) => setPet(itemValue)}
           >
@@ -222,7 +217,10 @@ function CreateVisit(props) {
           <Picker
             style={{
               marginTop:10,
-              marginBottom:10
+              marginBottom:10,
+              width:"80%",
+              marginLeft:"auto",
+              marginRight:"auto",
             }}
             selectedValue={choicenClinic}
             onValueChange={(itemValue,index)=>setChoicenClinic(itemValue)}
