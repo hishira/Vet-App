@@ -89,6 +89,9 @@ function UserPets(props) {
                   <Button onPress={()=>props.navigation.navigate("PetClinicHistory",{petID:pet._id})}>
                     Pet clinic history
                   </Button>
+                  <Button onPress={()=>props.navigation.navigate("EditPet",{petID:pet._id})}>
+                    Edit pet info
+                  </Button>
                 </Card.Actions>
               </Card>
             ))}
