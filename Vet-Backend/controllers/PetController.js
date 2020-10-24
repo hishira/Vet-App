@@ -40,21 +40,35 @@ class PetController {
   }
   static async getPetByID(req, res) {
     try {
-      const pet = await petModel.findById(req.body.petID).populate("visitHistory");
-      for(let i of pet.visitHistory){
-        await i.populate("clinic").execPopulate()
+      const pet = await petModel
+        .findById(req.body.petID)
+        .populate("visitHistory");
+      for (let i of pet.visitHistory) {
+        await i.populate("clinic").execPopulate();
       }
-      let newpet = JSON.parse(JSON.stringify(pet))
-      for(let i of newpet.visitHistory){
-        if(new Date(i.when) < Date.now())
-          i["whendate"]="outdate"
-        else
-        i["whendate"] = "future"
+      let newpet = JSON.parse(JSON.stringify(pet));
+      for (let i of newpet.visitHistory) {
+        if (new Date(i.when) < Date.now()) i["whendate"] = "outdate";
+        else i["whendate"] = "future";
       }
-      console.log(newpet)
+      console.log(newpet);
       return res.status(200).json(newpet);
     } catch (e) {
       return res.status(500).send("Server error");
+    }
+  }
+  static async Update(req, res) {
+    try {
+      const pet = await petModel.findByIdAndUpdate(req.body.petID, {
+        name: req.body.petName,
+        age: req.body.petAge,
+      },{new:true},(err,dane)=>{
+        if(err)
+          return res.status(404).send("Error while pet updating");
+        return res.status(200).json(dane);
+        });
+    }catch(err){
+      return res.status(500).send("Server error")
     }
   }
 }
