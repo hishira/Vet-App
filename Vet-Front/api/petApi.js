@@ -1,11 +1,11 @@
 import {getApiLink,getFetchObjectWithAuth,getFetchPostObjectWithAuth} from './configApi'
 
 async function addPet(obj,id){
-    let url = getApiLink('pet/registerpet')
+    let url = getApiLink('pet/registerpet');
     return await fetch(url,getFetchPostObjectWithAuth(obj,id))
 }
 async function getUserPets(obj,id){
-    let url = getApiLink(`pet/userpets`)
+    let url = getApiLink(`pet/userpets`);
     return await fetch(url,getFetchPostObjectWithAuth(obj,id))
 }
 async function deletePet(obj,id){
@@ -13,12 +13,17 @@ async function deletePet(obj,id){
     return await fetch(url,getFetchPostObjectWithAuth(obj,id))
 }
 async function getPetByID(obj,id){
-    let url = getApiLink("pet/petbyid")
+    let url = getApiLink("pet/petbyid");
+    return await fetch(url,getFetchPostObjectWithAuth(obj,id))
+}
+async function editPet(obj,id){
+    let url = getApiLink("pet/editpet");
     return await fetch(url,getFetchPostObjectWithAuth(obj,id))
 }
 export{
     addPet,
     getUserPets,
     deletePet,
-    getPetByID
+    getPetByID,
+    editPet
 }

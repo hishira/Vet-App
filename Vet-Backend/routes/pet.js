@@ -8,5 +8,5 @@ app.post("/deletepet",checkifAuthenticated,PetController.deletePet);
 app.get("/pets",PetController.getAllPets);
 app.get("/petswithauth",checkifAuthenticated,PetController.getAllPets);
 app.post("/petbyid",checkifAuthenticated,PetController.getPetByID);
-app.post("/editpet",PetController.Update);
+app.post("/editpet",checkifAuthenticated,PetController.Update);
 module.exports = app;
