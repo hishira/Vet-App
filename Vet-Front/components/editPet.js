@@ -3,10 +3,10 @@ import { ScrollView, Text, TextInput } from "react-native";
 import { IconButton,Button} from "react-native-paper";
 
 function EditPet(props) {
-  const [petName, setPetName] = useState("");
-  const [age, setAge] = useState("");
+  const [petName, setPetName] = useState(props.route.params.pet.name);
+  const [age, setAge] = useState(String(props.route.params.pet.age));
   const editPetHandle = async ()=>{
-
+    console.log(petName,age)
   }
   return (
     <ScrollView>
