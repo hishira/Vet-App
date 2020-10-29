@@ -207,12 +207,15 @@ function OurClinics(props) {
           ) : doctorsLoading === "false" ? (
             <View>
               {doctors.map((doctor) => (
-                <Card key={doctor._id} style={{ marginTop: 10 }}>
+                <Card key={doctor._id} style={{ margin: 15 }}>
                   <Card.Content>
                     <Title>{`${doctor.name} ${doctor.lastName}`}</Title>
                     <Paragraph>Phone number: {doctor.phoneNumber}</Paragraph>
                     <Paragraph>Doctor to: {doctor.animalCareType}</Paragraph>
                   </Card.Content>
+                  <Card.Actions >
+                  <Button onPress={()=>props.navigation.navigate("DoctorInfo",{doctorID:doctor._id})}>More info</Button>
+                  </Card.Actions>
                 </Card>
               ))}
             </View>
