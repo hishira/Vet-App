@@ -23,5 +23,13 @@ const doctorSchema = new Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Clinic"
     },
+    moreinfo:{
+        type:String
+    },
+    photoarray:[
+        {
+            type:String
+        }
+    ]
 }) 
 module.exports = mongoose.model("Doctor",doctorSchema)

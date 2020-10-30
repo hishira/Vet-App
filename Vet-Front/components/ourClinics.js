@@ -214,7 +214,7 @@ function OurClinics(props) {
                     <Paragraph>Doctor to: {doctor.animalCareType}</Paragraph>
                   </Card.Content>
                   <Card.Actions >
-                  <Button onPress={()=>props.navigation.navigate("DoctorInfo",{doctorID:doctor._id})}>More info</Button>
+                  <Button onPress={()=>props.navigation.navigate("DoctorInfo",{doctor:doctor})}>More info</Button>
                   </Card.Actions>
                 </Card>
               ))}
