@@ -1,6 +1,7 @@
 # Vet app
 
-Example of app, created for veterinary clinics
+Example of app, created for veterinary clinics,
+pictures using in app are not mine
 
 ## Backend
 
