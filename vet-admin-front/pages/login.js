@@ -1,5 +1,5 @@
 export default function Login(){
     return<div>
-        Login pole
+        Login plce
     </div>
 }
