@@ -1,7 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import initFirebase from "../auth/initFirebase";
-
 initFirebase();
 export const loginuser = async (email, password) => {
     let ifok = true
@@ -22,3 +21,13 @@ export const islogin = async () => {
   });
   return k;
 };
+export const logout = async(router)=>{
+  
+  return firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        router.push("/login");
+      })
+      .catch((e) => console.error(e));
+}

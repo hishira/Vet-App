@@ -4,12 +4,12 @@ import Link from 'next/link'
 import {useUser} from '../utils/auth/useUser'
 import UserStore from '../stores/userStore'
 import {useContext} from 'react'
-import { observer } from 'mobx-react';
+import {useRouter} from 'next/router'
 import {islogin} from '../utils/auth/loginuser'
 function Home({userlogged}){
   const store = useContext(UserStore);
   const {user,logout} = useUser(store);
-  
+  const router = useRouter();
   console.log(store.isLogged)
   if(!store.isLogged){
   return (
@@ -21,10 +21,10 @@ function Home({userlogged}){
       </Link>
     </div>
   )
-  }else
-    return<div>
-      <button onClick={()=>logout()}>Logout</button>
-    </div>
+  }else{
+    router.push('/user')
+    return <div/>
+  }
 }
 Home.getInitialProps = async(ctx)=>{
   const response = await islogin();
