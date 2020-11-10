@@ -1,0 +1,87 @@
+.maincontainer {
+  padding: 1.5rem;
+  width: 50%;
+  border: 0.5px solid #9aa0a8;
+  margin: 5rem auto 0 auto;
+  background: #86aba7;
+  border-radius: 5px;
+  opacity: 0;
+  animation: appear .5s ease-in forwards;
+}
+@keyframes appear{
+    to{
+        opacity: 1;
+    }
+}
+.maincontent {
+  padding: 0.2rem;
+  padding-top: 0.05rem;
+}
+.maincontent-title {
+  text-align: center;
+  padding: 0.3rem;
+}
+.inputcontainer {
+  display: flex;
+  flex-direction: column;
+}
+.labelclass {
+  font-size: 1rem;
+  text-align: center;
+}
+.labelclass:last-of-type {
+  margin-top: 1rem;
+}
+.inputclass {
+  padding: 0.5rem;
+  border: 1px solid #9aa0a8;
+  border-radius: 5px;
+  width: 15rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0.5rem;
+  background: transparent;
+  opacity: 1.5;
+  outline: none;
+  background: #416b75;
+}
+.inputclass:focus {
+  border: 1px solid black;
+}
+.buttoncontainer {
+  width: 100%;
+  
+  margin-top: 1.5rem;
+  padding: 0.5rem;
+}
+.loginButton {
+  display: block;
+  border: 1px solid #9aa0a8;
+  background: #dedce1;
+  padding: 0.5rem;
+  width: 10rem;
+  height: 2.5rem;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 5px;
+  outline: none;
+}
+.loginButton:hover {
+  cursor: pointer;
+}
+
+.loginbuttonanimate{
+    border: 1px solid slategray;
+    animation: onclick 1.2s ease forwards ;
+}
+@keyframes onclick {
+  0% {
+    background: #dedce1;
+  }
+  50% {
+    background: #dedaa1;
+  }
+  100% {
+    background: #dedce1;
+  }
+}

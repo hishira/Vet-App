@@ -11,10 +11,9 @@
   height:3.5rem;
   line-height: 2rem;
   text-align: center;
-  background: #A9D8B8;
+  background:#dedce1;
   border: 1px solid #9AA0A8;
   border-radius: 5px;
-  font-size: 1.2rem;
 }
 .login:hover{
   cursor: pointer;
