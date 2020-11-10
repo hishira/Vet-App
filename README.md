@@ -21,3 +21,8 @@ Frontend of app, created using:
 - Mobx + mobx-react using to store state and usefull date between react components
 - React-native paper for some of the ui components, like card or button
 - React-navigation using to navigate between view
+
+## Admin frontend
+
+Frontend for admin panel and doctors
+- Nextjs, react framework 
