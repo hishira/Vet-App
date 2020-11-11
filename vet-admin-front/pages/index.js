@@ -6,12 +6,11 @@ import UserStore from '../stores/userStore'
 import {useContext} from 'react'
 import {useRouter} from 'next/router'
 import {islogin} from '../utils/auth/loginuser'
-function Home({userlogged}){
+function Home(){
   const store = useContext(UserStore);
-  const {user,logout} = useUser(store);
+  const {user,logout} = useUser();
   const router = useRouter();
-  console.log(store.isLogged)
-  if(!store.isLogged){
+  if(!user){
   return (
     <div className={styles.maincontainer}>
       <Link href='/login'>
@@ -22,15 +21,7 @@ function Home({userlogged}){
     </div>
   )
   }else{
-    router.push('/user')
-    return <div/>
-  }
-}
-Home.getInitialProps = async(ctx)=>{
-  const response = await islogin();
-  console.log(response)
-  return {
-    userlogged:response
+    return<button onClick={()=>router.push("/user")}>User</button>
   }
 }
 export default Home;

@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 .usermaincontainer{
     border:2px solid purple;
     padding: .5rem;
@@ -14,8 +15,36 @@
     background: #dedce1;
     border-radius: 10px;
     font-size: 1rem;
+    font-family: 'Roboto', sans-serif;
+
 
 }
 .logoutbutton:hover{
     cursor: pointer;
+}
+.userinfoCard{
+    border-radius: 15px;
+    padding:.65rem;
+    display: flex;
+    justify-content: center;
+    width:50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1.3rem;
+    background-color: rgba(255, 255, 255, 0.95);
+
+}
+@supports (-webkit-backdrop-filter: none) or (backdrop-filter: none) {
+    .userinfoCard {
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      background-color: rgba(255, 255, 255, 0.5);  
+    }
+}
+.email,.accounttype{
+    font-size: 1.05rem;
+    font-family: 'Roboto', sans-serif;
+    margin-top:.4rem;
+    line-height: 1.5rem;
+
 }

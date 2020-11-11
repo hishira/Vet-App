@@ -29,12 +29,12 @@ const useUser = (store) => {
         if (user) {
           const userData = await mapUserData(user);
           setUserCookie(userData);
-          store.setLoggedStatus(true)
+          //store.setLoggedStatus(true)
           setUser(userData);
         } else {
           removeUserCookie();
           setUser();
-          store.setLoggedStatus(false)
+          //store.setLoggedStatus(false)
         }
       });
     const userFromCookie = getUserFromCookie();
