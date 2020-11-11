@@ -2,9 +2,11 @@ import { useState } from "react";
 import style from "../styles/Login.module.css";
 import { useRouter } from "next/router";
 import { loginuser } from "../utils/auth/loginuser";
+import {BadLoginMessage} from '../components/badloginmessage'
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [messageFlag,setMessageFlag] = useState(false)
   const router = useRouter();
   const loginHandle = async () => {
     let documentelement = document.getElementsByClassName(style.loginButton)[0];
@@ -15,11 +17,16 @@ export default function Login() {
     );
     console.log(email, password);
     let k = await loginuser(email, password);
-    if(k)
+    if(k){
         router.push("/");
+    }else{
+      setMessageFlag(true)
+      setTimeout(()=>setMessageFlag(false),1000);
+    }
   };
   return (
     <div className={style.maincontainer}>
+      <BadLoginMessage show={messageFlag}/>
       <main className={style.maincontent}>
         <p className={style["maincontent-title"]}>Login</p>
         <div className={style.inputcontainer}>
