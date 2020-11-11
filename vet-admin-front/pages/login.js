@@ -18,7 +18,7 @@ export default function Login() {
     console.log(email, password);
     let k = await loginuser(email, password);
     if(k){
-        router.push("/");
+        router.push("/user");
     }else{
       setMessageFlag(true)
       setTimeout(()=>setMessageFlag(false),1000);

@@ -1,0 +1,21 @@
+.usermaincontainer{
+    border:2px solid purple;
+    padding: .5rem;
+}
+.userheader{
+    border:2px solid black;
+    display: flex;
+    justify-content: flex-end;
+}
+.logoutbutton{
+    padding:.5rem;
+    border:none;
+    background: transparent;
+    background: #dedce1;
+    border-radius: 10px;
+    font-size: 1rem;
+
+}
+.logoutbutton:hover{
+    cursor: pointer;
+}
