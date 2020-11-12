@@ -39,7 +39,6 @@ function User({ user }) {
 }
 User.getInitialProps = async (ctx) => {
   const auth = getUserFromCookie();
-  console.log(auth);
   console.log(typeof auth);
   let user = {};
   if (typeof auth === "object") {
@@ -50,7 +49,10 @@ User.getInitialProps = async (ctx) => {
       if (response.status === 200) return response.json();
       return false;
     });
-    user.email = auth["email"];
+    user = user[0];
+    console.log(user)
+    if(user !== false)
+      user['email'] = auth["email"];
   }
   return { user: user };
 };

@@ -1,7 +1,7 @@
 import {GetFetchPostObjectWithAuth,getApiLink} from './configApi'
 
 async function getUserInfo(obj,token){
-    let url = getApiLink('user/usercreate');
+    let url = getApiLink('user/getuserinfo');
     return fetch(url,GetFetchPostObjectWithAuth(obj,token));
 }
 

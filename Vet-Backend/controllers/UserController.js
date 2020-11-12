@@ -15,7 +15,7 @@ class UserController{
     }
     static async getUserInfo(req,res){
         try{
-            const user = userModel.findOne({userID:req.body.userID});
+            const user = await userModel.find({userID:req.body.userID}).exec();
             return res.status(200).json(user)
         }catch(e){
             return res.status(404).send("Error")
