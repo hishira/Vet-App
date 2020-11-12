@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import styles from "../../styles/User.module.css";
 import { getUserInfo } from "../../utils/api/userApi";
 import { getUserFromCookie } from "../../utils/auth/userCookies";
+import PageLoader from '../../components/loader'
 function User({ user }) {
   const [userInfo, setUser] = useState(user);
   const router = useRouter();
@@ -14,6 +15,10 @@ function User({ user }) {
   },[])
   return (
     <div className={styles.usermaincontainer}>
+      {
+      Object.keys(userInfo).length === 0?
+      (<PageLoader/>):(
+      <div>
       <header className={styles.userheader}>
         <button className={styles.logoutbutton} onClick={() => logout(router)}>
           Logout
@@ -27,6 +32,8 @@ function User({ user }) {
           </div>
         </div>
       </div>
+      </div>)
+    }
     </div>
   );
 }

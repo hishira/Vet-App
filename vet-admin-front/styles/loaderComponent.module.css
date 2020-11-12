@@ -1,0 +1,38 @@
+.maincontainer{
+    position: absolute;
+    top:10%;
+    z-index: 200;
+    left:50%;
+}
+.circleloader{
+    animation: run2 1.2s linear infinite;
+    width:3rem;
+    height: 3rem;
+    border: .5rem solid slategray;
+    border-radius: 50%;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-color: transparent;
+    transition: rotate .4s ease;
+}
+@keyframes run{
+    15%{
+        transform: rotate(45deg);
+    }
+    30%{
+        transform: rotate(90deg);
+    }
+    45%{
+        transform: rotate(135deg);
+    }
+    60%{
+        transform: rotate(180deg);
+    }
+}
+@keyframes run2{
+    from{
+        transform: rotate(0deg);
+    }to{
+        transform: rotate(360deg);
+    }
+}
