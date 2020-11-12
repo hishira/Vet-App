@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { logout } from "../../utils/auth/loginuser";
 import { useRouter } from "next/router";
 import styles from "../../styles/User.module.css";
@@ -7,6 +7,11 @@ import { getUserFromCookie } from "../../utils/auth/userCookies";
 function User({ user }) {
   const [userInfo, setUser] = useState(user);
   const router = useRouter();
+  useEffect(()=>{
+    console.log(userInfo)
+    if(Object.keys(userInfo).length === 0)
+      router.push("/")
+  },[])
   return (
     <div className={styles.usermaincontainer}>
       <header className={styles.userheader}>
