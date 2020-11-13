@@ -6,11 +6,11 @@ import UserStore from '../stores/userStore'
 import {useContext} from 'react'
 import {useRouter} from 'next/router'
 import {islogin} from '../utils/auth/loginuser'
-function Home(){
+function Home(props){
   const store = useContext(UserStore);
   const {user,logout} = useUser();
   const router = useRouter();
-  if(!user){
+  if(!props.userdata){
   return (
     <div className={styles.maincontainer}>
       <Link href='/login'>

@@ -1,28 +1,30 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, createContext } from "react";
 import { logout } from "../../utils/auth/loginuser";
 import { useRouter } from "next/router";
 import styles from "../../styles/User.module.css";
 import { getUserInfo } from "../../utils/api/userApi";
 import { getUserFromCookie } from "../../utils/auth/userCookies";
 import PageLoader from "../../components/loader";
-function User({ user }) {
-  const [userInfo, setUser] = useState(user);
+
+function User(props) {
+  const [userInfo, setUser] = useState(props.userdata);
+  const UserContext = createContext(userInfo);
   const router = useRouter();
+  console.log(props);
   useEffect(() => {
-    console.log(userInfo);
     let elements = document.getElementsByClassName(styles.usersubmenu);
     for (let i of elements) {
-      console.log(i);
       i.flag = false;
     }
     let menuelement = document.getElementsByClassName(styles.menubutton);
     for (let i of menuelement) i.flag = false;
-    if (Object.keys(userInfo).length === 0) router.push("/");
+    console.log("Data",props.userdata)
+    /*if (Object.keys(userInfo).length === 0) router.push("/");*/
   }, []);
-  const addAndRemoveClass = (element,classtoadd,classtoremove)=>{
+  const addAndRemoveClass = (element, classtoadd, classtoremove) => {
     element.classList.remove(classtoremove);
     element.classList.add(classtoadd);
-  }
+  };
   const onMenuClick = () => {
     let element = document.getElementsByClassName(styles.usersubmenu)[0];
     let counter = 100;
@@ -30,14 +32,22 @@ function User({ user }) {
       setTimeout(() => (element.style.display = "block"), counter);
       for (let i of element.children) {
         setTimeout(() => {
-          addAndRemoveClass(i,styles.usersubelementnanimation,styles.usersubelementnanimationoff)
+          addAndRemoveClass(
+            i,
+            styles.usersubelementnanimation,
+            styles.usersubelementnanimationoff
+          );
         }, counter);
         counter += 300;
       }
     } else {
       for (let i = element.children.length - 1; i >= 0; i--) {
         setTimeout(() => {
-          addAndRemoveClass(element.children[i],styles.usersubelementnanimationoff,styles.usersubelementnanimation)
+          addAndRemoveClass(
+            element.children[i],
+            styles.usersubelementnanimationoff,
+            styles.usersubelementnanimation
+          );
         }, counter);
         counter += 300;
       }
@@ -48,76 +58,79 @@ function User({ user }) {
   const onMenuButtonClick = () => {
     let menuelement = document.getElementsByClassName(styles.menu)[0];
     if (!menuelement.flag) {
-      menuelement.classList.remove(styles.menuclassanimationnext);
-      menuelement.classList.add(styles.menuclassanimation);
+      addAndRemoveClass(
+        menuelement,
+        styles.menuclassanimation,
+        styles.menuclassanimationnext
+      );
     } else {
-      menuelement.classList.remove(styles.menuclassanimation);
-      menuelement.classList.add(styles.menuclassanimationnext);
+      addAndRemoveClass(
+        menuelement,
+        styles.menuclassanimationnext,
+        styles.menuclassanimation
+      );
     }
     menuelement.flag = !menuelement.flag;
   };
   return (
-    <div className={styles.usermaincontainer}>
-      {Object.keys(userInfo).length === 0 ? (
-        <PageLoader />
-      ) : (
-        <div>
-          <header className={styles.userheader}>
-            <button
-              onClick={() => onMenuButtonClick()}
-              className={styles.menubutton}
-            >
-              Menu
-            </button>
-            <button
-              className={styles.logoutbutton}
-              onClick={() => logout(router)}
-            >
-              Logout
-            </button>
-          </header>
+    <UserContext.Provider value={{userInfo}}>
+      <div className={styles.usermaincontainer}>
+        {Object.keys(userInfo ? userInfo : []).length === 0 ? (
+          <PageLoader  />
+        ) : (
           <div>
-            <ul className={styles.menu}>
-              <li className={styles.menuchild} onClick={() => onMenuClick()}>
-                User
-              </li>
-              <ul className={styles.usersubmenu}>
-                <li>Create user</li>
-                <li>Edit user</li>
-                <li>Delete user</li>
+            <header className={styles.userheader}>
+              <button
+                onClick={() => onMenuButtonClick()}
+                className={styles.menubutton}
+              >
+                Menu
+              </button>
+              <button
+                className={styles.logoutbutton}
+                onClick={() => logout(router)}
+              >
+                Logout
+              </button>
+            </header>
+            <div>
+              <ul className={styles.menu}>
+                {userInfo.type === "ADMIN" ? (
+                  <div>
+                    <li
+                      className={styles.menuchild}
+                      onClick={() => onMenuClick()}
+                    >
+                      User
+                    </li>
+                    <ul className={styles.usersubmenu}>
+                      <li onClick={() => router.push("/user/admin/createuser")}>
+                        Create user
+                      </li>
+                      <li>Edit user</li>
+                      <li>Delete user</li>
+                    </ul>
+                  </div>
+                ) : (
+                  <div />
+                )}
+                <li className={styles.menuchild}>Visits</li>
               </ul>
-              <li className={styles.menuchild}>Visits</li>
-            </ul>
-          </div>
-          <div className={styles.userinfoCard}>
-            <div className={styles.userinfoCardText}>
-              <div className={styles.email}>Email: {userInfo.email}</div>
-              <div className={styles.accounttype}>
-                Account-Type: {userInfo.type}
+            </div>
+            <div className={styles.userinfoCard}>
+              <div className={styles.userinfoCardText}>
+                <div className={styles.email}>Email: {userInfo.email}</div>
+                <div className={styles.accounttype}>
+                  Account-Type: {userInfo.type}
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+        {props.children}
+      </div>
+    </UserContext.Provider>
   );
 }
-User.getInitialProps = async (ctx) => {
-  const auth = getUserFromCookie();
-  console.log(typeof auth);
-  let user = {};
-  if (typeof auth === "object") {
-    let obj = {
-      userID: auth["id"],
-    };
-    user = await getUserInfo(obj, auth["token"]).then((response) => {
-      if (response.status === 200) return response.json();
-      return false;
-    });
-    user = user[0];
-    console.log(user);
-    if (user !== false) user["email"] = auth["email"];
-  }
-  return { user: user };
-};
+
 export default User;
