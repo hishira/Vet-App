@@ -19,19 +19,29 @@ function User({ user }) {
     for (let i of menuelement) i.flag = false;
     if (Object.keys(userInfo).length === 0) router.push("/");
   }, []);
+  const addAndRemoveClass = (element,classtoadd,classtoremove)=>{
+    element.classList.remove(classtoremove);
+    element.classList.add(classtoadd);
+  }
   const onMenuClick = () => {
     let element = document.getElementsByClassName(styles.usersubmenu)[0];
+    let counter = 100;
     if (element.flag === false) {
-      element.style.display = "block";
-      let counter = 200;
-      for(let i of element.children){
-        console.log(i.classList)
-        setTimeout(()=>i.classList.add(styles.usersubelementnanimation),counter);
-        counter+=100
+      setTimeout(() => (element.style.display = "block"), counter);
+      for (let i of element.children) {
+        setTimeout(() => {
+          addAndRemoveClass(i,styles.usersubelementnanimation,styles.usersubelementnanimationoff)
+        }, counter);
+        counter += 300;
       }
-    }
-    else{
-      element.style.display = "none";
+    } else {
+      for (let i = element.children.length - 1; i >= 0; i--) {
+        setTimeout(() => {
+          addAndRemoveClass(element.children[i],styles.usersubelementnanimationoff,styles.usersubelementnanimation)
+        }, counter);
+        counter += 300;
+      }
+      setTimeout(() => (element.style.display = "none"), counter);
     }
     element.flag = !element.flag;
   };
@@ -70,13 +80,12 @@ function User({ user }) {
             <ul className={styles.menu}>
               <li className={styles.menuchild} onClick={() => onMenuClick()}>
                 User
-                
               </li>
               <ul className={styles.usersubmenu}>
-                  <li>Create user</li>
-                  <li>Edit user</li>
-                  <li>Delete user</li>
-                </ul>
+                <li>Create user</li>
+                <li>Edit user</li>
+                <li>Delete user</li>
+              </ul>
               <li className={styles.menuchild}>Visits</li>
             </ul>
           </div>
