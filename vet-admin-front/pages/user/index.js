@@ -1,14 +1,11 @@
-import { useState, useEffect, createContext } from "react";
+import { useState, useEffect } from "react";
 import { logout } from "../../utils/auth/loginuser";
 import { useRouter } from "next/router";
 import styles from "../../styles/User.module.css";
-import { getUserInfo } from "../../utils/api/userApi";
-import { getUserFromCookie } from "../../utils/auth/userCookies";
 import PageLoader from "../../components/loader";
 
 function User(props) {
   const [userInfo, setUser] = useState(props.userdata);
-  const UserContext = createContext(userInfo);
   const router = useRouter();
   console.log(props);
   useEffect(() => {
@@ -19,7 +16,7 @@ function User(props) {
     let menuelement = document.getElementsByClassName(styles.menubutton);
     for (let i of menuelement) i.flag = false;
     console.log("Data",props.userdata)
-    /*if (Object.keys(userInfo).length === 0) router.push("/");*/
+    if (Object.keys(userInfo).length === 0) router.push("/");
   }, []);
   const addAndRemoveClass = (element, classtoadd, classtoremove) => {
     element.classList.remove(classtoremove);
@@ -73,7 +70,7 @@ function User(props) {
     menuelement.flag = !menuelement.flag;
   };
   return (
-    <UserContext.Provider value={{userInfo}}>
+    
       <div className={styles.usermaincontainer}>
         {Object.keys(userInfo ? userInfo : []).length === 0 ? (
           <PageLoader  />
@@ -129,7 +126,7 @@ function User(props) {
         )}
         {props.children}
       </div>
-    </UserContext.Provider>
+  
   );
 }
 

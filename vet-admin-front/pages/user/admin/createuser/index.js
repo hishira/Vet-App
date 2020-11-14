@@ -1,10 +1,61 @@
-import UserView from '../../index'
-
-export default function CreateUser(props){
-    console.log(props)
-    return<div>
-        <UserView userdata={props.userdata}>
-            <div>Dupa 123</div>
-        </UserView>
+import {useState} from 'react' 
+import UserView from "../../index";
+import styles from "../../../../styles/UserCreate.module.css";
+export default function CreateUser(props) {
+  console.log(props);
+  const [email,setEmail] = useState("")
+  const [password,setPassword] = useState("")
+  const [userType,setUserType] = useState("USER")
+  const submithandle = () => {
+    event.preventDefault();
+    console.log(email,password,userType);
+  };
+  return (
+    <div>
+      <UserView userdata={props.userdata}>
+        <div className={styles.createusermaincontainer}>
+          <div className={styles.createusermaincontainertitle}>Create user</div>
+        </div>
+        <form className={styles.createuserform}>
+          <label className={styles.emaillabel}>
+            Email
+            <input
+              name="email"
+              autoComplete="off"
+              onChange={(e) => setEmail(e.target.value)}
+              className={styles.emailinput}
+              type="text"
+            />
+          </label>
+          <label className={styles.passwordlabel}>
+            Password
+            <input
+              name="password"
+              onChange={(e) => setPassword(e.target.value)}
+              className={styles.passwordinput}
+              type="password"
+            />
+          </label>
+          <label className={styles.choicelabel}>
+            User type
+            <select
+              className={styles.usertypeselect}
+              value={userType}
+              onChange={(e) => setUserType(e.target.value)}
+            >
+              <option value="USER">User</option>
+              <option value="DOCTOR">Doctor</option>
+              <option value="ADMIN">Admin</option>
+            </select>
+          </label>
+          <button
+            className={styles.usercreatesubmitbutton}
+            onClick={() => submithandle()}
+          >
+            Create
+          </button>
+        </form>
+      </UserView>
     </div>
+  );
 }

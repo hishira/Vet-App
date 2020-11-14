@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
 html,
 body {
   padding: 0;
@@ -5,7 +7,8 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   background: #416b75;
-  }
+  font-family: 'Roboto', sans-serif;  
+}
 
 a {
   color: inherit;

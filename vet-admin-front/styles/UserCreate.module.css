@@ -1,0 +1,55 @@
+.createusermaincontainer{
+    padding: .5rem;
+    box-sizing: border-box;
+    margin-top:1.5rem
+}
+.createusermaincontainertitle{
+   
+    text-align: center;
+}
+.createuserform{
+    border: 1px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+
+}
+.emaillabel,.passwordlabel,.choicelabel{
+    border:2px solid purple;
+    font-size: 1.1rem;
+    padding: .3rem;
+    display: block;
+}
+.emailinput,.passwordinput,.usertypeselect{
+    padding: .3rem;
+    margin-left: 1rem;
+    border: 1px solid  rgba(255, 255, 255, 0.5);
+    background: transparent;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.5);
+    outline: none;
+    border-radius: 10px;
+}
+.emailinput{
+    margin-left: 3.2rem;
+    margin-top:.5rem;
+}
+.passwordinput{
+    margin-top: .5rem;
+}
+.usertypeselect{
+    margin-top: .5rem;
+    width:10rem;
+}
+.usercreatesubmitbutton{
+    border:none;
+    padding:.5rem;
+    margin-top:1.5rem;
+    border-radius: 10px;;
+    line-height: 1.3rem;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.5);
+    width:10rem;
+}
