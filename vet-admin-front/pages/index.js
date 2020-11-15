@@ -11,7 +11,6 @@ function Home(props){
   const store = useContext(UserStore);
   const {user,logout} = useUser();
   const router = useRouter();
-  console.log("Ozytkownik",getUserFromCookie())
   if(Object.keys(props.userdata).length <= 0 && Object.keys(getUserFromCookie()? getUserFromCookie():{}) <= 0){
   return (
     <div className={styles.maincontainer}>
