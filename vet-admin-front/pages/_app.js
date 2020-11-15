@@ -6,7 +6,6 @@ function MyApp({ Component, pageProps,user }) {
 }
 MyApp.getInitialProps = async ({Component,ctx})=>{
   const auth = getUserFromCookie();
-  console.log(ctx);
   let user = {};
   if (typeof auth === "object") {
     let obj = {
@@ -17,13 +16,13 @@ MyApp.getInitialProps = async ({Component,ctx})=>{
       return false;
     });
     user = user[0];
-    console.log(user);
     if (user !== false) user["email"] = auth["email"];
   }
   let pageProps={}
   if(Component.getInitialProps){
     pageProps = await Component.getInitialProps(ctx);
   }
+  console.log("User",user);
   return { pageProps,user};
 }
 export default MyApp

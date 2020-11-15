@@ -1,6 +1,7 @@
 import firebase from "firebase/app";
 import "firebase/auth";
 import initFirebase from "../auth/initFirebase";
+import {removeUserCookie} from '../auth/userCookies'
 initFirebase();
 export const loginuser = async (email, password) => {
     let ifok = true
@@ -28,6 +29,7 @@ export const logout = async(router)=>{
       .signOut()
       .then(() => {
         router.push("/login");
+        removeUserCookie();
       })
       .catch((e) => console.error(e));
 }
