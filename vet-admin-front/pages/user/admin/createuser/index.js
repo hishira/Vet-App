@@ -1,18 +1,35 @@
-import {useState} from 'react' 
+import { useState } from "react";
 import UserView from "../../index";
 import styles from "../../../../styles/UserCreate.module.css";
+import firebase from "firebase";
+import { createUser } from "../../../../utils/api/userApi";
+import YesOrNoDialog from "../../../../components/yesornodialoguser";
+
 export default function CreateUser(props) {
   console.log(props);
-  const [email,setEmail] = useState("")
-  const [password,setPassword] = useState("")
-  const [userType,setUserType] = useState("USER")
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userType, setUserType] = useState("USER");
+  const [dialogMode, setDialogMode] = useState(false);
+  const [objToDialog, setObjToDialog] = useState({});
   const submithandle = () => {
     event.preventDefault();
-    console.log(email,password,userType);
+    console.log(email, password, userType);
+    let obj = {email:email,password:password,userType:userType};
+    setDialogMode(true);
+    setObjToDialog(obj);
+  };
+  const closeinchildren = () => {
+    setDialogMode(false);
   };
   return (
     <div>
       <UserView userdata={props.userdata}>
+        <YesOrNoDialog
+          handleChange={closeinchildren}
+          newuser={objToDialog}
+          open={dialogMode}
+        />
         <div className={styles.createusermaincontainer}>
           <div className={styles.createusermaincontainertitle}>Create user</div>
         </div>

@@ -1,0 +1,43 @@
+.maincomponent{
+    position:absolute;
+    top:30%;
+    left:45%;
+    z-index: 10;
+    background-color: whitesmoke;
+    padding: .9rem;
+    border-radius: 10px;
+    box-sizing: border-box;
+    resize: none;
+}
+.maintext{
+    font-size: 1.05rem;
+}
+.buttongroup{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top:1rem;
+}
+.buttonstyle{
+    border: .5px solid lightslategray;
+    padding:.5rem;
+    margin-top:1.5rem;
+    border-radius: 10px;;
+    line-height: 1.3rem;
+    backdrop-filter: blur(20px);
+    background-color: rgba(255, 255, 255, 0.5);
+    outline:none;
+    width:4rem;
+    max-height: 3rem;
+}
+.buttonstyle:active{
+    animation: clickbutton .5s linear forwards;
+}
+@keyframes clickbutton{    
+    50% {
+        border: 2px solid black 
+    }
+    100% {
+        border: .5px solid lightslategray;
+    }
+}
