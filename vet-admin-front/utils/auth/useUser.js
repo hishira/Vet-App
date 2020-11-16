@@ -8,7 +8,7 @@ import {
   removeUserCookie,
   setUserCookie,
 } from "./userCookies";
-import initFirebase from "./initFirebase";
+import {initFirebase} from "./initFirebase";
 initFirebase();
 const useUser = (store) => {
   const [user, setUser] = useState();

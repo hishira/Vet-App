@@ -1,6 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
-import initFirebase from "../auth/initFirebase";
+import {initFirebase} from "./initFirebase";
 import {removeUserCookie} from '../auth/userCookies'
 initFirebase();
 export const loginuser = async (email, password) => {

@@ -1,8 +1,6 @@
 import { useState } from "react";
 import UserView from "../../index";
 import styles from "../../../../styles/UserCreate.module.css";
-import firebase from "firebase";
-import { createUser } from "../../../../utils/api/userApi";
 import YesOrNoDialog from "../../../../components/yesornodialoguser";
 
 export default function CreateUser(props) {

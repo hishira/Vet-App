@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import styles from "../styles/yesornodialog.components.module.css";
+import {createFirebaseUser} from '../utils/auth/createUser'
 export default function YesOrNoDialog(props) {
   const handleclose = () => {
     props.handleChange();
   };
-  const yeshandle = () => {
+  const yeshandle = async() => {
     console.log(props.newuser);
+    await createFirebaseUser(props.newuser.email,props.newuser.password,props.newuser.userType);
+
     handleclose();
+
   };
   return (
     <div>
