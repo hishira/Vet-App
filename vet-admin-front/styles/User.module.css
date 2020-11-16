@@ -27,6 +27,7 @@
     padding: 0;
     padding-top: 1.2rem;
     padding-left: .3rem ;
+    z-index: 200;
 }
 .menuclassanimation{
     animation: menuappear .7s linear forwards;
