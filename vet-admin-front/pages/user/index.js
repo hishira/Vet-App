@@ -101,11 +101,11 @@ function User(props) {
                       User
                     </li>
                     <ul className={styles.usersubmenu}>
-                      <li onClick={() => router.push("/user/admin/createuser")}>
+                      <li className={styles.lielement} onClick={() => router.push("/user/admin/createuser")}>
                         Create user
                       </li>
-                      <li>Edit user</li>
-                      <li>Delete user</li>
+                      <li className={styles.lielement} onClick={()=>router.push("/user/admin/edituser")}>Edit users</li>
+                      <li className={styles.lielement}>Delete user</li>
                     </ul>
                   </div>
                 ) : (
