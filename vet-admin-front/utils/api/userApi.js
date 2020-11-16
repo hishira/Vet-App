@@ -8,4 +8,8 @@ async function createUser(obj,token=""){
     let url = getApiLink("user/usercreate");
     return await fetch(url,GetFetchPostObjectWithAuth(obj,token))
 }
-export {getUserInfo,createUser}
+async function getAllUsers(obj,token=""){
+    let url=getApiLink("user/getusers");
+    return await fetch(url,GetFetchPostObjectWithAuth(obj,token));
+}
+export {getUserInfo,createUser,getAllUsers}
