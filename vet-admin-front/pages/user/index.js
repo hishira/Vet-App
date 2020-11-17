@@ -7,7 +7,6 @@ import PageLoader from "../../components/loader";
 function User(props) {
   const [userInfo, setUser] = useState(props.userdata);
   const router = useRouter();
-  console.log(props);
   useEffect(() => {
     let elements = document.getElementsByClassName(styles.usersubmenu);
     for (let i of elements) {
@@ -15,7 +14,6 @@ function User(props) {
     }
     let menuelement = document.getElementsByClassName(styles.menubutton);
     for (let i of menuelement) i.flag = false;
-    console.log("Data",props.userdata)
     if (Object.keys(userInfo).length === 0) router.push("/");
   }, []);
   const addAndRemoveClass = (element, classtoadd, classtoremove) => {

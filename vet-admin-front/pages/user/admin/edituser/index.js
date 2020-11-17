@@ -21,16 +21,17 @@ export default function EditUser(props) {
           }
         );
         if (data === false) throw new Error("error");
-        setLoading("end");
         setUsers(data);
-        prepareCanvas();
+        setLoading("end");
+        console.log("Dataddd",data);
+        prepareCanvas(data);
       } catch (e) {
         setLoading("Error");
       }
     };
     fetchdata();
   }, []);
-  const prepareCanvas = () => {
+  const prepareCanvas = (users) => {
     const canvas = document.querySelector("canvas");
     let sort = { USER: 0, ADMIN: 0, DOCTOR: 0 };
     console.log(users)
@@ -75,12 +76,13 @@ export default function EditUser(props) {
   return (
     <div>
       <UserView userdata={props.userdata}>
+      <canvas style={{zIndex:"120310230"}} width="200" height="200"></canvas>
+
         {loading === "yes" ? (
           <Loader />
         ) : loading === "end" ? (
-          <div className={styles.usereditmaincontainer}>
+          <div onLoad={()=>prepareCanvas()} className={styles.usereditmaincontainer}>
             <div className={styles.userschart}>
-            <canvas style={{zIndex:"120310230"}} width="200" height="200"></canvas>
             </div>
             <div className={styles.userscontainer}>
                 {
