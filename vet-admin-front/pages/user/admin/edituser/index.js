@@ -3,12 +3,15 @@ import UserView from "../../index";
 import styles from "../../../../styles/UserEdit.module.css";
 import { getAllUsers } from "../../../../utils/api/userApi";
 import Loader from "../../../../components/loader";
-import {useRouter} from 'next/router'
+import { useRouter } from "next/router";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
+import EditUserModal from '../../../../components/EditUserModal'
 export default function EditUser(props) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState("false");
-  const router = useRouter() 
+  const [userEdit,setUserEdit] = useState({});
+  const [openDialog,setOpenDialog] = useState(false);
+  const router = useRouter();
   useEffect(() => {
     let fetchdata = async () => {
       const userCookies = getUserFromCookie();
@@ -23,7 +26,7 @@ export default function EditUser(props) {
         if (data === false) throw new Error("error");
         setUsers(data);
         setLoading("end");
-        console.log("Dataddd",data);
+        console.log("Dataddd", data);
         prepareCanvas(data);
       } catch (e) {
         setLoading("Error");
@@ -31,10 +34,17 @@ export default function EditUser(props) {
     };
     fetchdata();
   }, []);
+  const editUsertHandle = (user) =>{
+    setUserEdit(user);
+    setOpenDialog(true)
+  }
+  const handleCloseModal = ()=>{
+    setOpenDialog(false);
+  }
   const prepareCanvas = (users) => {
     const canvas = document.querySelector("canvas");
     let sort = { USER: 0, ADMIN: 0, DOCTOR: 0 };
-    console.log(users)
+    console.log(users);
     for (let i of users) {
       if (i.type === "USER") sort["USER"] += 1;
       if (i.type === "ADMIN") sort["ADMIN"] += 1;
@@ -60,13 +70,13 @@ export default function EditUser(props) {
       ctx.fill();
       ctx.stroke();
       ctx.fillStyle = "white";
-      ctx.font = "15px Arial";
+      ctx.font = "12px Arial";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
       let mid = end + firsdata / 2;
       console.log(r);
       ctx.fillText(
-        Object.keys(sort)[i],
+        `${Object.keys(sort)[i]}: ${sort[Object.keys(sort)[i]]}`,
         width + Math.cos(mid) * (r / 2),
         height + Math.sin(mid) * (r / 2)
       );
@@ -76,18 +86,32 @@ export default function EditUser(props) {
   return (
     <div>
       <UserView userdata={props.userdata}>
-      <canvas style={{zIndex:"120310230"}} width="200" height="200"></canvas>
-
         {loading === "yes" ? (
           <Loader />
         ) : loading === "end" ? (
-          <div onLoad={()=>prepareCanvas()} className={styles.usereditmaincontainer}>
+          <div
+            onLoad={() => prepareCanvas()}
+            className={styles.usereditmaincontainer}
+          >
+            <EditUserModal
+              closeModal={handleCloseModal}
+              open={openDialog}
+              useredit={userEdit}
+            />
             <div className={styles.userschart}>
+              <canvas width="200" height="200"></canvas>
+              <div>User stats on chart</div>
             </div>
             <div className={styles.userscontainer}>
-                {
-                    users.map(user=><div key={user._id} className={styles.user}></div>)
-                }
+              {users.map((user) => (
+                <div key={user._id} className={styles.user}>
+                  <div className={styles.useremail}>Email: {user.email}</div>
+                  <div className={styles.buttongroup}>
+                    <button className={styles.emailbutton} onClick={()=>editUsertHandle(user)}>User edit</button>
+                   
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         ) : loading === "Error" ? (
