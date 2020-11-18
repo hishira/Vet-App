@@ -5,4 +5,6 @@ const checkifAuthenticated = require("../middleware/authentication");
 app.post("/usercreate",UserController.createUser);
 app.post("/getuserinfo",checkifAuthenticated,UserController.getUserInfo);
 app.post("/getusers",checkifAuthenticated,UserController.getAllUser);
+app.post("/updateemail",checkifAuthenticated,UserController.emailChange);
+app.post("/updatepassword",checkifAuthenticated,UserController.passwordChange);
 module.exports = app;

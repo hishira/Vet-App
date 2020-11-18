@@ -5,12 +5,12 @@ import { getAllUsers } from "../../../../utils/api/userApi";
 import Loader from "../../../../components/loader";
 import { useRouter } from "next/router";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
-import EditUserModal from '../../../../components/EditUserModal'
+import EditUserModal from "../../../../components/EditUserModal";
 export default function EditUser(props) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState("false");
-  const [userEdit,setUserEdit] = useState({});
-  const [openDialog,setOpenDialog] = useState(false);
+  const [userEdit, setUserEdit] = useState({});
+  const [openDialog, setOpenDialog] = useState(false);
   const router = useRouter();
   useEffect(() => {
     let fetchdata = async () => {
@@ -34,13 +34,13 @@ export default function EditUser(props) {
     };
     fetchdata();
   }, []);
-  const editUsertHandle = (user) =>{
+  const editUsertHandle = (user) => {
     setUserEdit(user);
-    setOpenDialog(true)
-  }
-  const handleCloseModal = ()=>{
+    setOpenDialog(true);
+  };
+  const handleCloseModal = () => {
     setOpenDialog(false);
-  }
+  };
   const prepareCanvas = (users) => {
     const canvas = document.querySelector("canvas");
     let sort = { USER: 0, ADMIN: 0, DOCTOR: 0 };
@@ -107,8 +107,12 @@ export default function EditUser(props) {
                 <div key={user._id} className={styles.user}>
                   <div className={styles.useremail}>Email: {user.email}</div>
                   <div className={styles.buttongroup}>
-                    <button className={styles.emailbutton} onClick={()=>editUsertHandle(user)}>User edit</button>
-                   
+                    <button
+                      className={styles.emailbutton}
+                      onClick={() => editUsertHandle(user)}
+                    >
+                      User edit
+                    </button>
                   </div>
                 </div>
               ))}
