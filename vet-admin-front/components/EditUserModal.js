@@ -20,6 +20,7 @@ export default function EditUserModal(props) {
     })
     if(resp){
       closeHandle();
+      props.reload();
       return;
     }
     console.log("Something goes wrong while email changing");

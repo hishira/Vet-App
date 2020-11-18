@@ -11,6 +11,7 @@ export default function EditUser(props) {
   const [loading, setLoading] = useState("false");
   const [userEdit, setUserEdit] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
+  const [pageReaload,setPageReload] = useState(false)
   const router = useRouter();
   useEffect(() => {
     let fetchdata = async () => {
@@ -33,7 +34,10 @@ export default function EditUser(props) {
       }
     };
     fetchdata();
-  }, []);
+  }, [pageReaload]);
+  const realoadPage = ()=>{
+    setPageReload(!pageReaload);
+  }
   const editUsertHandle = (user) => {
     setUserEdit(user);
     setOpenDialog(true);
@@ -97,6 +101,7 @@ export default function EditUser(props) {
               closeModal={handleCloseModal}
               open={openDialog}
               useredit={userEdit}
+              reload={realoadPage}
             />
             <div className={styles.userschart}>
               <canvas width="200" height="200"></canvas>
