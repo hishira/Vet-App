@@ -25,8 +25,22 @@ export default function EditUserModal(props) {
     console.log("Something goes wrong while email changing");
 
   };
-  const changePassword = () => {
-    console.log(props.useredit._id, password);
+  const changePassword = async () => {
+    let obj={
+      uid: props.useredit.userID,
+      password: password,
+    };
+    let token = getUserFromCookie()["token"];
+    let resp = await changeUserPassword(obj,token).then(response=>{
+      if(response.status === 200)
+        return true;
+      return false;
+    });
+    if(resp){
+      closeHandle();
+      return;
+    }
+    console.log("Something goes wrong")
   };
   const closeHandle = () => {
     setEmail("");

@@ -52,7 +52,6 @@ class UserController {
           email: req.body.email,
         })
         .then((userRecord) => console.log("OK"))
-        .catch((error) => console.log(error));
       const user = await userModel.findByIdAndUpdate(
         req.body.userID,
         { email: req.body.email },
@@ -72,7 +71,6 @@ class UserController {
         .auth()
         .updateUser(req.body.uid, { password: req.body.password })
         .then((userRecors) => console.log("Ok"))
-        .catch((err) => console.log(err));
       return res.status(200).json({message:"OK"});
     } catch (err) {
       return res.status(404).send("Server error");
