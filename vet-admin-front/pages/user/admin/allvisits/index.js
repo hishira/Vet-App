@@ -3,6 +3,7 @@ import UserView from "../../index";
 import { getAllVisits } from "../../../../utils/api/visitApi";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
 import Loader from "../../../../components/loader";
+import styles from "../../../../styles/UsersVisits.module.css";
 export default function AllVisits(props) {
   const [loading, setLoading] = useState("false");
   const [visits, setVisits] = useState([]);
@@ -20,7 +21,7 @@ export default function AllVisits(props) {
         console.log(data);
         setLoading("end");
       } catch (e) {
-          setLoading("error");
+        setLoading("error");
       }
     };
     fetchData();
@@ -31,11 +32,24 @@ export default function AllVisits(props) {
         {loading === "yes" ? (
           <Loader />
         ) : loading === "end" ? (
-          <div />
-        ) :loading === "error"? (
+          <div className={styles.maincomponent}>
+            <div className={styles.visits}>
+              {visits.map((visit) => (
+                <div key={visit._id} className={styles.visit}>
+                  <div>Date:{visit.when.split("T")[0]}</div>
+                  <div>Time:{visit.time}</div>
+                <div className={styles.buttongroup}>
+                    <button className={styles.moreinfobutton}>More info</button>
+                </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ) : loading === "error" ? (
           <div>Error</div>
-        ):(<div/>)
-        }
+        ) : (
+          <div />
+        )}
       </div>
     </UserView>
   );
