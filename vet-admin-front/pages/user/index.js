@@ -20,8 +20,8 @@ function User(props) {
     element.classList.remove(classtoremove);
     element.classList.add(classtoadd);
   };
-  const onMenuClick = () => {
-    let element = document.getElementsByClassName(styles.usersubmenu)[0];
+  const onMenuClick = (conter) => {
+    let element = document.getElementsByClassName(styles.usersubmenu)[conter];
     let counter = 100;
     if (element.flag === false) {
       setTimeout(() => (element.style.display = "block"), counter);
@@ -94,7 +94,7 @@ function User(props) {
                   <div>
                     <li
                       className={styles.menuchild}
-                      onClick={() => onMenuClick()}
+                      onClick={() => onMenuClick(0)}
                     >
                       User
                     </li>
@@ -109,7 +109,10 @@ function User(props) {
                 ) : (
                   <div />
                 )}
-                <li className={styles.menuchild}>Visits</li>
+                <li className={styles.menuchild} onClick={() => onMenuClick(1)}>Visits</li>
+                  <ul className={styles.usersubmenu}>
+                    <li className={styles.lielement} onClick={()=>router.push("/user/admin/allvisits")}>See all visits</li>
+                  </ul>
               </ul>
             </div>
             <div className={styles.userinfoCard}>

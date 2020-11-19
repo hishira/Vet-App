@@ -43,5 +43,13 @@ class VisitController {
       return res.status(500).send("Server error");
     }
   }
+  static async getAllVisits(req,res){
+      try{
+        const visits = await visitModel.find({})
+        return res.status(200).json(visits);
+      }catch(error){
+        return res.status(404).send("Server error")
+      }
+  }
 }
 module.exports = VisitController;
