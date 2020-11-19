@@ -2,7 +2,7 @@ import { useState } from "react";
 import UserView from "../../index";
 import styles from "../../../../styles/UserCreate.module.css";
 import YesOrNoDialog from "../../../../components/yesornodialoguser";
-
+import {userCreate} from '../../../../utils/auth/createUser'
 export default function CreateUser(props) {
   console.log(props);
   const [email, setEmail] = useState("");
@@ -20,6 +20,10 @@ export default function CreateUser(props) {
   const closeinchildren = () => {
     setDialogMode(false);
   };
+  const createuserchildren = async(user)=>{
+    await userCreate(user.email,user.password,user.userType);
+
+  }
   return (
     <div>
       <UserView userdata={props.userdata}>
@@ -27,6 +31,8 @@ export default function CreateUser(props) {
           handleChange={closeinchildren}
           newuser={objToDialog}
           open={dialogMode}
+          message='Are you sure to create user:'
+          yeshandle={createuserchildren}
         />
         <div className={styles.createusermaincontainer}>
           <div className={styles.createusermaincontainertitle}>Create user</div>
