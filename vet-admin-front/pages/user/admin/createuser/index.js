@@ -22,8 +22,8 @@ export default function CreateUser(props) {
   };
   const createuserchildren = async(user)=>{
     await userCreate(user.email,user.password,user.userType);
-
   }
+  
   return (
     <div>
       <UserView userdata={props.userdata}>

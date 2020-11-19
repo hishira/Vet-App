@@ -7,4 +7,5 @@ app.post("/getuserinfo",checkifAuthenticated,UserController.getUserInfo);
 app.post("/getusers",checkifAuthenticated,UserController.getAllUser);
 app.post("/updateemail",checkifAuthenticated,UserController.emailChange);
 app.post("/updatepassword",checkifAuthenticated,UserController.passwordChange);
+app.post("/deleteuser",checkifAuthenticated,UserController.deleteUser);
 module.exports = app;

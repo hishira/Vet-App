@@ -80,8 +80,9 @@ class UserController {
     try {
       await admin
         .auth()
-        .deleteUser(re.body.uid)
+        .deleteUser(req.body.uid)
         .then(() => console.log("User successfull delete"));
+      let user = await userModel.deleteOne({_id:req.body.userID});
       return res.status(200).send("OK");
     } catch (e) {
       return res.status(404).send("Server error");

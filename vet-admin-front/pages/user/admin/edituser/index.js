@@ -6,12 +6,16 @@ import Loader from "../../../../components/loader";
 import { useRouter } from "next/router";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
 import EditUserModal from "../../../../components/EditUserModal";
+import YesOrNoDialog from "../../../../components/yesornodialoguser";
+import {deleteUser} from '../../../../utils/api/userApi'
 export default function EditUser(props) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState("false");
   const [userEdit, setUserEdit] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
-  const [pageReaload,setPageReload] = useState(false)
+  const [pageReaload, setPageReload] = useState(false);
+  const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
+  const [userToDelete,setUserToDelete] = useState({})
   const router = useRouter();
   useEffect(() => {
     let fetchdata = async () => {
@@ -35,9 +39,9 @@ export default function EditUser(props) {
     };
     fetchdata();
   }, [pageReaload]);
-  const realoadPage = ()=>{
+  const realoadPage = () => {
     setPageReload(!pageReaload);
-  }
+  };
   const editUsertHandle = (user) => {
     setUserEdit(user);
     setOpenDialog(true);
@@ -45,6 +49,27 @@ export default function EditUser(props) {
   const handleCloseModal = () => {
     setOpenDialog(false);
   };
+  const closeDeleteDialog = () => {
+    setDeleteDialogOpen(!deleteDialogOpen);
+  };
+  const deleteUserHandle = (user)=>{
+    setUserToDelete(user);
+    setDeleteDialogOpen(!deleteDialogOpen);
+  }
+  const yesDialogHandle = async (user)=>{
+    let obj = {uid:user.userID,userID:user._id};
+    console.log(obj);
+    const token = getUserFromCookie()["token"]
+    let data = await deleteUser(obj,token).then(response=>{
+      if(response.status === 200)
+        return true;
+      return false;
+    });
+    if(data){
+      console.log("OK OK OK");
+      setPageReload(!pageReaload)
+    }
+  }
   const prepareCanvas = (users) => {
     const canvas = document.querySelector("canvas");
     let sort = { USER: 0, ADMIN: 0, DOCTOR: 0 };
@@ -103,6 +128,13 @@ export default function EditUser(props) {
               useredit={userEdit}
               reload={realoadPage}
             />
+            <YesOrNoDialog
+              handleChange={closeDeleteDialog}
+              newuser={userToDelete}
+              open={deleteDialogOpen}
+              message="Are you sure to delete user:"
+              yeshandle={yesDialogHandle}
+            />
             <div className={styles.userschart}>
               <canvas width="200" height="200"></canvas>
               <div>User stats on chart</div>
@@ -118,7 +150,7 @@ export default function EditUser(props) {
                     >
                       User edit
                     </button>
-                    <button className={styles.deletebutton}>Delete user</button>
+                    <button className={styles.deletebutton} onClick={()=>deleteUserHandle(user)}>Delete user</button>
                   </div>
                 </div>
               ))}
