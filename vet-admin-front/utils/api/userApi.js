@@ -20,10 +20,15 @@ async function changeUserPassword(obj, token) {
   let url = getApiLink("user/updatepassword");
   return await fetch(url, GetFetchPostObjectWithAuth(obj, token));
 }
+async function deleteUser(obj,token=""){
+  let url = getApiLink("user/deleteuser");
+  return await fetch(url,GetFetchPostObjectWithAuth(obj,token))
+}
 export {
   getUserInfo,
   createUser,
   getAllUsers,
   changeUserEmail,
   changeUserPassword,
+  deleteUser
 };

@@ -118,6 +118,7 @@ export default function EditUser(props) {
                     >
                       User edit
                     </button>
+                    <button className={styles.deletebutton}>Delete user</button>
                   </div>
                 </div>
               ))}

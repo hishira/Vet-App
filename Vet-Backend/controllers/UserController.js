@@ -51,7 +51,7 @@ class UserController {
         .updateUser(req.body.uid, {
           email: req.body.email,
         })
-        .then((userRecord) => console.log("OK"))
+        .then((userRecord) => console.log("OK"));
       const user = await userModel.findByIdAndUpdate(
         req.body.userID,
         { email: req.body.email },
@@ -70,9 +70,20 @@ class UserController {
       await admin
         .auth()
         .updateUser(req.body.uid, { password: req.body.password })
-        .then((userRecors) => console.log("Ok"))
-      return res.status(200).json({message:"OK"});
+        .then((userRecors) => console.log("Ok"));
+      return res.status(200).json({ message: "OK" });
     } catch (err) {
+      return res.status(404).send("Server error");
+    }
+  }
+  static async deleteUser(req, res) {
+    try {
+      await admin
+        .auth()
+        .deleteUser(re.body.uid)
+        .then(() => console.log("User successfull delete"));
+      return res.status(200).send("OK");
+    } catch (e) {
       return res.status(404).send("Server error");
     }
   }
