@@ -7,5 +7,5 @@ app.post('/visitcreate',checkifAuthenticated,VisitController.createVisit);
 app.post("/uservisits",checkifAuthenticated,VisitController.getUserVisits);
 app.post("/deletevisit",checkifAuthenticated,VisitController.deleteVisit);
 app.post("/getallvisits",checkifAuthenticated,VisitController.getAllVisits);
-
+app.post("/visitinfo",checkifAuthenticated,VisitController.getMoreInfoAboutVisit);
 module.exports = app

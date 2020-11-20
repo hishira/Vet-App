@@ -4,9 +4,12 @@ import { getAllVisits } from "../../../../utils/api/visitApi";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
 import Loader from "../../../../components/loader";
 import styles from "../../../../styles/UsersVisits.module.css";
+import { useRouter } from "next/router";
+
 export default function AllVisits(props) {
   const [loading, setLoading] = useState("false");
   const [visits, setVisits] = useState([]);
+  const router = useRouter();
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,7 +42,7 @@ export default function AllVisits(props) {
                   <div>Date:{visit.when.split("T")[0]}</div>
                   <div>Time:{visit.time}</div>
                 <div className={styles.buttongroup}>
-                    <button className={styles.moreinfobutton}>More info</button>
+                    <button className={styles.moreinfobutton} onClick={()=>router.push(`/user/admin/allvisits/${visit._id}`)}>More info</button>
                 </div>
                 </div>
               ))}

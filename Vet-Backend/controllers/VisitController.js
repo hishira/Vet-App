@@ -51,5 +51,14 @@ class VisitController {
         return res.status(404).send("Server error")
       }
   }
+  static async getMoreInfoAboutVisit(req,res){
+    try{
+      const visit = await visitModel.findById(req.body.visitID);
+      await visit.populate("pet").populate("clinic").execPopulate();
+      return res.status(200).json(visit);
+    }catch(e){
+      return res.status(404).send("Server error");
+    }
+  }
 }
 module.exports = VisitController;
