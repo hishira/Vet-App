@@ -1,15 +1,15 @@
 .maincomponent {
-  border: 2px solid red;
   opacity: 0;
-  animation: appear .5s ease forwards;
-  transition: opacity .5s ease-in;
+  animation: appear 0.5s ease forwards;
+  transition: opacity 0.5s ease-in;
 }
-@keyframes appear{
-    from{
-        opacity: 0;
-    }to{
-        opacity: 1;
-    }
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 .visits {
   display: flex;
@@ -28,23 +28,80 @@
   align-items: center;
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
+  border-radius: 10px;
 }
-.buttongroup{
-    display: flex;
-    justify-content: center;
+.buttongroup {
+  display: flex;
+  justify-content: center;
 }
-.moreinfobutton{
-    padding:.5rem;
-    border:none;
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.5);
-    border-radius: 10px;
-    font-size: .8rem;
-    width: 7.5rem;
-    outline: none;
-    transition: scale .3s linear;
+.moreinfobutton {
+  padding: 0.5rem;
+  border: none;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+  font-size: 0.8rem;
+  width: 7.5rem;
+  outline: none;
+  transition: scale 0.3s linear;
 }
-.moreinfobutton:active{
-    transform: scale(1.05);
+.moreinfobutton:active {
+  transform: scale(1.05);
+}
+.moreinfocomponent {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 10px;
+}
+.wheninfo {
+}
+.whereinfo {
+}
+.petinfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.arrowcontainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
+}
+.arrowcontainer:hover {
+  cursor: pointer;
+}
+.leftarrow {
+  width: 50px;
+  height: 50px;
+  position: relative;
+}
+.leftarrow::before {
+  content: " ";
+  width: 40px;
+  height: 20px;
+  top: 25%;
+  left: 20%;
+  position: absolute;
+  background-color: slategray;
+  border: 1px solid slategray;
+}
+.leftarrow::after {
+  content: " ";
+  height: 0;
+  width: 0;
+  border: 20px solid slategray;
+  border-bottom-color: transparent;
+  border-top-color: transparent;
+  border-left-color: transparent;
+  position: absolute;
+  left: -30px;
+  top: 7.5%;
 }
