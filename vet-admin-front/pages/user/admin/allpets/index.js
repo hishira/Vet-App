@@ -57,7 +57,8 @@ export default function AllPets(props) {
         ) :loading==="end"?(
             <div className={styles.maincomponent}>
                 {pets.map(pet=><div className={styles.petcomponent}>
-                    {pet.name}
+                    <div>Name: {pet.name}</div>
+                    <div>Age: {pet.age}</div>
                 </div>)}
             </div>
         ): (
