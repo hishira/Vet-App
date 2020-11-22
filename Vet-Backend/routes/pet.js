@@ -9,4 +9,5 @@ app.get("/pets",PetController.getAllPets);
 app.get("/petswithauth",checkifAuthenticated,PetController.getAllPets);
 app.post("/petbyid",checkifAuthenticated,PetController.getPetByID);
 app.post("/editpet",checkifAuthenticated,PetController.Update);
+app.post("/getpetbyspecies",checkifAuthenticated,PetController.getPetBySpecies);
 module.exports = app;

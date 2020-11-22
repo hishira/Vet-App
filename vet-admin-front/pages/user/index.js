@@ -68,66 +68,90 @@ function User(props) {
     menuelement.flag = !menuelement.flag;
   };
   return (
-    
-      <div className={styles.usermaincontainer}>
-        {Object.keys(userInfo ? userInfo : []).length === 0 ? (
-          <PageLoader  />
-        ) : (
+    <div className={styles.usermaincontainer}>
+      {Object.keys(userInfo ? userInfo : []).length === 0 ? (
+        <PageLoader />
+      ) : (
+        <div>
+          <header className={styles.userheader}>
+            <button
+              onClick={() => onMenuButtonClick()}
+              className={styles.menubutton}
+            >
+              Menu
+            </button>
+            <button
+              className={styles.logoutbutton}
+              onClick={() => logout(router)}
+            >
+              Logout
+            </button>
+          </header>
           <div>
-            <header className={styles.userheader}>
-              <button
-                onClick={() => onMenuButtonClick()}
-                className={styles.menubutton}
-              >
-                Menu
-              </button>
-              <button
-                className={styles.logoutbutton}
-                onClick={() => logout(router)}
-              >
-                Logout
-              </button>
-            </header>
-            <div>
-              <ul className={styles.menu}>
-                {userInfo.type === "ADMIN" ? (
-                  <div>
-                    <li
-                      className={styles.menuchild}
-                      onClick={() => onMenuClick(0)}
-                    >
-                      User
-                    </li>
-                    <ul className={styles.usersubmenu}>
-                      <li className={styles.lielement} onClick={() => router.push("/user/admin/createuser")}>
-                        Create user
-                      </li>
-                      <li className={styles.lielement} onClick={()=>router.push("/user/admin/edituser")}>Edit users</li>
-                      <li className={styles.lielement}>Delete user</li>
-                    </ul>
-                  </div>
-                ) : (
-                  <div />
-                )}
-                <li className={styles.menuchild} onClick={() => onMenuClick(1)}>Visits</li>
+            <ul className={styles.menu}>
+              {userInfo.type === "ADMIN" ? (
+                <div>
+                  <li
+                    className={styles.menuchild}
+                    onClick={() => onMenuClick(0)}
+                  >
+                    User
+                  </li>
                   <ul className={styles.usersubmenu}>
-                    <li className={styles.lielement} onClick={()=>router.push("/user/admin/allvisits")}>See all visits</li>
+                    <li
+                      className={styles.lielement}
+                      onClick={() => router.push("/user/admin/createuser")}
+                    >
+                      Create user
+                    </li>
+                    <li
+                      className={styles.lielement}
+                      onClick={() => router.push("/user/admin/edituser")}
+                    >
+                      Edit users
+                    </li>
+                    <li className={styles.lielement}>Delete user</li>
                   </ul>
-              </ul>
-            </div>
-            <div className={styles.userinfoCard}>
-              <div className={styles.userinfoCardText}>
-                <div className={styles.email}>Email: {userInfo.email}</div>
-                <div className={styles.accounttype}>
-                  Account-Type: {userInfo.type}
                 </div>
+              ) : (
+                <div />
+              )}
+              <li className={styles.menuchild} onClick={() => onMenuClick(1)}>
+                Visits
+              </li>
+              <ul className={styles.usersubmenu}>
+                <li
+                  className={styles.lielement}
+                  onClick={() => router.push("/user/admin/allvisits")}
+                >
+                  See all visits
+                </li>
+              </ul>
+              <li className={styles.menuchild} onClick={() => onMenuClick(2)}>
+                Pets
+              </li>
+              <ul className={styles.usersubmenu}>
+                <li
+                  className={styles.lielement}
+                  onClick={() => router.push("/user/admin/allpets")}
+                >
+                  All pets
+                </li>
+              </ul>
+            </ul>
+          </div>
+          <div className={styles.userinfoCard}>
+            <div className={styles.userinfoCardText}>
+              <div className={styles.email}>Email: {userInfo.email}</div>
+              <div className={styles.accounttype}>
+                Account-Type: {userInfo.type}
               </div>
             </div>
           </div>
-        )}
-        {props.children}
-      </div>
-  
+        </div>
+      )}
+      {props.children}
+    </div>
   );
 }
 

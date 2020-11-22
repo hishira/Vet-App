@@ -48,6 +48,10 @@ export default function VisitById(props) {
             <div className={styles.petinfo}>
               {`Pet: ${visitInfo.pet.species}, Name: ${visitInfo.pet.name}, Age:${visitInfo.pet.age}`}
             </div>
+            <div className={styles.buttongroup}>
+              <button className={styles.editbutton}>Edit</button>
+              <button className={styles.editbutton}>Delete</button>
+            </div>
           </div>
           <div
             onClick={() => router.push("/user/admin/allvisits")}

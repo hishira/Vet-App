@@ -1,0 +1,49 @@
+.maincomponent{
+    display: flex;
+    flex-direction: column;
+    width:75%;
+    margin: 1rem auto 0 auto;
+    justify-content: center;
+    align-items: center;
+}
+.label{
+    font-size: 1.1rem;
+    padding: .3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.petselect{
+    padding:.3rem;
+    border: 1px solid rgba(255,255,255,.5);
+    background: transparent;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255,255,255,.5);
+    outline: none;
+    border-radius: 10px;
+    margin-top: .4rem;
+    margin-left: 1rem;
+}
+.petbutton{
+    border:none;
+    padding:.5rem;
+    margin-top: .5rem;
+    border-radius: 10px;
+    line-height: 1.3rem;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255,255,255,.5);
+    width:10rem;
+    margin-left: 1rem;
+    outline:none;
+}
+.maincomponent{
+    display: flex;
+    margin-left:auto;
+    margin-right: auto;
+    width:60%;
+}
+.petcomponent{
+    
+}
+

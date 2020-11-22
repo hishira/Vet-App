@@ -71,5 +71,13 @@ class PetController {
       return res.status(500).send("Server error")
     }
   }
+  static async getPetBySpecies(req,res){
+    try{
+      const pets = await petModel.find({species:req.body.species});
+      return res.status(200).json(pets);
+    }catch(e){
+      return res.status(404).send("Error");
+    }
+  }
 }
 module.exports = PetController;

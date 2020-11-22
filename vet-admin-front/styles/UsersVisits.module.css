@@ -55,6 +55,9 @@
   align-items: center;
   margin-top: 0.5rem;
   padding: 0.5rem;
+  width:50%;
+  margin-left: auto;
+  margin-right: auto;
   backdrop-filter: blur(10px);
   background-color: rgba(255, 255, 255, 0.5);
   border-radius: 10px;
@@ -104,4 +107,30 @@
   position: absolute;
   left: -30px;
   top: 7.5%;
+}
+.buttongroup{
+  display: flex;
+  box-sizing: border-box;
+  padding: .6rem .4rem .4rem .4rem;
+}
+.editbutton{
+  padding:.5rem;
+  outline: none;
+  border:none;
+  backdrop-filter: blur(10px);
+  background-color: rgba(255,255,255,.5);
+  border-radius: 10px;
+  font-size: .8rem;
+  width: 7.5rem;
+  transition: scale .3s linear;
+  
+}
+.editbutton:nth-of-type(2){
+  margin-left: .5rem;
+}
+.editbutton:hover{
+  cursor: pointer;
+  backface-visibility: hidden;
+  transform: perspective(1px) translateZ(0);
+  transform: scale(1.048);
 }
