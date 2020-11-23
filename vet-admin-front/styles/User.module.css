@@ -5,8 +5,7 @@
     padding:.5rem;
     justify-content: space-between;
     background: #0096c7;
-    box-shadow: 0px 3px black; 
-   
+    position: relative;
 }
 .menubutton,.logoutbutton{
     padding:.5rem;
@@ -104,10 +103,13 @@
 .usercardbackground{
     padding: .3rem;
     background:#90e0ef;
-    background: linear-gradient(45deg, #90e0ef 75%, white 25%);
+    height:11rem;
+    display: flex;
+    align-items: center;
+    box-shadow: 0px 5px lightgray;
+    background: linear-gradient(45deg, #90e0ef 50%, #caf0f8 50%);
 }
 .userinfoCard{
-    
     border-radius: 15px;
     padding:.65rem;
     display: flex;

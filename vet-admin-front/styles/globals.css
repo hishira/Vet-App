@@ -16,9 +16,7 @@ a {
 }
 body{
   position:relative;
-  height:100vh;
-  border: 2px solid red;
-}
+  height:100vh;}
 * {
   box-sizing: border-box;
   font-size: 1.2rem;

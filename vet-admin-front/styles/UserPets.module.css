@@ -45,7 +45,7 @@
     width:60%;
 }
 .petcomponent{
-    background:rgba(255,255,255,.5);
+    background-color: #48cae4;
     padding:.8rem;
     display: flex;
     flex-direction: column;
@@ -54,6 +54,6 @@
     border-radius: 10px;
     width: 15.5rem;
     font-size: .8rem;
-    box-shadow: 1px 1px 3px 3px lightslategray;
+    box-shadow: 1px 1px 3px 3px lightgray;
 }
 
