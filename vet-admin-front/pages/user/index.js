@@ -140,6 +140,7 @@ function User(props) {
               </ul>
             </ul>
           </div>
+          <div className={styles.usercardbackground}>
           <div className={styles.userinfoCard}>
             <div className={styles.userinfoCardText}>
               <div className={styles.email}>Email: {userInfo.email}</div>
@@ -147,6 +148,7 @@ function User(props) {
                 Account-Type: {userInfo.type}
               </div>
             </div>
+          </div>
           </div>
         </div>
       )}

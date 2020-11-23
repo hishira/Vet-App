@@ -5,7 +5,7 @@ import { getPetBySpecies } from "../../../../utils/api/petApi";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
 import Loader from "../../../../components/loader";
 export default function AllPets(props) {
-  const [petType, selectPetType] = useState("");
+  const [petType, selectPetType] = useState("Dog");
   const [pets, setPets] = useState([]);
   const [loading, setLoading] = useState("false");
   useEffect(() => {
@@ -45,11 +45,6 @@ export default function AllPets(props) {
             <option value="Guinea Pig">Guinea Pig</option>
           </select>
         </label>
-        {petType !== "" ? (
-          <button className={styles.petbutton}>See</button>
-        ) : (
-          <div />
-        )}
         {loading === "yes" ? (
           <Loader />
         ) : loading === "error" ? (

@@ -16,7 +16,7 @@
 }
 .petselect{
     padding:.3rem;
-    border: 1px solid rgba(255,255,255,.5);
+    border:none;
     background: transparent;
     backdrop-filter: blur(10px);
     background-color: rgba(255,255,255,.5);
@@ -24,6 +24,7 @@
     border-radius: 10px;
     margin-top: .4rem;
     margin-left: 1rem;
+    width:10rem;
 }
 .petbutton{
     border:none;
@@ -53,5 +54,6 @@
     border-radius: 10px;
     width: 15.5rem;
     font-size: .8rem;
+    box-shadow: 1px 1px 3px 3px lightslategray;
 }
 
