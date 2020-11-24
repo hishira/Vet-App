@@ -8,6 +8,13 @@
     border-radius: 10px;
     box-sizing: border-box;
     resize: none;
+    width:22rem;
+    text-align: center;
+    left:50%;
+    top:50%;
+    z-index: 12313;
+    transform: translate(-50%,-50%);
+    border: .1rem solid slategray
 }
 .maintext{
     font-size: 1.05rem;

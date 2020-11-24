@@ -16,7 +16,7 @@
 }
 .petselect{
     padding:.3rem;
-    border:none;
+    border: .005rem solid slategray;
     background: transparent;
     backdrop-filter: blur(10px);
     background-color: rgba(255,255,255,.5);
@@ -46,14 +46,37 @@
 }
 .petcomponent{
     background-color: #48cae4;
-    padding:.8rem;
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
     border-radius: 10px;
     width: 15.5rem;
     font-size: .8rem;
     box-shadow: 1px 1px 3px 3px lightgray;
+    box-sizing: border-box;
 }
-
+.petinfo{
+    width: 65%;
+    padding: .3rem;
+}
+.petbuttons{
+    width:35%;
+    height: 100%;
+}
+.deletebutton,.editbutton{
+    border: none;
+    outline:none;
+    width: 100%;
+    min-height:2rem;
+    padding: 0rem;
+    font-size: 1.1rem;
+    background-color: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(10px);
+    margin:0;
+}
+.deletebutton:hover,.editbutton:hover{
+    border:.1rem solid slategray;
+    border-radius: 5px;
+    cursor: pointer;
+}

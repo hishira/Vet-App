@@ -6,6 +6,10 @@
     justify-content: space-between;
     background: #0096c7;
     position: relative;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-bottom: .8rem;
+    z-index: 100;
 }
 .menubutton,.logoutbutton{
     padding:.5rem;
@@ -15,6 +19,7 @@
     border-radius: 10px;
     font-size: 1rem;
     z-index: 100;
+    cursor: pointer;
 }
 .lielement{
     cursor: pointer;
@@ -50,12 +55,12 @@
     }
 }
 .menuchild{
-    border-bottom: .2rem solid black;
+    border-bottom: .1rem solid black;
     padding: .5rem 1.2rem .5rem 0rem;
     display: block;
     width: 9rem;
     text-align: center;
-    margin-top: .5rem;
+    margin-top: .2rem;
     background-color:  rgba(255, 255, 255, 0.95);
     z-index: -5;
 }
@@ -106,6 +111,9 @@
     height:11rem;
     display: flex;
     align-items: center;
+    position: relative;
+    top:-.3rem;
+    min-height: 12rem ;
     box-shadow: 0px 5px lightgray;
     background: linear-gradient(45deg, #90e0ef 50%, #caf0f8 50%);
 }

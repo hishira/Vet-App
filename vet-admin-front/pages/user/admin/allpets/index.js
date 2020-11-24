@@ -25,8 +25,7 @@ export default function AllPets(props) {
         setLoading("error");
       }
     };
-    if( petType!== "")
-        fetchData();
+    if (petType !== "") fetchData();
   }, [petType]);
   return (
     <UserView userdata={props.userdata}>
@@ -49,14 +48,24 @@ export default function AllPets(props) {
           <Loader />
         ) : loading === "error" ? (
           <div>Error</div>
-        ) :loading==="end"?(
-            <div className={styles.maincomponent}>
-                {pets.map(pet=><div className={styles.petcomponent}>
+        ) : loading === "end" ? (
+          <div className={styles.maincomponent}>
+            {pets.map((pet) => (
+              <div className={styles.petcomponent}>
+                
+                  <div className={styles.petinfo}>
                     <div>Name: {pet.name}</div>
                     <div>Age: {pet.age}</div>
-                </div>)}
-            </div>
-        ): (
+                  </div>
+                  <div className={styles.petbuttons}>
+                    <button className={styles.deletebutton}>Delete</button>
+                    <button className={styles.editbutton}>Edit</button>
+                  </div>
+                
+              </div>
+            ))}
+          </div>
+        ) : (
           <div />
         )}
       </div>
