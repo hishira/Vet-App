@@ -7,11 +7,13 @@ import {inject,observer} from 'mobx-react'
 function EditPet(props) {
   const [petName, setPetName] = useState(props.route.params.pet.name);
   const [age, setAge] = useState(String(props.route.params.pet.age));
+  const [species,setSpecies] = useState(props.route.params.pet.species)
   const editPetHandle = async ()=>{
     let obj = {
       petID:props.route.params.pet._id,
       petName:petName,
-      petAge:age
+      petAge:age,
+      species:species
     }
     let currentuser = firebase.auth().currentUser
     let token = await currentuser.getIdToken().then(res=>res);

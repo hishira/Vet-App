@@ -5,6 +5,7 @@ import { getPetBySpecies,deletePet } from "../../../../utils/api/petApi";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
 import Loader from "../../../../components/loader";
 import YesOrNoDialog from '../../../../components/yesornodialoguser';
+import EditPetModal from '../../../../components/EditPetModal';
 export default function AllPets(props) {
   const [petType, selectPetType] = useState("Dog");
   const [pets, setPets] = useState([]);
@@ -12,6 +13,9 @@ export default function AllPets(props) {
   const [reload,setReload] = useState(false);
   const [petToDelete,setPetDoDelete] = useState({});
   const [deleteDialogOpen,setDeleteDialogOpen] = useState(false);
+  
+  const [petToEdit,setPetToEdit] = useState({});
+  const [petEditDialogOpen,setEditDialogOpen] = useState(false);
   useEffect(() => {
     const fetchData = async () => {
       let obj = { species: petType };
@@ -53,6 +57,13 @@ export default function AllPets(props) {
       setReload(!reload);
     }
   }
+  const editPetHandle = (pet)=>{
+    setPetToEdit(pet);
+    setEditDialogOpen(!petEditDialogOpen);
+  }
+  const closeEditDialogHandle = ()=>{
+    setEditDialogOpen(!petEditDialogOpen);
+  }
   return (
     <UserView userdata={props.userdata}>
       <div className={styles.maincomponent}>
@@ -62,6 +73,11 @@ export default function AllPets(props) {
           open={deleteDialogOpen}
           message="Are you sure to delete pet"
           yeshandle={deletePetHandle}
+          />
+          <EditPetModal
+            open={petEditDialogOpen}
+            pet={petToEdit}
+            closehandle={closeEditDialogHandle}
           />
         <label className={styles.label}>
           <div>Select pet:</div>
@@ -88,11 +104,11 @@ export default function AllPets(props) {
                 
                   <div className={styles.petinfo}>
                     <div>Name: {pet.name}</div>
-                    <div>Age: {pet.age}</div>
+                    <div>Age:  {pet.age}</div>
                   </div>
                   <div className={styles.petbuttons}>
                     <button className={styles.deletebutton} onClick={()=>beforePetDelete(pet)}>Delete</button>
-                    <button className={styles.editbutton}>Edit</button>
+                    <button className={styles.editbutton} onClick={()=>editPetHandle(pet)}>Edit</button>
                   </div>
                 
               </div>

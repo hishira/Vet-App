@@ -62,6 +62,7 @@ class PetController {
       const pet = await petModel.findByIdAndUpdate(req.body.petID, {
         name: req.body.petName,
         age: req.body.petAge,
+        species: req.body.species
       },{new:true},(err,dane)=>{
         if(err)
           return res.status(404).send("Error while pet updating");

@@ -46,7 +46,7 @@ export default function VisitById(props) {
               {`Where: ${visitInfo.clinic.city}, ${visitInfo.clinic.address}`}
             </div>
             <div className={styles.petinfo}>
-              {`Pet: ${visitInfo.pet.species}, Name: ${visitInfo.pet.name}, Age:${visitInfo.pet.age}`}
+              {`Pet: ${visitInfo.pet?.species}, Name: ${visitInfo.pet.name}, Age:${visitInfo.pet.age}`}
             </div>
             <div className={styles.buttongroup}>
               <button className={styles.editbutton}>Edit</button>

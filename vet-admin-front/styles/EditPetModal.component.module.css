@@ -1,0 +1,95 @@
+.maincomponent{
+    position: absolute;
+    z-index: 4000;
+    background-color: rgba(255, 255, 255, .5);
+    backdrop-filter: blur(10px);
+    border: .1rem solid slategray;
+    padding: .6rem;
+    width: 24rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+}
+.editmodalheader{
+    display: flex;
+    width: 100%;
+    height: 1.5rem;
+    justify-content: flex-end;
+}
+.closetag{
+    width:1.4rem;
+    height:1.5rem;
+    position: relative;
+    cursor: pointer;
+}
+.closetag::before,.closetag::after{
+    content: " ";
+    position: absolute;
+    right:0;
+    top:30%;
+    width:100%;
+    transform:  rotate(45deg);
+    height:5px;
+    background: black;
+}
+.closetag:hover::after{
+    background-color: slategray;
+}
+.closetag:hover::before{
+    background-color: slategray;
+}
+.closetag::after{
+    transform: rotate(-45deg);
+}
+.peteditform{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: .3rem;
+    align-items: center;
+    width: 100%;
+}
+.nameinput,.ageinput,.speciesselect{
+    border: .1rem solid slategray;
+    outline: none;
+    padding: .3rem;
+    margin-left: .2rem;
+    border-radius: 10px;
+    
+}
+
+.nameinput{
+}
+.ageinput,.speciesselect{
+}
+.speciesselect{
+    font-size: 1rem;
+}
+.namelabeltext,.agelabeltext{
+}
+.agelabeltext{
+    margin-right: 1rem;
+}
+.labelclass{
+    margin-top:.4rem;
+    width:100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.petmodalbutton{
+    padding:.5rem;
+    border: none;
+    border-radius: 10px;
+    margin-top: .9rem;
+    height:2rem;
+    width:7rem;
+    line-height: 1rem;
+    background: lightskyblue;
+    box-shadow: inset 0 -3px slateblue;
+}
+.petmodalbutton:hover{
+    cursor: pointer;
+}
