@@ -1,0 +1,42 @@
+.maincomponent{
+
+    min-height: 50vh;
+    position: relative;
+}
+.petcreateform{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 3rem;
+  
+}
+.petselect{
+
+}
+.namelabel,.agelabel,.selectlabel,.userlabel{
+    width:22rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: .5rem;
+}
+.nameinput,.ageinput,.petselect,.userselect{
+    border: .1rem solid slategray;
+    padding: .5rem;
+    border-radius: 10px;
+    outline: none;
+    background-color: rgba(255, 255, 255, .5);
+    backdrop-filter: blur(10px);
+    width:12rem;
+}
+.createpetbutton{
+    border: .1rem solid slategray;
+    padding: .5rem;
+    margin-top: 2rem;
+    background: lightskyblue;
+    font-size: 1.05rem;
+    border-radius: 10px;
+    outline:none;
+    cursor: pointer;
+ }

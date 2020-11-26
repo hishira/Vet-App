@@ -137,6 +137,7 @@ function User(props) {
                 >
                   All pets
                 </li>
+                <li className={styles.lielement} onClick={()=>router.push("/user/admin/createpet")}>Create pet</li>
               </ul>
             </ul>
           </div>
