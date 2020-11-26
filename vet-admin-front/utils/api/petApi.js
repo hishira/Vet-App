@@ -4,8 +4,12 @@ async function getPetBySpecies(obj, token = "") {
   let url = getApiLink("pet/getpetbyspecies");
   return await fetch(url, GetFetchPostObjectWithAuth(obj, token));
 }
-async function deletePet(obj,token=""){
+async function deletePet(obj, token = "") {
   let url = getApiLink("pet/deletepet");
-  return await fetch(url,GetFetchPostObjectWithAuth(obj,token));
+  return await fetch(url, GetFetchPostObjectWithAuth(obj, token));
 }
-export { getPetBySpecies,deletePet };
+async function editPet(obj, token = "") {
+  let url = getApiLink("pet/editpet");
+  return await fetch(url, GetFetchPostObjectWithAuth(obj, token));
+}
+export { getPetBySpecies, deletePet, editPet };

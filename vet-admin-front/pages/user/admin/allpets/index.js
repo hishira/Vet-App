@@ -42,6 +42,9 @@ export default function AllPets(props) {
   const closeDeleteDialog = ()=>{
     setDeleteDialogOpen(!deleteDialogOpen);
   }
+  const reloadhandle = ()=>{
+    setReload(!reload);
+  }
   const deletePetHandle = async ({_id})=>{
     let obj = {
       petID: _id
@@ -77,6 +80,7 @@ export default function AllPets(props) {
           <EditPetModal
             open={petEditDialogOpen}
             pet={petToEdit}
+            reloadhandle={reloadhandle}
             closehandle={closeEditDialogHandle}
           />
         <label className={styles.label}>
