@@ -102,7 +102,7 @@ export default function AllPets(props) {
         ) : loading === "error" ? (
           <div>Error</div>
         ) : loading === "end" ? (
-          <div className={styles.maincomponent}>
+          <div className={styles.pets}>
             {pets.map((pet) => (
               <div key={pet._id} className={styles.petcomponent}>
                 

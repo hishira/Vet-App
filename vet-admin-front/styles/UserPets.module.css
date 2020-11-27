@@ -42,7 +42,22 @@
     display: flex;
     margin-left:auto;
     margin-right: auto;
-    width:60%;
+    width:90%;
+}
+.pets{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    box-sizing: border-box;
+    padding: .3rem;
+    border:2px solid red;
+    width:100%;
+}
+@media (max-width:1000px){
+    .pets{
+    }
 }
 .petcomponent{
     background-color: #48cae4;
@@ -53,6 +68,7 @@
     border-radius: 10px;
     width: 15.5rem;
     font-size: .8rem;
+    margin-top: .5rem;
     box-shadow: 1px 1px 3px 3px lightgray;
     box-sizing: border-box;
 }
@@ -63,17 +79,26 @@
 .petbuttons{
     width:35%;
     height: 100%;
+    border-radius: 10px;
+
 }
 .deletebutton,.editbutton{
     border: none;
     outline:none;
     width: 100%;
     min-height:2rem;
-    padding: 0rem;
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
     margin:0;
+    border:2
+    
+}
+.deletebutton{
+    border-top-right-radius: 10px;
+}
+.editbutton{
+    border-bottom-right-radius: 10px;
 }
 .deletebutton:hover,.editbutton:hover{
     border:.1rem solid slategray;
