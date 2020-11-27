@@ -14,7 +14,9 @@ export default function CreatePet(props) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState("false");
   const [messageOpen,setMessageOpen] = useState(false);
-  const createPetHandle = () => {
+  const [messageText,setMessageText] = useState("");
+  const [messageColor,setMessageColor] = useState("");
+  const createPetHandle = async () => {
     let obj = {
       name: name,
       age: age,
@@ -23,9 +25,25 @@ export default function CreatePet(props) {
     };
     const token = getUserFromCookie()["token"]
     console.log(obj,token);
+    
+    
+    let data = await createPet(obj,token).then(response=>{
+      if(response.status === 200)
+        return response.json();
+      return false
+    })
+    if(data === false){ 
+      setMessageText("Problem with pet create");
+      setMessageColor("lightcoral");
+      setMessageOpen(!messageOpen);
+      setTimeout(()=>setMessageOpen(false),1500);
+      return;
+    }
+    setMessageText("OK, pet created");
+    setMessageColor("");
     setMessageOpen(!messageOpen);
-    //setTimeout(()=>setMessageOpen(false),1500);
-
+    setTimeout(()=>setMessageOpen(false),1500);
+    
     
   };
   useEffect(() => {
@@ -50,7 +68,7 @@ export default function CreatePet(props) {
   }, []);
   return (
     <UserView userdata={props.userdata}>
-      <SuccessfullMessage open={messageOpen} message={'OK, pet created'}/>
+      <SuccessfullMessage open={messageOpen} color={messageColor} message={messageText}/>
       <div className={styles.maincomponent}>
         <div className={styles.petcreateform}>
           <div>
@@ -60,6 +78,7 @@ export default function CreatePet(props) {
                 className={styles.nameinput}
                 placeholder="Name"
                 type="text"
+                onChange={(e)=>setName(e.target.value)}
               />
             </label>
           </div>
@@ -70,6 +89,7 @@ export default function CreatePet(props) {
                 className={styles.ageinput}
                 placeholder="0"
                 type="number"
+                onChange={(e)=>setAge(e.target.value)}
               />
             </label>
           </div>
