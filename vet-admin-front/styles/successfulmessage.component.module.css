@@ -1,0 +1,32 @@
+.successfullmessage{
+    position: absolute;
+    z-index: 4000;
+    border:none;
+    background-color: rgb(168, 253, 168,.7);
+    backdrop-filter: blur(10px);
+    height:5rem;
+    width:15rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left:50%;
+    top:50%;
+    transform: translate(-50%,-50%);
+    border-radius: 10px;
+    opacity: 0;
+    animation: messageappear .3s ease-in forwards;
+    transition: opacity .3s ease-in-out;
+}
+.successfullmessage__message{
+    padding:.5rem;
+    word-spacing: .2rem;
+    line-height: 1rem;
+}
+@keyframes messageappear{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}

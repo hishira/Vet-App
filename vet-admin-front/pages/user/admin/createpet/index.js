@@ -4,6 +4,8 @@ import styles from "../../../../styles/CreatePet.module.css";
 import { getAllUsers } from "../../../../utils/api/userApi";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
 import Loader from "../../../../components/loader";
+import {createPet} from '../../../../utils/api/petApi'
+import SuccessfullMessage from '../../../../components/successfulmessage';
 export default function CreatePet(props) {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -11,6 +13,7 @@ export default function CreatePet(props) {
   const [userID, setUserID] = useState("");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState("false");
+  const [messageOpen,setMessageOpen] = useState(false);
   const createPetHandle = () => {
     let obj = {
       name: name,
@@ -18,7 +21,12 @@ export default function CreatePet(props) {
       species: species,
       userID: userID,
     };
-    console.log(obj);
+    const token = getUserFromCookie()["token"]
+    console.log(obj,token);
+    setMessageOpen(!messageOpen);
+    //setTimeout(()=>setMessageOpen(false),1500);
+
+    
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -42,6 +50,7 @@ export default function CreatePet(props) {
   }, []);
   return (
     <UserView userdata={props.userdata}>
+      <SuccessfullMessage open={messageOpen} message={'OK, pet created'}/>
       <div className={styles.maincomponent}>
         <div className={styles.petcreateform}>
           <div>

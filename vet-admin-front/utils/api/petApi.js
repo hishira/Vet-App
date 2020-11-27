@@ -12,4 +12,8 @@ async function editPet(obj, token = "") {
   let url = getApiLink("pet/editpet");
   return await fetch(url, GetFetchPostObjectWithAuth(obj, token));
 }
-export { getPetBySpecies, deletePet, editPet };
+async function createPet(obj,token=""){
+  let url = getApiLink("pet/registerpet");
+  return await fetch(url,GetFetchPostObjectWithAuth(obj,token));
+}
+export { getPetBySpecies, deletePet, editPet, createPet };
