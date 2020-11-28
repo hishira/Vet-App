@@ -15,7 +15,7 @@
     justify-content: center;
     align-items: center;
 }
-.petselect{
+.label__petselect{
     padding:.3rem;
     border: .005rem solid slategray;
     background: transparent;

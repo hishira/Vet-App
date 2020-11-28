@@ -86,7 +86,7 @@ export default function AllPets(props) {
         <label className={styles.label}>
           <div>Select pet:</div>
           <select
-            className={styles.petselect}
+            className={styles["label__petselect"]}
             value={petType}
             onChange={(e) => selectPetType(e.target.value)}
           >

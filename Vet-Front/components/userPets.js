@@ -104,6 +104,7 @@ function UserPets(props) {
             width: "50%",
             marginLeft: "auto",
             marginRight: "auto",
+            borderRadius:50
           }}
           mode="contained"
         >

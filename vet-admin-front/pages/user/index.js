@@ -110,7 +110,6 @@ function User(props) {
                     >
                       Edit users
                     </li>
-                    <li className={styles.lielement}>Delete user</li>
                   </ul>
                 </div>
               ) : (

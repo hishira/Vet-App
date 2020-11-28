@@ -35,6 +35,7 @@ function CreateVisit(props) {
         count += 1;
       }
       props.store.setTimesArray(arr);
+      setTime(arr[0][1])
       console.log(arr.length);
     };
     const fetchData = async () => {
