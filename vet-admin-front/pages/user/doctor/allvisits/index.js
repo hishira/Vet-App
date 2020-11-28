@@ -17,6 +17,7 @@ export default function DoctorAllVisits(props){
                     return  false;
                 }) 
                 if(data === false) throw new Error("Error")
+                console.log(data);
                 setVisits(data);
                 setLoading("end")
             }catch(e){
@@ -37,7 +38,7 @@ export default function DoctorAllVisits(props){
                   <div>Date:{visit.when.split("T")[0]}</div>
                   <div>Time:{visit.time}</div>
                 <div className={styles.buttongroup}>
-                    <button className={styles.moreinfobutton} onClick={()=>router.push(`/user/admin/allvisits/${visit._id}`)}>More info</button>
+                    <button className={styles.moreinfobutton} >More info</button>
                 </div>
                 </div>
               ))}
