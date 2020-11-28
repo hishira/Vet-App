@@ -106,13 +106,13 @@ export default function AllPets(props) {
             {pets.map((pet) => (
               <div key={pet._id} className={styles.petcomponent}>
                 
-                  <div className={styles.petinfo}>
+                  <div className={styles["petcomponent__petinfo"]}>
                     <div>Name: {pet.name}</div>
                     <div>Age:  {pet.age}</div>
                   </div>
                   <div className={styles.petbuttons}>
-                    <button className={styles.deletebutton} onClick={()=>beforePetDelete(pet)}>Delete</button>
-                    <button className={styles.editbutton} onClick={()=>editPetHandle(pet)}>Edit</button>
+                    <button className={styles["petbuttons__deletebutton"]} onClick={()=>beforePetDelete(pet)}>Delete</button>
+                    <button className={styles["petbuttons__editbutton"]} onClick={()=>editPetHandle(pet)}>Edit</button>
                   </div>
                 
               </div>

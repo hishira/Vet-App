@@ -6,6 +6,7 @@
     justify-content: center;
     align-items: center;
 }
+
 .label{
     font-size: 1.1rem;
     padding: .3rem;
@@ -31,7 +32,6 @@
     padding:.5rem;
     margin-top: .5rem;
     border-radius: 10px;
-    line-height: 1.3rem;
     backdrop-filter: blur(10px);
     background-color: rgba(255,255,255,.5);
     width:10rem;
@@ -52,7 +52,6 @@
     align-items: center;
     box-sizing: border-box;
     padding: .3rem;
-    border:2px solid red;
     width:100%;
 }
 @media (max-width:1000px){
@@ -68,40 +67,53 @@
     border-radius: 10px;
     width: 15.5rem;
     font-size: .8rem;
-    margin-top: .5rem;
+    margin-top: .3rem;
     box-shadow: 1px 1px 3px 3px lightgray;
     box-sizing: border-box;
+    opacity: 0;
+    animation: petscomponent .4s ease-in forwards;
+    transition: opacity .3s ease-in;
 }
-.petinfo{
+
+@keyframes petscomponent{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+.petcomponent__petinfo{
     width: 65%;
     padding: .3rem;
 }
 .petbuttons{
     width:35%;
+    position: relative;
     height: 100%;
-    border-radius: 10px;
 
 }
-.deletebutton,.editbutton{
+.petbuttons__deletebutton,.petbuttons__editbutton{
     border: none;
     outline:none;
     width: 100%;
-    min-height:2rem;
+    height: 100%;
     font-size: 1.05rem;
+    position: relative;
+    padding:.3rem;
     background-color: rgba(255, 255, 255, 0.5);
     backdrop-filter: blur(10px);
-    margin:0;
-    border:2
+    
     
 }
-.deletebutton{
+.petbuttons__deletebutton{
     border-top-right-radius: 10px;
 }
-.editbutton{
+.petbuttons__editbutton{
     border-bottom-right-radius: 10px;
+    
 }
-.deletebutton:hover,.editbutton:hover{
+.petbuttons__deletebutton:hover,.petbuttons__editbutton:hover{
     border:.1rem solid slategray;
-    border-radius: 5px;
     cursor: pointer;
 }
