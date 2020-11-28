@@ -89,8 +89,7 @@ function User(props) {
           </header>
           <div>
             <ul className={styles.menu}>
-              {userInfo.type === "ADMIN" ? (
-                <div>
+                <div style={{display:userInfo.type === "ADMIN"? "block":"none"}}>
                   <li
                     className={styles.menuchild}
                     onClick={() => onMenuClick(0)}
@@ -112,18 +111,23 @@ function User(props) {
                     </li>
                   </ul>
                 </div>
-              ) : (
-                <div />
-              )}
               <li className={styles.menuchild} onClick={() => onMenuClick(1)}>
                 Visits
               </li>
               <ul className={styles.usersubmenu}>
                 <li
+                  style={{display:userInfo.type === "ADMIN"? "block":"none"}}
                   className={styles.lielement}
                   onClick={() => router.push("/user/admin/allvisits")}
                 >
                   See all visits
+                </li>
+                <li
+                  style={{display:userInfo.type === "DOCTOR"? "block":"none"}}
+                  className={styles.lielement}
+                  onClick={() => router.push("/user/doctor/allvisits")}
+                >
+                  My visits
                 </li>
               </ul>
               <li className={styles.menuchild} onClick={() => onMenuClick(2)}>
