@@ -8,4 +8,8 @@ async function getInfoAboutVisit(obj, token = "") {
   let url = getApiLink("visit/visitinfo");
   return await fetch(url, GetFetchPostObjectWithAuth(obj, token));
 }
-export { getAllVisits, getInfoAboutVisit };
+async function getVisitsByDoctor(obj, token = "") {
+  let url = getApiLink("visit/visitinfo");
+  return await fetch(url, GetFetchPostObjectWithAuth(obj, token));
+}
+export { getAllVisits, getInfoAboutVisit, getVisitsByDoctor };
