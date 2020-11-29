@@ -48,6 +48,24 @@ export default function SpecificVisit(props) {
                 .join(":")}`}
             </div>
           </header>
+          <div className={styles["maincomponent__doctorinfo"]}>
+            <div className={styles["doctorinfo__petinfo"]}>
+              <div>Name: {visitInfo.pet.name}</div>
+              <div>Age: {visitInfo.pet.age}</div>
+              <div>Species: {visitInfo.pet.species}</div>
+              <div className={styles["petinfo__buttons"]}>
+                <button className={styles["buttons__button"]}>
+                  Create note
+                </button>
+                <button
+                  className={`${styles["buttons__button"]} ${styles["buttons__button--recipe"]}`}
+                >
+                  Create recipe
+                </button>
+              </div>
+            </div>
+            <div className={styles["doctorinfo__otherinfo"]}></div>
+          </div>
         </main>
       ) : loading === "error" ? (
         <div>Error</div>

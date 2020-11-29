@@ -1,6 +1,7 @@
 .maincomponent {
   display: flex;
   position: relative;
+  flex-direction: column;
   margin:0;
 }
 .maincomponent__header {
@@ -13,4 +14,44 @@
 .header__text {
   
   padding: 0.5rem;
+}
+.maincomponent__doctorinfo{
+    display: flex;
+    flex-wrap: wrap;
+    border: 2px solid black;
+}
+.doctorinfo__petinfo{
+    width: 50%;
+    border: 2px solid red;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: .7rem;
+    box-sizing: border-box;
+}
+.doctorinfo__otherinfo{
+    width:50%;
+    border: 2px solid purple
+}
+.petinfo__buttons{
+    outline: 1px solid red;
+    display: flex;
+    flex-wrap:wrap ;
+    justify-content: space-between;
+    align-items: center;
+    justify-items: center;
+    align-items: center;
+}
+
+.buttons__button{
+    width: 7rem;
+    font-size: 1rem;
+    border: none;
+    outline:none;
+    padding: .2rem;
+    border: .01rem solid slategray;
+    border-radius: 5px;
+    background-color: lightblue;
+    backdrop-filter: blur(10px);
 }
