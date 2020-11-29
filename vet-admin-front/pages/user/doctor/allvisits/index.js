@@ -4,9 +4,11 @@ import styles from "../../../../styles/doctor/AllVisits.module.css"
 import {getAllVisits, getVisitsByDoctor} from "../../../../utils/api/visitApi";
 import {getUserFromCookie} from '../../../../utils/auth/userCookies'
 import Loader from '../../../../components/loader'
+import {useRouter} from 'next/router'
 export default function DoctorAllVisits(props){
     const [loading,setLoading] = useState("false");
     const [visits,setVisits] = useState([]);
+    const router = useRouter();
     useEffect(()=>{
         const fetchData = async ()=>{
             try{
@@ -38,7 +40,7 @@ export default function DoctorAllVisits(props){
                   <div>Date:{visit.when.split("T")[0]}</div>
                   <div>Time:{visit.time}</div>
                 <div className={styles.buttongroup}>
-                    <button className={styles.moreinfobutton} >More info</button>
+                    <button className={styles.moreinfobutton} onClick={()=>router.push(`/user/doctor/allvisits/${visit._id}`)}>More info</button>
                 </div>
                 </div>
               ))}

@@ -1,0 +1,16 @@
+.maincomponent {
+  display: flex;
+  position: relative;
+  margin:0;
+}
+.maincomponent__header {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  background: lightblue;
+}
+.header__text {
+  
+  padding: 0.5rem;
+}
