@@ -30,6 +30,12 @@
     padding: .7rem;
     box-sizing: border-box;
 }
+.doctorinfo__petinfo > *{
+  width: 50%;
+  padding:.4rem;
+  display: flex;
+  justify-content: center;
+}
 .doctorinfo__otherinfo{
     width:50%;
     border: 2px solid purple

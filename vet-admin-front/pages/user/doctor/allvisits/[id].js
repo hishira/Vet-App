@@ -6,6 +6,7 @@ import { getUserFromCookie } from "../../../../utils/auth/userCookies";
 import Loading from "../../../../components/loader";
 import styles from "../../../../styles/doctor/SpecificVisit.module.css";
 import { useRouter } from "next/router";
+import Image from 'next/image'
 export default function SpecificVisit(props) {
   const [visitInfo, setVisitInfo] = useState({});
   const [loading, setLoading] = useState("no");
@@ -50,6 +51,9 @@ export default function SpecificVisit(props) {
           </header>
           <div className={styles["maincomponent__doctorinfo"]}>
             <div className={styles["doctorinfo__petinfo"]}>
+              <div>
+                <Image src="/Flowers.png"  width={150} height={150} quality={100}/>
+              </div>
               <div>Name: {visitInfo.pet.name}</div>
               <div>Age: {visitInfo.pet.age}</div>
               <div>Species: {visitInfo.pet.species}</div>
