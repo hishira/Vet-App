@@ -1,23 +1,56 @@
-.noteModalComponent{
-    position: absolute;
-    border: 2px solid red; 
-    left:50%;
-    top:30%;
-    transform: translate(-50%, -50%);
-    width: 45rem;
-    z-index: 2000;
-    background-color: rgba(255,255,255,.5);
-    margin-left: auto;
-    margin-right: auto;
-    backdrop-filter: blur(10px);
+.noteModalComponent {
+  position: absolute;
+  border: 2px solid red;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 45rem;
+  z-index: 2000;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-left: auto;
+  margin-right: auto;
+  backdrop-filter: blur(10px);
+  box-sizing: border-box;
+  padding: .5rem;
 }
-.noteModalComponent__header{
-    width:100%;
+.noteModalComponent__header {
+  width: 100%;
 
-    display: flex;
-    justify-content: center;
+  display: flex;
+  justify-content: center;
 }
-.noteModalComponent__noteform{
-    width: 100%;
-    border: 2px solid purepl;
+.noteModalComponent__noteform {
+  width: 100%;
+}
+.noteform__form {
+  display: flex;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  flex-direction: column;
+}
+.form__labelNote {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.3rem;
+}
+.labelNote__textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.3rem;
+  border: 0.1rem solid slategray;
+  border-radius: 10px;
+  height: 8rem;
+  resize: none;
+}
+.form__button {
+  border: 0.1rem solid slategray;
+  outline: none;
+  padding: 0.3rem;
+  width: 10rem;
+  border-radius: 10px;
+  background-color: lightskyblue;
 }
