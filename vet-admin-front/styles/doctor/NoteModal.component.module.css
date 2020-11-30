@@ -1,0 +1,23 @@
+.noteModalComponent{
+    position: absolute;
+    border: 2px solid red; 
+    left:50%;
+    top:30%;
+    transform: translate(-50%, -50%);
+    width: 45rem;
+    z-index: 2000;
+    background-color: rgba(255,255,255,.5);
+    margin-left: auto;
+    margin-right: auto;
+    backdrop-filter: blur(10px);
+}
+.noteModalComponent__header{
+    width:100%;
+
+    display: flex;
+    justify-content: center;
+}
+.noteModalComponent__noteform{
+    width: 100%;
+    border: 2px solid purepl;
+}

@@ -6,12 +6,15 @@ import { getUserFromCookie } from "../../../../utils/auth/userCookies";
 import Loading from "../../../../components/loader";
 import styles from "../../../../styles/doctor/SpecificVisit.module.css";
 import { useRouter } from "next/router";
-import Image from 'next/image'
+import Image from "next/image";
+import NoteModal from "../../../../components/noteModal";
 export default function SpecificVisit(props) {
   const [visitInfo, setVisitInfo] = useState({});
   const [loading, setLoading] = useState("no");
+  const [noteModalOpen, setNoteModalOpen] = useState(false);
   const router = useRouter();
   const { id } = router.query;
+
   useEffect(() => {
     const fetchData = async () => {
       let obj = {
@@ -34,8 +37,12 @@ export default function SpecificVisit(props) {
     };
     fetchData();
   }, []);
+  const addNoteHandle = () => {
+    setNoteModalOpen(!noteModalOpen);
+  };
   return (
     <UserView userdata={props.userdata}>
+      <NoteModal open={noteModalOpen}/>
       {loading === "yes" ? (
         <Loading />
       ) : loading === "end" ? (
@@ -52,13 +59,21 @@ export default function SpecificVisit(props) {
           <div className={styles["maincomponent__doctorinfo"]}>
             <div className={styles["doctorinfo__petinfo"]}>
               <div>
-                <Image src="/Flowers.png"  width={150} height={150} quality={100}/>
+                <Image
+                  src="/Flowers.png"
+                  width={150}
+                  height={150}
+                  quality={100}
+                />
               </div>
               <div>Name: {visitInfo.pet.name}</div>
               <div>Age: {visitInfo.pet.age}</div>
               <div>Species: {visitInfo.pet.species}</div>
               <div className={styles["petinfo__buttons"]}>
-                <button className={styles["buttons__button"]}>
+                <button
+                  className={styles["buttons__button"]}
+                  onClick={() => addNoteHandle()}
+                >
                   Create note
                 </button>
                 <button
