@@ -1,5 +1,5 @@
 const noteModel = require("../models/Note");
-
+const visitModel = require("../models/Visit");
 class NoteController {
   static async Create(req, res) {
     try {
@@ -9,6 +9,9 @@ class NoteController {
         visitID: req.body.visitID,
       });
       await note.save();
+      let visit = visitModel.findById(req.body.visitID);
+      visit.notes.push(note);
+      await visit.save();
       return res.status(200).json(note);
     } catch (e) {
       return res.status(404).send("Server error");

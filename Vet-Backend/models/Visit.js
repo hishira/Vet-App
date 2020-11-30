@@ -19,7 +19,11 @@ const visitSchema = new Schema({
     clinic:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Clinic"
-    }
+    },
+    notes:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"Note"
+    }]
 })
 
 module.exports = mongoose.model('Visit',visitSchema)
