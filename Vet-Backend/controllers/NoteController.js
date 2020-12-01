@@ -9,7 +9,7 @@ class NoteController {
         visitID: req.body.visitID,
       });
       await note.save();
-      let visit = visitModel.findById(req.body.visitID);
+      let visit = await visitModel.findById(req.body.visitID);
       visit.notes.push(note);
       await visit.save();
       return res.status(200).json(note);

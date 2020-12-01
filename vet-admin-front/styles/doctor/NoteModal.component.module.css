@@ -11,13 +11,44 @@
   margin-right: auto;
   backdrop-filter: blur(10px);
   box-sizing: border-box;
-  padding: .5rem;
+  padding: 0.5rem;
+  border-radius: 10px;
 }
 .noteModalComponent__header {
   width: 100%;
-
+  position: relative;
   display: flex;
   justify-content: center;
+}
+.header__closemodal {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  right: 0;
+}
+.header__closemodal::before {
+  content: " ";
+  width: 20px;
+  height: 5px;
+  top: 30%;
+  transform: rotate(45deg);
+  background: black;
+  position: absolute;
+}
+.header__closemodal::after {
+  content: " ";
+  width: 20px;
+  height: 5px;
+  top:30%;
+  transform: rotate(-45deg);
+  background: black;
+  position: absolute;
+}
+.header__closemodal:hover::before{
+  background: slategray;
+}
+.header__closemodal:hover::after{
+  background: slategray;
 }
 .noteModalComponent__noteform {
   width: 100%;

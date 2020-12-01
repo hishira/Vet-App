@@ -32,7 +32,7 @@
 }
 .doctorinfo__petinfo > *{
   width: 50%;
-  padding:.4rem;
+  padding:.3rem;
   display: flex;
   justify-content: center;
 }
@@ -41,15 +41,12 @@
     border: 2px solid purple
 }
 .petinfo__buttons{
-    outline: 1px solid red;
     display: flex;
     flex-wrap:wrap ;
     justify-content: space-between;
     align-items: center;
-    justify-items: center;
-    align-items: center;
+    margin-top:0;   
 }
-
 .buttons__button{
     width: 7rem;
     font-size: 1rem;
@@ -58,6 +55,9 @@
     padding: .2rem;
     border: .01rem solid slategray;
     border-radius: 5px;
+    margin-left: auto;
+    margin-right: auto;
     background-color: lightblue;
     backdrop-filter: blur(10px);
-}
+    margin-top: .3rem;
+  }

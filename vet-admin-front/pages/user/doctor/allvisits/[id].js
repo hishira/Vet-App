@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import User from "../../index";
 import UserView from "../../index";
 import { getInfoAboutVisit } from "../../../../utils/api/visitApi";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
@@ -12,6 +11,7 @@ export default function SpecificVisit(props) {
   const [visitInfo, setVisitInfo] = useState({});
   const [loading, setLoading] = useState("no");
   const [noteModalOpen, setNoteModalOpen] = useState(false);
+  const [noteInfoObject,setNoteInfoObject] = useState({});
   const router = useRouter();
   const { id } = router.query;
 
@@ -37,12 +37,22 @@ export default function SpecificVisit(props) {
     };
     fetchData();
   }, []);
-  const addNoteHandle = () => {
-    setNoteModalOpen(!noteModalOpen);
+  const addNoteHandle = ({_id,pet,}) => {
+    let modalInfo = {
+      petID:pet._id,
+      visitID:_id
+    };
+    if(!noteModalOpen){
+      setNoteInfoObject(modalInfo);
+      setNoteModalOpen(!noteModalOpen);
+    }
   };
+  const handleClose = ()=>{
+    setNoteModalOpen(!noteModalOpen);
+  }
   return (
     <UserView userdata={props.userdata}>
-      <NoteModal open={noteModalOpen}/>
+      <NoteModal open={noteModalOpen} close={handleClose} noteInfo={noteInfoObject}/>
       {loading === "yes" ? (
         <Loading />
       ) : loading === "end" ? (
@@ -72,7 +82,7 @@ export default function SpecificVisit(props) {
               <div className={styles["petinfo__buttons"]}>
                 <button
                   className={styles["buttons__button"]}
-                  onClick={() => addNoteHandle()}
+                  onClick={() => addNoteHandle(visitInfo)}
                 >
                   Create note
                 </button>
