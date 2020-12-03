@@ -18,6 +18,10 @@ const medicineSchema = new Schema({
   description:{
     type:String
   },
+  type:{
+    type:String,
+    enum:["Liquid","Tablet","Capsules"]
+  },
   unit: {
     type: String,
     required: true,

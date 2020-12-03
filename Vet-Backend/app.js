@@ -12,6 +12,7 @@ const clinicrouter = require("./routes/clinic");
 const doctorrouter = require("./routes/doctor");
 const userrouter = require("./routes/user");
 const noterouter = require("./routes/note");
+const medicinerouter = require("./routes/medicine");
 const bodypareser = require("body-parser");
 const cors = require("cors");
 admin.initializeApp({
@@ -39,6 +40,7 @@ app.use("/clinic", clinicrouter);
 app.use("/doctor", doctorrouter);
 app.use("/user", userrouter);
 app.use("/note",noterouter);
+app.use("/medicine",medicinerouter);
 app.get("/", async (req, res) => {
   /*
   let user = firebase.auth().currentUser;
