@@ -11,7 +11,7 @@ export default function SpecificVisit(props) {
   const [visitInfo, setVisitInfo] = useState({});
   const [loading, setLoading] = useState("no");
   const [noteModalOpen, setNoteModalOpen] = useState(false);
-  const [noteInfoObject,setNoteInfoObject] = useState({});
+  const [noteInfoObject, setNoteInfoObject] = useState({});
   const router = useRouter();
   const { id } = router.query;
 
@@ -37,22 +37,26 @@ export default function SpecificVisit(props) {
     };
     fetchData();
   }, []);
-  const addNoteHandle = ({_id,pet,}) => {
+  const addNoteHandle = ({ _id, pet }) => {
     let modalInfo = {
-      petID:pet._id,
-      visitID:_id
+      petID: pet._id,
+      visitID: _id,
     };
-    if(!noteModalOpen){
+    if (!noteModalOpen) {
       setNoteInfoObject(modalInfo);
       setNoteModalOpen(!noteModalOpen);
     }
   };
-  const handleClose = ()=>{
+  const handleClose = () => {
     setNoteModalOpen(!noteModalOpen);
-  }
+  };
   return (
     <UserView userdata={props.userdata}>
-      <NoteModal open={noteModalOpen} close={handleClose} noteInfo={noteInfoObject}/>
+      <NoteModal
+        open={noteModalOpen}
+        close={handleClose}
+        noteInfo={noteInfoObject}
+      />
       {loading === "yes" ? (
         <Loading />
       ) : loading === "end" ? (
@@ -91,6 +95,11 @@ export default function SpecificVisit(props) {
                 >
                   Create recipe
                 </button>
+              </div>
+              <div className={styles["petinfo__notes"]}>
+                {visitInfo.notes.map((note) => (
+                  <div>{note.content}</div>
+                ))}
               </div>
             </div>
             <div className={styles["doctorinfo__otherinfo"]}></div>
