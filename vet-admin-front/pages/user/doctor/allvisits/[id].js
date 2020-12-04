@@ -7,12 +7,15 @@ import styles from "../../../../styles/doctor/SpecificVisit.module.css";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import NoteModal from "../../../../components/noteModal";
+import RecipModal from '../../../../components/recipModal'
 export default function SpecificVisit(props) {
   const [visitInfo, setVisitInfo] = useState({});
   const [loading, setLoading] = useState("no");
   const [noteModalOpen, setNoteModalOpen] = useState(false);
   const [noteInfoObject, setNoteInfoObject] = useState({});
   const [reloadInfo,setReloadInfo] = useState(false);
+  const [recipModalOpen, setRecipModalOpen] = useState(false);
+  const [recipInfoObject, setRecipInfoObject] = useState({});
   const router = useRouter();
   const { id } = router.query;
 
@@ -51,6 +54,9 @@ export default function SpecificVisit(props) {
   const handleClose = () => {
     setNoteModalOpen(!noteModalOpen);
   };
+  const handleCloseRecip = ()=>{
+    setRecipModalOpen(!recipModalOpen);
+  }
   const reloadHandle = ()=>{
     setReloadInfo(!reloadInfo)
   }
@@ -61,6 +67,11 @@ export default function SpecificVisit(props) {
         close={handleClose}
         noteInfo={noteInfoObject}
         reload={reloadHandle}
+      />
+      <RecipModal
+        open={recipModalOpen}
+        close={handleCloseRecip}
+
       />
       {loading === "yes" ? (
         <Loading />
@@ -97,6 +108,7 @@ export default function SpecificVisit(props) {
                 </button>
                 <button
                   className={`${styles["buttons__button"]} ${styles["buttons__button--recipe"]}`}
+                  onClick={()=>setRecipModalOpen(!recipModalOpen)}
                 >
                   Create recipe
                 </button>
