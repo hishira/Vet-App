@@ -38,7 +38,11 @@
 }
 .doctorinfo__otherinfo{
     width:50%;
-    border: 2px solid purple
+    border: 2px solid purple;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin:0;
 }
 .petinfo__buttons{
     display: flex;
@@ -64,4 +68,12 @@
 .petinfo__notes{
   border: 2px solid green;
   width:100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.notes__note{
+  outline: 2px solid lightseagreen;
+  margin: .3rem;
+  padding: .2rem;
 }

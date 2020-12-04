@@ -18,9 +18,8 @@ export default function NoteModal(props) {
     let token = getUserFromCookie()["token"];
     console.log(obj, token);
     let fetchedData = await createNote(obj, token).then((response) => {
-      console.log(response)
-      if (response.status === 200) 
-        return response.json();
+      console.log(response);
+      if (response.status === 200) return response.json();
       return false;
     });
     if (fetchedData === false) {
@@ -33,7 +32,11 @@ export default function NoteModal(props) {
     setMessageText("OK, note added");
     setMessageColor("");
     setMessageOpen(!messageOpen);
-    setTimeout(() => setMessageOpen(false), 1500);
+    setTimeout(() => {
+      setMessageOpen(false);
+      props.close();
+      props.reload()
+    }, 1500);
   };
   if (!props.open) {
     return null;

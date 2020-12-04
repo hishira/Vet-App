@@ -12,6 +12,7 @@ export default function SpecificVisit(props) {
   const [loading, setLoading] = useState("no");
   const [noteModalOpen, setNoteModalOpen] = useState(false);
   const [noteInfoObject, setNoteInfoObject] = useState({});
+  const [reloadInfo,setReloadInfo] = useState(false);
   const router = useRouter();
   const { id } = router.query;
 
@@ -36,7 +37,7 @@ export default function SpecificVisit(props) {
       }
     };
     fetchData();
-  }, []);
+  }, [reloadInfo]);
   const addNoteHandle = ({ _id, pet }) => {
     let modalInfo = {
       petID: pet._id,
@@ -50,12 +51,16 @@ export default function SpecificVisit(props) {
   const handleClose = () => {
     setNoteModalOpen(!noteModalOpen);
   };
+  const reloadHandle = ()=>{
+    setReloadInfo(!reloadInfo)
+  }
   return (
     <UserView userdata={props.userdata}>
       <NoteModal
         open={noteModalOpen}
         close={handleClose}
         noteInfo={noteInfoObject}
+        reload={reloadHandle}
       />
       {loading === "yes" ? (
         <Loading />
@@ -96,13 +101,15 @@ export default function SpecificVisit(props) {
                   Create recipe
                 </button>
               </div>
+            </div>
+            <div className={styles["doctorinfo__otherinfo"]}>
+            <div className={styles["notes__title"]}>Created notes:</div>
               <div className={styles["petinfo__notes"]}>
                 {visitInfo.notes.map((note) => (
-                  <div>{note.content}</div>
+                  <div className={styles["notes__note"]}>{note.content}</div>
                 ))}
               </div>
             </div>
-            <div className={styles["doctorinfo__otherinfo"]}></div>
           </div>
         </main>
       ) : loading === "error" ? (
