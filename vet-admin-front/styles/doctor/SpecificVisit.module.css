@@ -77,3 +77,14 @@
   margin: .3rem;
   padding: .2rem;
 }
+@media (max-width: 700px){
+  .maincomponent__doctorinfo{
+    flex-direction: column;
+  }
+  .doctorinfo__petinfo{
+    width: 100%;
+  }
+  .doctorinfo__otherinfo{
+    width: 100%;
+  }
+}
