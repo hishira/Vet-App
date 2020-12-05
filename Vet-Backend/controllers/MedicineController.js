@@ -28,5 +28,13 @@ class MedicineController {
         return res.status(404).send("Server error");
       }
   }
+  static async GetAll(req,res){
+    try{
+      const medicines = await medicineModel.find({})
+      return res.status(200).json(medicines);
+    }catch(e){
+      return res.status(404).send("Server error");
+    }
+  }
 }
 module.exports = MedicineController;
