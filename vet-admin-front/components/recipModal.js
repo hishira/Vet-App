@@ -7,6 +7,7 @@ export default function RecipModal(props) {
   const [medicins, setMedicins] = useState([]);
   const [loading, setLoading] = useState("false");
   const [medicineInfo, setMedicineInfo] = useState({});
+  const [recipMedicineList, setMedicineList] = useState([]);
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -67,13 +68,31 @@ export default function RecipModal(props) {
                 Desc: {medicineInfo.description}
               </div>
               <div className={styles["medicineinfo__doubleinf"]}>
-              <div>Type: {medicineInfo.type}</div>
-              <div>Unit of packages: {medicineInfo.unit}</div>
+                <div>Type: {medicineInfo.type}</div>
+                <div>Unit of packages: {medicineInfo.unit}</div>
+              </div>
+              <div className={styles["button__group"]}>
+                <div
+                  onClick={() =>
+                    setMedicineList([medicineInfo, ...recipMedicineList])
+                  }
+                  className={styles["medicineinfo__addbutton"]}
+                ></div>
               </div>
             </div>
           ) : (
             <div />
           )}
+          <div className={styles["maincomponent__medicinelist"]}>
+            <div>Medicin list:</div>
+            <div>
+              {[...new Set(recipMedicineList)].map((med) => (
+                <div>
+                  {med.name} X{recipMedicineList.filter((a) => a.name === med.name).length}
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       ) : loading === "error" ? (
         <div>Error</div>
