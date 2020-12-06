@@ -86,9 +86,9 @@ export default function RecipModal(props) {
           <div className={styles["maincomponent__medicinelist"]}>
             <div>Medicin list:</div>
             <div>
-              {[...new Set(recipMedicineList)].map((med) => (
+              {[...new Set(recipMedicineList.map(a=>a.name))].map((medname) => (
                 <div>
-                  {med.name} X{recipMedicineList.filter((a) => a.name === med.name).length}
+                  {medname} x {recipMedicineList.filter((a) => a.name === medname).length}
                 </div>
               ))}
             </div>
