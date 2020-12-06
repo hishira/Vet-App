@@ -78,19 +78,29 @@ export default function RecipModal(props) {
                   }
                   className={styles["medicineinfo__addbutton"]}
                 ></div>
+                <button className={styles["medicineinfo__notebutton"]}>Add note</button>
               </div>
             </div>
           ) : (
             <div />
           )}
           <div className={styles["maincomponent__medicinelist"]}>
-            <div>Medicin list:</div>
+            <div className={styles["w100"]}>Medicin list:</div>
             <div>
-              {[...new Set(recipMedicineList.map(a=>a.name))].map((medname) => (
-                <div>
-                  {medname} x {recipMedicineList.filter((a) => a.name === medname).length}
-                </div>
-              ))}
+              {[...new Set(recipMedicineList.map((a) => a.name))].map(
+                (medname) => (
+                  <div className={styles["medicinelist__medicinecomponent"]}>
+                    <div className={styles["medicinecomponent__name"]}>{medname}</div>
+                    <div>x</div>
+                    <div className={styles["medicinecomponent__number"]}>
+                      {
+                        recipMedicineList.filter((a) => a.name === medname)
+                          .length
+                      }
+                    </div>
+                  </div>
+                )
+              )}
             </div>
           </div>
         </div>

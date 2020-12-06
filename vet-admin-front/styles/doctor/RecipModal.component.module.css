@@ -13,7 +13,7 @@
   box-sizing: border-box;
   padding: 0.5rem;
   border-radius: 10px;
-
+  min-height: 5rem;
 }
 .maincomponent__header {
   width: 100%;
@@ -98,10 +98,10 @@
 }
 .button__group{
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: .4rem;
+  border: 2px solid red;
 }
 .medicineinfo__addbutton{
   width: 30px;
@@ -121,6 +121,14 @@
   top:50%;
   transform: translate(-50%,-50%);
 }
+.medicineinfo__notebutton{
+  border: .1rem solid slategray;
+  outline:none;
+  border-radius: 5px;
+  background:transparent;
+  cursor: pointer;
+  margin-left: 1.5rem;
+}
 .medicineinfo__addbutton::after{
   content:" ";
   width: 20px;
@@ -134,4 +142,26 @@
 .maincomponent__medicinelist{
   display: flex;
   flex-direction: column;
+  border: .1rem solid slategray;
+  border-radius: 5px;
+  padding: .6rem;
+  width:100%;
+  justify-content: center;
+}
+.medicinelist__medicinecomponent{
+  display: flex;
+  justify-content: space-between;
+  width:100%;
+  margin-top:.4rem;
+}
+.medicinecomponent__name{
+  width: 7rem;
+}
+.medicinecomponent__number{
+ width:7rem;
+ text-align: center;
+}
+.w100{
+  width: 100%;
+  text-align: center;
 }
