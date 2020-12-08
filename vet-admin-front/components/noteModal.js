@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import styles from "../styles/doctor/NoteModal.component.module.css";
 import { createNote } from "../utils/api/noteApi";
 import { getUserFromCookie } from "../utils/auth/userCookies";
-import SuccessfullMessage from "../components/successfulmessage";
+import SuccessfullMessage from "./successfulmessage";
 export default function NoteModal(props) {
   const [noteContent, setNoteContent] = useState("");
   const [messageOpen, setMessageOpen] = useState(false);

@@ -71,6 +71,8 @@ export default function SpecificVisit(props) {
       <RecipModal
         open={recipModalOpen}
         close={handleCloseRecip}
+        reload={reloadHandle}
+        
 
       />
       {loading === "yes" ? (

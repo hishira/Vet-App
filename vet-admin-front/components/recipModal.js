@@ -3,11 +3,19 @@ import styles from "../styles/doctor/RecipModal.component.module.css";
 import { getMedicines } from "../utils/api/medicinApi";
 import { getUserFromCookie } from "../utils/auth/userCookies";
 import Loading from "./loader";
+import { CreateRecip } from "../utils/api/recipApi";
+import SuccessfullMessage from "./successfulmessage";
 export default function RecipModal(props) {
   const [medicins, setMedicins] = useState([]);
   const [loading, setLoading] = useState("false");
   const [medicineInfo, setMedicineInfo] = useState({});
   const [recipMedicineList, setMedicineList] = useState([]);
+  const [messageObject, setMessageObject] = useState({
+    messageOpen: false,
+    messageText: "",
+    messageColor: "",
+  });
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -28,9 +36,42 @@ export default function RecipModal(props) {
     };
     fetchData();
   }, []);
+  const createRecipHandle = async() => {
+    let idarray = recipMedicineList.map((med) => med._id);
+    const token = getUserFromCookie()["token"];
+    try {
+      let obj = {medicines:idarray};
+      let data = await CreateRecip(obj,token).then(response=>{
+        if(response.status === 200)
+          return true;
+        return false;
+      });
+      if(data === false) throw new Error("Error")
+      setMessageObject({
+        messageOpen: true,
+        messageText: "OK, recip created",
+        messageColor: "",
+      });
+      props.reload()
+      props.close();
+      setTimeout(()=>setMessageObject(mess=>({...mess,messageOpen:false})),1500);
+    } catch (e) {
+      setMessageObject({
+        messageOpen:true,
+        messageText:"Problem with recip create",
+        messageColor:"lightcoral"
+      });
+      setTimeout(()=>setMessageObject(mess=>({...mess,messageOpen:false})),1500);
+    }
+  };
   if (!props.open) return null;
   return (
     <div className={styles.maincomponent}>
+      <SuccessfullMessage
+        open={messageObject.messageOpen}
+        color={messageObject.messageColor}
+        message={messageObject.messageText}
+      />
       <header className={styles["maincomponent__header"]}>
         Create recip
         <div
@@ -58,7 +99,7 @@ export default function RecipModal(props) {
               </select>
             </label>
           </div>
-          {Object.keys(medicineInfo).length !== 0 ? (
+          {Object.keys(medicineInfo).length > 0 ? (
             <div className={styles["recip__medicineinfo"]}>
               <div className={styles["medicineinfo__doubleinf"]}>
                 <div>Name: {medicineInfo.name}</div>
@@ -78,7 +119,6 @@ export default function RecipModal(props) {
                   }
                   className={styles["medicineinfo__addbutton"]}
                 ></div>
-                <button className={styles["medicineinfo__notebutton"]}>Add note</button>
               </div>
             </div>
           ) : (
@@ -90,7 +130,9 @@ export default function RecipModal(props) {
               {[...new Set(recipMedicineList.map((a) => a.name))].map(
                 (medname) => (
                   <div className={styles["medicinelist__medicinecomponent"]}>
-                    <div className={styles["medicinecomponent__name"]}>{medname}</div>
+                    <div className={styles["medicinecomponent__name"]}>
+                      {medname}
+                    </div>
                     <div>x</div>
                     <div className={styles["medicinecomponent__number"]}>
                       {
@@ -106,6 +148,18 @@ export default function RecipModal(props) {
         </div>
       ) : loading === "error" ? (
         <div>Error</div>
+      ) : (
+        <div />
+      )}
+      {recipMedicineList.length > 0 ? (
+        <div className={styles["button__recip"]}>
+          <button
+            onClick={() => createRecipHandle()}
+            className={styles["button__recipcreate"]}
+          >
+            Create recip
+          </button>
+        </div>
       ) : (
         <div />
       )}
