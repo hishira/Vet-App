@@ -15,7 +15,7 @@ export default function RecipModal(props) {
     messageText: "",
     messageColor: "",
   });
-
+  const [selectedMed,setSelectedMed] = useState("")
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -52,9 +52,11 @@ export default function RecipModal(props) {
         messageText: "OK, recip created",
         messageColor: "",
       });
-      props.reload()
-      props.close();
-      setTimeout(()=>setMessageObject(mess=>({...mess,messageOpen:false})),1500);
+      setTimeout(()=>{
+        setMessageObject(mess=>({...mess,messageOpen:false}))
+        props.reload()
+        props.close();
+      },1500);
     } catch (e) {
       setMessageObject({
         messageOpen:true,
@@ -64,6 +66,13 @@ export default function RecipModal(props) {
       setTimeout(()=>setMessageObject(mess=>({...mess,messageOpen:false})),1500);
     }
   };
+  const medChangeHandle = (event)=>{
+    let selected = event.target.value
+    console.log(selected)
+    setSelectedMed(selected)
+    let medinfo = medicins.filter(med=>med.name === selected)[0]
+    setMedicineInfo(medinfo)
+  }
   if (!props.open) return null;
   return (
     <div className={styles.maincomponent}>
@@ -88,11 +97,11 @@ export default function RecipModal(props) {
               Select medicine:
               <select
                 className={styles["choice__select"]}
-                value={medicineInfo.name}
-                onChange={(e) => setMedicineInfo(JSON.parse(e.target.value))}
+                value={selectedMed}
+                onChange={(e) => medChangeHandle(e)}
               >
                 {medicins.map((med) => (
-                  <option key={med._id} value={JSON.stringify(med)}>
+                  <option key={med._id} value={med.name}>
                     {med.name}
                   </option>
                 ))}
