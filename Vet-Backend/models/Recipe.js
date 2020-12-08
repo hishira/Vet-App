@@ -15,8 +15,5 @@ const recipeSchema = new Schema({
       ref: "Medicine",
     },
   ],
-  note: {
-    type: String,
-  },
 });
 module.exports = mongoose.model("Recipe", recipeSchema);

@@ -5,7 +5,6 @@ class RecipController {
     try {
       const recip = new recipModel({
         medicines: req.body.medicines,
-        note: req.body.note,
       });
       await recip.save();
       return res.status(200).json(recip);
@@ -17,10 +16,12 @@ class RecipController {
     try {
       await recipModel.update(
         { _id: req.body.recipID },
-        { medicines: req.body.medicines, note: req.body.note }
+        { editDate: Date.now(), medicines: req.body.medicines }
       );
       return res.status(200).send("Ok, recip updated");
-    } catch (e) {}
+    } catch (e) {
+      return res.status(404).send("Server error");
+    }
   }
 }
 module.exports = RecipController;
