@@ -9,6 +9,10 @@ const recipeSchema = new Schema({
     type: Date,
     default: Date.now(),
   },
+  visit:{
+    type:mongoose.Types.ObjectId,
+    ref:"Visit"
+  },
   medicines: [
     {
       type: mongoose.Types.ObjectId,

@@ -5,6 +5,7 @@ class RecipController {
     try {
       const recip = new recipModel({
         medicines: req.body.medicines,
+        visit: req.body.visit,
       });
       await recip.save();
       return res.status(200).json(recip);
@@ -20,6 +21,14 @@ class RecipController {
       );
       return res.status(200).send("Ok, recip updated");
     } catch (e) {
+      return res.status(404).send("Server error");
+    }
+  }
+  static async GetByVisit(req,res){
+    try{
+    let recips = await recipModel.find({visit:req.body.visit})
+    return res.status(200).json(recips);
+    }catch(e){
       return res.status(404).send("Server error");
     }
   }
