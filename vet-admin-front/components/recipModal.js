@@ -38,9 +38,9 @@ export default function RecipModal(props) {
   }, []);
   const createRecipHandle = async() => {
     let idarray = recipMedicineList.map((med) => med._id);
-    const token = getUserFromCookie()["token"];
+    const token = getUserFromCookie()["token"]; 
     try {
-      let obj = {medicines:idarray};
+      let obj = {medicines:idarray,visit:props.visit};
       let data = await CreateRecip(obj,token).then(response=>{
         if(response.status === 200)
           return true;

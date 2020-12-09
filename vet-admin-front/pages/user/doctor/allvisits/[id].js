@@ -16,6 +16,7 @@ export default function SpecificVisit(props) {
   const [reloadInfo,setReloadInfo] = useState(false);
   const [recipModalOpen, setRecipModalOpen] = useState(false);
   const [recipInfoObject, setRecipInfoObject] = useState({});
+  const [recipVisit,setRecipVisit] = useState("");
   const router = useRouter();
   const { id } = router.query;
 
@@ -72,8 +73,7 @@ export default function SpecificVisit(props) {
         open={recipModalOpen}
         close={handleCloseRecip}
         reload={reloadHandle}
-        
-
+        visit={recipVisit}
       />
       {loading === "yes" ? (
         <Loading />
@@ -110,7 +110,10 @@ export default function SpecificVisit(props) {
                 </button>
                 <button
                   className={`${styles["buttons__button"]} ${styles["buttons__button--recipe"]}`}
-                  onClick={()=>setRecipModalOpen(!recipModalOpen)}
+                  onClick={()=>{
+                    setRecipVisit(visitInfo._id);
+                    setRecipModalOpen(!recipModalOpen)
+                  }}
                 >
                   Create recipe
                 </button>

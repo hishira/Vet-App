@@ -4,4 +4,5 @@ const RecipController = require("../controllers/RecipController");
 const checkifAuthenticated = require("../middleware/authentication");
 app.post("/recipcreate",checkifAuthenticated,RecipController.Create);
 app.post("/recipedit",checkifAuthenticated,RecipController.Edit);
+app.post("/getbyvisit",checkifAuthenticated,RecipController.GetByVisit);
 module.exports = app;
