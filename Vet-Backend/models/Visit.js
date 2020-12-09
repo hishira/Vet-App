@@ -20,10 +20,15 @@ const visitSchema = new Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:"Clinic"
     },
-    notes:[{
+    notes:{
+        type:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:"Note"
-    }]
+        }],
+        validate:[notesLimit,"Maximum number of notes is 5"]
+}
 })
-
+function notesLimit(val){
+    return val.length <=5;
+}
 module.exports = mongoose.model('Visit',visitSchema)

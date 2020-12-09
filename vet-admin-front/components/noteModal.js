@@ -20,10 +20,10 @@ export default function NoteModal(props) {
     let fetchedData = await createNote(obj, token).then((response) => {
       console.log(response);
       if (response.status === 200) return response.json();
-      return false;
+      return response.text()
     });
-    if (fetchedData === false) {
-      setMessageText("Problem with note add");
+    if (typeof(fetchedData) === "string") {
+      setMessageText(fetchedData.split(":")[2].trim());
       setMessageColor("lightcoral");
       setMessageOpen(!messageOpen);
       setTimeout(() => setMessageOpen(false), 1500);

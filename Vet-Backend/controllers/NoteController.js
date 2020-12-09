@@ -14,7 +14,7 @@ class NoteController {
       await visit.save();
       return res.status(200).json(note);
     } catch (e) {
-      return res.status(404).send("Server error");
+      return res.status(404).send(e.message);
     }
   }
   static async Edit(req, res) {

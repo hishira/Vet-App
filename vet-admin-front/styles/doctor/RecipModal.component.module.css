@@ -14,6 +14,7 @@
   border-radius: 10px;
   min-height: 5rem;
 }
+
 @media (max-width:850px){
   .maincomponent{
     width:35rem;
