@@ -7,16 +7,17 @@ import styles from "../../../../styles/doctor/SpecificVisit.module.css";
 import { useRouter } from "next/router";
 import Image from "next/image";
 import NoteModal from "../../../../components/noteModal";
-import RecipModal from '../../../../components/recipModal'
+import RecipModal from "../../../../components/recipModal";
+import { GetRecipByVisit } from "../../../../utils/api/recipApi";
 export default function SpecificVisit(props) {
   const [visitInfo, setVisitInfo] = useState({});
   const [loading, setLoading] = useState("no");
   const [noteModalOpen, setNoteModalOpen] = useState(false);
   const [noteInfoObject, setNoteInfoObject] = useState({});
-  const [reloadInfo,setReloadInfo] = useState(false);
+  const [reloadInfo, setReloadInfo] = useState(false);
   const [recipModalOpen, setRecipModalOpen] = useState(false);
-  const [recipInfoObject, setRecipInfoObject] = useState({});
-  const [recipVisit,setRecipVisit] = useState("");
+  const [recips, setRecips] = useState([]);
+  const [recipVisit, setRecipVisit] = useState("");
   const router = useRouter();
   const { id } = router.query;
 
@@ -32,9 +33,13 @@ export default function SpecificVisit(props) {
           if (reseponse.status === 200) return reseponse.json();
           return false;
         });
-        if (data === false) throw new Error("error");
+        let recipsbyvisit = await GetRecipByVisit(obj, token).then((response) => {
+            if (response.status === 200) return response.json();
+            return false;
+          });
+        if (data === false || recipsbyvisit === false) throw new Error("error");
         setVisitInfo(data);
-        console.log(data);
+        setRecips(recipsbyvisit);
         setLoading("end");
       } catch (e) {
         setLoading("error");
@@ -55,12 +60,12 @@ export default function SpecificVisit(props) {
   const handleClose = () => {
     setNoteModalOpen(!noteModalOpen);
   };
-  const handleCloseRecip = ()=>{
+  const handleCloseRecip = () => {
     setRecipModalOpen(!recipModalOpen);
-  }
-  const reloadHandle = ()=>{
-    setReloadInfo(!reloadInfo)
-  }
+  };
+  const reloadHandle = () => {
+    setReloadInfo(!reloadInfo);
+  };
   return (
     <UserView userdata={props.userdata}>
       <NoteModal
@@ -110,9 +115,9 @@ export default function SpecificVisit(props) {
                 </button>
                 <button
                   className={`${styles["buttons__button"]} ${styles["buttons__button--recipe"]}`}
-                  onClick={()=>{
+                  onClick={() => {
                     setRecipVisit(visitInfo._id);
-                    setRecipModalOpen(!recipModalOpen)
+                    setRecipModalOpen(!recipModalOpen);
                   }}
                 >
                   Create recipe
@@ -120,10 +125,16 @@ export default function SpecificVisit(props) {
               </div>
             </div>
             <div className={styles["doctorinfo__otherinfo"]}>
-            <div className={styles["notes__title"]}>Created notes:</div>
+              <div className={styles["notes__title"]}>Created notes:</div>
               <div className={styles["petinfo__notes"]}>
                 {visitInfo.notes.map((note) => (
                   <div className={styles["notes__note"]}>{note.content}</div>
+                ))}
+              </div>
+              <div>Recips</div>
+              <div>
+                {recips.map((recip) => (
+                  <div>{recip._id}</div>
                 ))}
               </div>
             </div>

@@ -26,7 +26,8 @@ class RecipController {
   }
   static async GetByVisit(req, res) {
     try {
-      let recips = await recipModel.find({ visit: req.body.visit });
+      let recips = await recipModel.find({ visit: req.body.visitID }).populate("medicines").exec();
+      console.log(recips)
       return res.status(200).json(recips);
     } catch (e) {
       return res.status(404).send("Server error");
