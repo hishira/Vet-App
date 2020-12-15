@@ -77,6 +77,20 @@
   margin: .3rem;
   padding: .2rem;
 }
+.visit__recips{
+  border: 2px solid red;
+  width:100%;
+  display: flex;
+  flex-wrap: wrap;
+  padding: .3rem;
+}
+.recipes__recip{
+  margin-left: 1.3rem;
+  height: fit-content;
+  padding:.4rem;
+  box-shadow: 5px 5px 5px 0 lightslategrey;
+  background: whitesmoke
+}
 @media (max-width: 700px){
   .maincomponent__doctorinfo{
     flex-direction: column;

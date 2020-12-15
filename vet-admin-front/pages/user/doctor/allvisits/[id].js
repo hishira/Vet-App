@@ -33,10 +33,12 @@ export default function SpecificVisit(props) {
           if (reseponse.status === 200) return reseponse.json();
           return false;
         });
-        let recipsbyvisit = await GetRecipByVisit(obj, token).then((response) => {
+        let recipsbyvisit = await GetRecipByVisit(obj, token).then(
+          (response) => {
             if (response.status === 200) return response.json();
             return false;
-          });
+          }
+        );
         if (data === false || recipsbyvisit === false) throw new Error("error");
         setVisitInfo(data);
         setRecips(recipsbyvisit);
@@ -132,11 +134,18 @@ export default function SpecificVisit(props) {
                 ))}
               </div>
               <div>Recips</div>
-              <div>
-                {recips.map((recip) => (
-                  <div>{recip._id}</div>
-                ))}
-              </div>
+              
+                <div className={styles["visit__recips"]}>
+                  {recips.map((recip) => (
+                    <div className={styles["recipes__recip"]}>
+                      {recip.medicines.slice(0,4).map((med) => (
+                        <div >
+                          {med.name}
+                        </div>
+                      ))}
+                    </div>
+                  ))}
+                </div>
             </div>
           </div>
         </main>
