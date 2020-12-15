@@ -148,8 +148,8 @@ export default function SpecificVisit(props) {
                   {recips.map((recip) => (
                     <div className={styles["recipes__recip"]}>
                       {prepareMedicines(recip.medicines).slice(0,4).map((med) => (
-                        <div >
-                          {med.name} X{med.count}
+                        <div className={styles["recip__medname"]} >
+                          {med.name} x {med.count}
                         </div>
                       ))}
                     </div>
