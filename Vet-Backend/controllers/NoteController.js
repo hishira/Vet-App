@@ -35,5 +35,16 @@ class NoteController {
       return res.status(404).send("Server error");
     }
   }
+  static async Delete(req,res){
+    try{
+      await noteModel.findOneAndDelete({_id:req.body.noteID},(err,docs)=>{
+        if (err)
+          return res.status(404).send("Problem with document delete")
+        return res.status(200).send("OK");
+      });
+    }catch(e){
+      return res.status(404).send("Server errror")
+    }
+  }
 }
 module.exports = NoteController;
