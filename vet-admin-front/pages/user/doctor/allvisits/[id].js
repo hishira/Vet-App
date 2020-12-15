@@ -68,6 +68,15 @@ export default function SpecificVisit(props) {
   const reloadHandle = () => {
     setReloadInfo(!reloadInfo);
   };
+  const prepareMedicines = (array)=>{
+    let arrofobj = []
+    let set = new Set(array.map(a=>a.name).slice())
+    for(let i of set){
+      console.log(i)
+      arrofobj.push({name:i,count:array.filter(med=>med.name === i).length})
+    }
+    return arrofobj;
+  }
   return (
     <UserView userdata={props.userdata}>
       <NoteModal
@@ -138,9 +147,9 @@ export default function SpecificVisit(props) {
                 <div className={styles["visit__recips"]}>
                   {recips.map((recip) => (
                     <div className={styles["recipes__recip"]}>
-                      {recip.medicines.slice(0,4).map((med) => (
+                      {prepareMedicines(recip.medicines).slice(0,4).map((med) => (
                         <div >
-                          {med.name}
+                          {med.name} X{med.count}
                         </div>
                       ))}
                     </div>

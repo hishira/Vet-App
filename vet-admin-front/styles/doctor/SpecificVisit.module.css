@@ -87,9 +87,10 @@
 .recipes__recip{
   margin-left: 1.3rem;
   height: fit-content;
-  padding:.4rem;
+  padding:.7rem;
   box-shadow: 5px 5px 5px 0 lightslategrey;
-  background: whitesmoke
+  background: whitesmoke;
+  border-radius: 10px;
 }
 @media (max-width: 700px){
   .maincomponent__doctorinfo{
