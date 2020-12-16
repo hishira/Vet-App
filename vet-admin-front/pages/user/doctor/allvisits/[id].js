@@ -9,6 +9,7 @@ import Image from "next/image";
 import NoteModal from "../../../../components/noteModal";
 import RecipModal from "../../../../components/recipModal";
 import { GetRecipByVisit } from "../../../../utils/api/recipApi";
+import {deleteNote} from '../../../../utils/api/noteApi';
 export default function SpecificVisit(props) {
   const [visitInfo, setVisitInfo] = useState({});
   const [loading, setLoading] = useState("no");
@@ -43,12 +44,29 @@ export default function SpecificVisit(props) {
         setVisitInfo(data);
         setRecips(recipsbyvisit);
         setLoading("end");
+        setTimeout(()=>injectEventHover(),500);
       } catch (e) {
         setLoading("error");
       }
     };
     fetchData();
   }, [reloadInfo]);
+  const injectEventHover = ()=>{
+    let elements = document.getElementsByClassName(styles["notes__button"])
+    console.log(elements)
+    for(let i of elements){
+      i.addEventListener("mouseover",(event)=>{
+        let target = event.target.previousSibling
+        target.style.display='inline'
+        console.log(target)
+      })
+      i.addEventListener("mouseout",(event)=>{
+        let target = event.target.previousSibling
+        target.style.display='none'
+        console.log(target)
+      })
+    }
+  }
   const addNoteHandle = ({ _id, pet }) => {
     let modalInfo = {
       petID: pet._id,
@@ -59,6 +77,24 @@ export default function SpecificVisit(props) {
       setNoteModalOpen(!noteModalOpen);
     }
   };
+  const deletenoteHandle = async (noteid)=>{
+    let token = getUserFromCookie()["token"]
+    console.log(token)
+    try{
+      let obj = {
+        noteID:noteid
+      }
+      let data = await deleteNote(obj,token).then(resp=>{
+        if(resp.status === 200)
+          return true;
+        return false;
+      });
+      if(data === true)
+        setReloadInfo(!reloadInfo)
+    }catch(e){
+      console.log(e)
+    }
+  }
   const handleClose = () => {
     setNoteModalOpen(!noteModalOpen);
   };
@@ -139,7 +175,11 @@ export default function SpecificVisit(props) {
               <div className={styles["notes__title"]}>Created notes:</div>
               <div className={styles["petinfo__notes"]}>
                 {visitInfo.notes.map((note) => (
-                  <div className={styles["notes__note"]}>{note.content}</div>
+                  <div className={styles["notes__note"]}>
+                  <div >{note.content}</div>
+                  <span className={styles["notes__delete"]}>Delete</span>
+                  <button onClick={()=>deletenoteHandle(note._id)} className={styles["notes__button"]}></button>
+                  </div>
                 ))}
               </div>
               <div>Recips</div>
