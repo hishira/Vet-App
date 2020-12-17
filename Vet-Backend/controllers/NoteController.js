@@ -37,9 +37,14 @@ class NoteController {
   }
   static async Delete(req,res){
     try{
+      let note = await noteModel.findById(req.body.noteID).lean();
+      let visit = await visitModel.findOne({_id:note.visitID});
+      console.log(visit)
+      await visit.notes.pull(note._id);
+      await visit.save();
       await noteModel.findOneAndDelete({_id:req.body.noteID},(err,docs)=>{
         if (err)
-          return res.status(404).send("Problem with document delete")
+          return res.status(404).send("Problem with document delete")  
         return res.status(200).send("OK");
       });
     }catch(e){
