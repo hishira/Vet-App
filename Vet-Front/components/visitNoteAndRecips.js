@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
-import { IconButton, ActivityIndicator } from "react-native-paper";
+import { IconButton, ActivityIndicator, Surface } from "react-native-paper";
 import { inject, observer } from "mobx-react";
 import { getNoteByVisit } from "../api/noteApi";
 import firebase from "../firebase";
@@ -46,7 +46,11 @@ function NoteRecipFromVisit(props) {
         </View>
       ) : (
         <View>
-         {notes.map(note=><Text>{note.content}</Text>)}
+          {notes.map((note) => (
+            <Surface key={note._id} style={{width:"50%",marginLeft:"auto",marginRight:"auto",marginTop:10,textAlign:"center",padding:10}}>
+              <Text>{note.content}</Text>
+            </Surface>
+          ))}
         </View>
       )}
     </ScrollView>
