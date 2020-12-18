@@ -35,20 +35,33 @@ class NoteController {
       return res.status(404).send("Server error");
     }
   }
-  static async Delete(req,res){
-    try{
+  static async Delete(req, res) {
+    try {
       let note = await noteModel.findById(req.body.noteID).lean();
-      let visit = await visitModel.findOne({_id:note.visitID});
-      console.log(visit)
+      let visit = await visitModel.findOne({ _id: note.visitID });
+      console.log(visit);
       await visit.notes.pull(note._id);
       await visit.save();
-      await noteModel.findOneAndDelete({_id:req.body.noteID},(err,docs)=>{
-        if (err)
-          return res.status(404).send("Problem with document delete")  
-        return res.status(200).send("OK");
-      });
-    }catch(e){
-      return res.status(404).send("Server errror")
+      await noteModel.findOneAndDelete(
+        { _id: req.body.noteID },
+        (err, docs) => {
+          if (err) return res.status(404).send("Problem with document delete");
+          return res.status(200).send("OK");
+        }
+      );
+    } catch (e) {
+      return res.status(404).send("Server errror");
+    }
+  }
+  static async GetByVisit(req, res) {
+    try {
+      let notes = await noteModel
+        .find({visitID:req.body.visitID})
+        .populate("petID")
+        .exec();
+      return res.status(200).json(notes);
+    } catch (e) {
+      return res.status(404).send("Server error");
     }
   }
 }

@@ -192,6 +192,8 @@ export default function SpecificVisit(props) {
                           {med.name} x {med.count}
                         </div>
                       ))}
+                      <span className={styles["notes__delete"]}>Delete</span>
+                      <button className={styles["notes__button"]}></button>
                     </div>
                   ))}
                 </div>

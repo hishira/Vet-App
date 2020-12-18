@@ -21,7 +21,7 @@ import ClinicMapView from './components/clinicMapView'
 import PetClinicHistory from './components/petClinicHistory'
 import EditPet from './components/editPet'
 import DoctorInfoView from './components/doctorInfoView'
-
+import NoteRecipFromVisit from './components/visitNoteAndRecips'
 const Stack = createStackNavigator();
 export default function Main() {
   return (
@@ -43,6 +43,7 @@ export default function Main() {
             <Stack.Screen name='PetClinicHistory' component={PetClinicHistory}/>
             <Stack.Screen name='EditPet' component={EditPet}/>
             <Stack.Screen name='DoctorInfo' component={DoctorInfoView}/>
+            <Stack.Screen name='NoteRecipVisit' component={NoteRecipFromVisit}/>
           </Stack.Navigator>
         </NavigationContainer>
       </PaperProvider>

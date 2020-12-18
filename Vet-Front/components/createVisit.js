@@ -9,7 +9,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import { color } from "react-native-reanimated";
 import { inject, observer } from "mobx-react";
 import { createVisit } from "../api/visitApi";
-import {getAllClinics} from '../api/clinicApi'
+import { getAllClinics } from "../api/clinicApi";
 
 function CreateVisit(props) {
   const [loading, setLoading] = useState("false");
@@ -18,8 +18,8 @@ function CreateVisit(props) {
   const [visitTime, setTime] = useState("");
   const [userPets, setUserPets] = useState([]);
   const [pet, setPet] = useState("");
-  const [clinics,setClinics] = useState([])
-  const [choicenClinic,setChoicenClinic] = useState("")
+  const [clinics, setClinics] = useState([]);
+  const [choicenClinic, setChoicenClinic] = useState("");
   const [clicked, setClicked] = useState(-1);
   useEffect(() => {
     const createTimeArrays = () => {
@@ -35,7 +35,7 @@ function CreateVisit(props) {
         count += 1;
       }
       props.store.setTimesArray(arr);
-      setTime(arr[0][1])
+      setTime(arr[0][1]);
       console.log(arr.length);
     };
     const fetchData = async () => {
@@ -47,16 +47,16 @@ function CreateVisit(props) {
           if (response.status === 200) return response.json();
           return false;
         });
-        let data2 = await getAllClinics().then(response=>{
-          if(response.status === 200) return response.json()
-          return false
-        })
+        let data2 = await getAllClinics().then((response) => {
+          if (response.status === 200) return response.json();
+          return false;
+        });
         console.log(data);
         if (data === false || data2 === false) throw new Error("err");
         if (data !== []) setPet(data[0]._id);
         if (data2 !== []) setChoicenClinic(data2[0]._id);
         setUserPets(data);
-        setClinics(data2)
+        setClinics(data2);
         setLoading("true");
       } catch (e) {
         setLoading("error");
@@ -70,23 +70,21 @@ function CreateVisit(props) {
       visitDay: Object.keys(selectedDays)[0],
       time: visitTime,
       petID: pet,
-      clinicID:choicenClinic
+      clinicID: choicenClinic,
     };
     try {
       let user = firebase.auth().currentUser;
       let token = await user.getIdToken().then((res) => res);
-      obj.userID = user.uid
-      let data = await createVisit(obj,token).then(response=>{
-        if(response.status === 200)
-          return true;
-        return false
-      })
-      if(data === true){
-        console.log("Tak")
-        props.store.setVisitReload(!props.store.getVisitReload)
-        props.navigation.navigate("Visits")
-      }else
-        console.log("Nie")
+      obj.userID = user.uid;
+      let data = await createVisit(obj, token).then((response) => {
+        if (response.status === 200) return true;
+        return false;
+      });
+      if (data === true) {
+        console.log("Tak");
+        props.store.setVisitReload(!props.store.getVisitReload);
+        props.navigation.navigate("Visits");
+      } else console.log("Nie");
     } catch (e) {
       return;
     }
@@ -141,31 +139,22 @@ function CreateVisit(props) {
         )}
       </View>
       {secondStage ? (
-        <View
-          style={{
-          
-          }}
-        >
+        <View style={{}}>
           <Picker
             style={{
-              width:"80%",
-              marginLeft:"auto",
-              marginRight:"auto",
-              marginTop:10,
-              marginBottom:10,
-              
+              width: "80%",
+              marginLeft: "auto",
+              marginRight: "auto",
+              marginTop: 10,
+              marginBottom: 10,
             }}
-            itemStyle={{fontSize:20}}
+            itemStyle={{ fontSize: 20 }}
             selectedValue={visitTime}
-            onValueChange={(itemValue,index)=>setTime(itemValue)}
+            onValueChange={(itemValue, index) => setTime(itemValue)}
           >
-          {props.store.getTimesArray.map((times) => 
-            <Picker.Item
-              key={times[0]}
-              label={times[0]}
-              value={times[0]}
-            /> 
-          )}
+            {props.store.getTimesArray.map((times) => (
+              <Picker.Item key={times[0]} label={times[0]} value={times[0]} />
+            ))}
           </Picker>
         </View>
       ) : (
@@ -198,43 +187,42 @@ function CreateVisit(props) {
           <Text>Error</Text>
         ) : (
           <View>
-          <Picker
-            style={{ 
-              marginTop: 30,
-              width:"80%",
-              marginLeft:"auto",
-              marginRight:"auto", }}
-            selectedValue={pet}
-            onValueChange={(itemValue, index) => setPet(itemValue)}
-          >
-            {userPets.map((p) => (
-              <Picker.Item
-                key={p._id}
-                label={`${p.name}, age: ${p.age}`}
-                value={p._id}
-              />
-            ))}
-          </Picker>
-          <Picker
-            style={{
-              marginTop:10,
-              marginBottom:10,
-              width:"80%",
-              marginLeft:"auto",
-              marginRight:"auto",
-            }}
-            selectedValue={choicenClinic}
-            onValueChange={(itemValue,index)=>setChoicenClinic(itemValue)}
-          >
-            {
-              clinics.map(clinic=>
+            <Picker
+              style={{
+                marginTop: 30,
+                width: "80%",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+              selectedValue={pet}
+              onValueChange={(itemValue, index) => setPet(itemValue)}
+            >
+              {userPets.map((p) => (
+                <Picker.Item
+                  key={p._id}
+                  label={`${p.name}, age: ${p.age}`}
+                  value={p._id}
+                />
+              ))}
+            </Picker>
+            <Picker
+              style={{
+                marginTop: 10,
+                marginBottom: 10,
+                width: "80%",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+              selectedValue={choicenClinic}
+              onValueChange={(itemValue, index) => setChoicenClinic(itemValue)}
+            >
+              {clinics.map((clinic) => (
                 <Picker.Item
                   key={clinic._id}
                   label={`${clinic.city} : ${clinic.address} `}
                   value={clinic._id}
                 />
-              )
-            }
+              ))}
             </Picker>
           </View>
         )}

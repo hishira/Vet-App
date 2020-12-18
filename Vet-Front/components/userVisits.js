@@ -140,6 +140,9 @@ function UserVisits(props) {
                     <Button onPress={() => seeOnMapHandle(visit)}>
                       See on map
                     </Button>
+                    {
+                      visit.notes.length > 0?(<Button onPress={()=>props.navigation.navigate("NoteRecipVisit",{visitID:visit._id})}>See recip or note from visit</Button>):(<View/>)
+                    }
                   </Card.Actions>
                 </Card>
               ))}
