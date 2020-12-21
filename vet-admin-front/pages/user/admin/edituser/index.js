@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
 import EditUserModal from "../../../../components/EditUserModal";
 import YesOrNoDialog from "../../../../components/yesornodialoguser";
-import {deleteUser} from '../../../../utils/api/userApi'
+import { deleteUser } from "../../../../utils/api/userApi";
 export default function EditUser(props) {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState("false");
@@ -15,24 +15,28 @@ export default function EditUser(props) {
   const [openDialog, setOpenDialog] = useState(false);
   const [pageReaload, setPageReload] = useState(false);
   const [deleteDialogOpen, setDeleteDialogOpen] = useState(false);
-  const [userToDelete,setUserToDelete] = useState({})
+  const [userToDelete, setUserToDelete] = useState({});
   const router = useRouter();
+  const getUsers = async (usertoken)=>{
+    let objecttosend = {}
+    let users = await getAllUsers(objecttosend, usertoken).then(
+      (response) => {
+        if (response.status === 200) return response.json();
+        return flase;
+      }
+    );
+    if (users === false) throw new Error("error");
+    return users;
+  }
   useEffect(() => {
     let fetchdata = async () => {
-      const userCookies = getUserFromCookie();
+      const usertoken = getUserFromCookie()["token"];
       setLoading("yes");
       try {
-        let data = await getAllUsers({}, userCookies["token"]).then(
-          (response) => {
-            if (response.status === 200) return response.json();
-            return flase;
-          }
-        );
-        if (data === false) throw new Error("error");
-        setUsers(data);
+        let users = await getUsers(usertoken)
+        setUsers(users);
         setLoading("end");
-        console.log("Dataddd", data);
-        prepareCanvas(data);
+        prepareCanvas(users);
       } catch (e) {
         setLoading("Error");
       }
@@ -52,62 +56,78 @@ export default function EditUser(props) {
   const closeDeleteDialog = () => {
     setDeleteDialogOpen(!deleteDialogOpen);
   };
-  const deleteUserHandle = (user)=>{
+  const deleteUserHandle = (user) => {
     setUserToDelete(user);
     setDeleteDialogOpen(!deleteDialogOpen);
-  }
-  const yesDialogHandle = async (user)=>{
-    let obj = {uid:user.userID,userID:user._id};
+  };
+  const yesDialogHandle = async (user) => {
+    let obj = { uid: user.userID, userID: user._id };
     console.log(obj);
-    const token = getUserFromCookie()["token"]
-    let data = await deleteUser(obj,token).then(response=>{
-      if(response.status === 200)
-        return true;
+    const token = getUserFromCookie()["token"];
+    let data = await deleteUser(obj, token).then((response) => {
+      if (response.status === 200) return true;
       return false;
     });
-    if(data){
+    if (data) {
       console.log("OK OK OK");
-      setPageReload(!pageReaload)
+      setPageReload(!pageReaload);
     }
-  }
+  };
+  const prepareUserData = (sorteduserobject, usersarray) => {
+    for (let i of usersarray) {
+      if (i.type === "USER") sorteduserobject["USER"] += 1;
+      if (i.type === "ADMIN") sorteduserobject["ADMIN"] += 1;
+      if (i.type === "DOCTOR") sorteduserobject["DOCTOR"] += 1;
+    }
+  };
+  const prepareCanvasObject = (canvasObject) => {
+    let ctx = canvasObject.getContext("2d");
+    const colors = ["#a6335f", "#e194bc", "#a5545d"];
+    const width = (canvasObject.width - 10) / 2;
+    const height = (canvasObject.height - 10) / 2;
+    return { context: ctx, width: width, height: height, canvascolors: colors };
+  };
+  const beginDrawingOnCanvas = (canvasObject, colornumber) => {
+    canvasObject.context.fillStyle = canvasObject.canvascolors[colornumber];
+    canvasObject.context.strokeStyle = "white";
+    canvasObject.context.lineWidth = 2;
+    canvasObject.context.beginPath();
+    canvasObject.context.moveTo(canvasObject.width, canvasObject.height);
+  };
+  const drawSectionOfChart = (canvasObject, chartradius, end, firstdata) => {
+    canvasObject.context.arc(
+      canvasObject.width,
+      canvasObject.height,
+      chartradius,
+      end,
+      end + firstdata,
+      false
+    );
+    canvasObject.context.lineTo(canvasObject.width,canvasObject.height)
+    canvasObject.context.fill()
+    canvasObject.context.stroke()
+    canvasObject.context.fillStyle = "white";
+    canvasObject.context.font = "12px Arial";
+    canvasObject.context.textAlign = "center";
+    canvasObject.context.textBaseline = "middle";
+  };
+
   const prepareCanvas = (users) => {
     const canvas = document.querySelector("canvas");
     let sort = { USER: 0, ADMIN: 0, DOCTOR: 0 };
-    console.log(users);
-    for (let i of users) {
-      if (i.type === "USER") sort["USER"] += 1;
-      if (i.type === "ADMIN") sort["ADMIN"] += 1;
-      if (i.type === "DOCTOR") sort["DOCTOR"] += 1;
-    }
-    console.log(sort);
-    let ctx = canvas.getContext("2d");
-    const colors = ["#a6335f", "#e194bc", "#a5545d"];
-    const width = (canvas.width - 10) / 2;
-    const height = (canvas.height - 10) / 2;
+    prepareUserData(sort, users);
     let end = 0;
-
+    const canvasObject = prepareCanvasObject(canvas);
     for (let i = 0; i < Object.keys(sort).length; i++) {
-      ctx.fillStyle = colors[i];
-      ctx.strokeStyle = "white";
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(width, height);
+      beginDrawingOnCanvas(canvasObject,i);
       let firsdata = (sort[Object.keys(sort)[i]] / users.length) * 2 * Math.PI;
-      let r = height - 10 / 2;
-      ctx.arc(width, height, r, end, end + firsdata, false);
-      ctx.lineTo(width, height);
-      ctx.fill();
-      ctx.stroke();
-      ctx.fillStyle = "white";
-      ctx.font = "12px Arial";
-      ctx.textAlign = "center";
-      ctx.textBaseline = "middle";
+      let r = canvasObject.height - 10 / 2;
+      drawSectionOfChart(canvasObject,r,end,firsdata);
       let mid = end + firsdata / 2;
-      console.log(r);
-      ctx.fillText(
+      canvasObject.context.fillText(
         `${Object.keys(sort)[i]}: ${sort[Object.keys(sort)[i]]}`,
-        width + Math.cos(mid) * (r / 2),
-        height + Math.sin(mid) * (r / 2)
+        canvasObject.width + Math.cos(mid) * (r / 2),
+        canvasObject.height + Math.sin(mid) * (r / 2)
       );
       end += Math.PI * 2 * (sort[Object.keys(sort)[i]] / users.length);
     }
@@ -150,7 +170,12 @@ export default function EditUser(props) {
                     >
                       User edit
                     </button>
-                    <button className={styles.deletebutton} onClick={()=>deleteUserHandle(user)}>Delete user</button>
+                    <button
+                      className={styles.deletebutton}
+                      onClick={() => deleteUserHandle(user)}
+                    >
+                      Delete user
+                    </button>
                   </div>
                 </div>
               ))}
