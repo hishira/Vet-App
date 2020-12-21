@@ -135,6 +135,8 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-top: .5rem;
+
 }
 .recip__medname{
   line-height: 2rem;
