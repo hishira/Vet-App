@@ -23,7 +23,7 @@ export default function SpecificVisit(props) {
   const { id } = router.query;
 
   const fetchGeneralDataAboutVisit = async(objecttosend,usertoken)=>{
-    let data = await getInfoAboutVisit(objectosend, usertoken).then(
+    let data = await getInfoAboutVisit(objecttosend, usertoken).then(
       (reseponse) => {
         if (reseponse.status === 200) return reseponse.json();
         return false;
