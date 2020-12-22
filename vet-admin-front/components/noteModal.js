@@ -8,6 +8,23 @@ export default function NoteModal(props) {
   const [messageOpen, setMessageOpen] = useState(false);
   const [messageText, setMessageText] = useState("");
   const [messageColor, setMessageColor] = useState("");
+  const badMessageTimeoutFunction = () => setMessageOpen(false);
+  const goodMessageTimeoutFunction = () => {
+    setMessageOpen(false);
+    props.close();
+    props.reload();
+  };
+  const setMessageInfo = (
+    messageText,
+    messageColor,
+    timeout,
+    timeoutFunction
+  ) => {
+    setMessageText(messageText);
+    setMessageColor(messageColor);
+    setMessageOpen(!messageOpen);
+    setTimeout(timeoutFunction, timeout);
+  };
   const createNoteHandle = async (e) => {
     e.preventDefault();
     let obj = {
@@ -15,28 +32,21 @@ export default function NoteModal(props) {
       petID: props.noteInfo.petID,
       visitID: props.noteInfo.visitID,
     };
-    let token = getUserFromCookie()["token"];
-    console.log(obj, token);
+    let token = getUserFromCookie().token;
     let fetchedData = await createNote(obj, token).then((response) => {
       console.log(response);
       if (response.status === 200) return response.json();
-      return response.text()
+      return response.text();
     });
-    if (typeof(fetchedData) === "string") {
-      setMessageText(fetchedData.split(":")[2].trim());
-      setMessageColor("lightcoral");
-      setMessageOpen(!messageOpen);
-      setTimeout(() => setMessageOpen(false), 1500);
-      return;
-    }
-    setMessageText("OK, note added");
-    setMessageColor("");
-    setMessageOpen(!messageOpen);
-    setTimeout(() => {
-      setMessageOpen(false);
-      props.close();
-      props.reload()
-    }, 1500);
+    if (typeof fetchedData === "string") {
+      setMessageInfo(
+        fetchedData.split(":")[2].trim(),
+        "lightcoral",
+        1500,
+        badMessageTimeoutFunction
+      );
+    } else
+      setMessageInfo("OK, note added", "", 1500, goodMessageTimeoutFunction);
   };
   if (!props.open) {
     return null;

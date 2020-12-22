@@ -25,7 +25,7 @@ export default function DoctorAllVisits(props) {
   useEffect(() => {
     const fetchDataAboutDoctorVisits = async () => {
       try {
-        let usertoken = getUserFromCookie()["token"];
+        let usertoken = getUserFromCookie().token;
         setLoading("yes");
         getAndSetDoctorVisits(usertoken);
         setLoading("end");

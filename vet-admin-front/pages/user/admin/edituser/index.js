@@ -18,7 +18,7 @@ export default function EditUser(props) {
   const [userToDelete, setUserToDelete] = useState({});
   const router = useRouter();
   const getUsers = async (usertoken)=>{
-    let objecttosend = {}
+    let objecttosend = {};
     let users = await getAllUsers(objecttosend, usertoken).then(
       (response) => {
         if (response.status === 200) return response.json();
@@ -30,10 +30,10 @@ export default function EditUser(props) {
   }
   useEffect(() => {
     let fetchdata = async () => {
-      const usertoken = getUserFromCookie()["token"];
+      const usertoken = getUserFromCookie().token;
       setLoading("yes");
       try {
-        let users = await getUsers(usertoken)
+        let users = await getUsers(usertoken);
         setUsers(users);
         setLoading("end");
         prepareCanvas(users);
@@ -75,9 +75,9 @@ export default function EditUser(props) {
   };
   const prepareUserData = (sorteduserobject, usersarray) => {
     for (let i of usersarray) {
-      if (i.type === "USER") sorteduserobject["USER"] += 1;
-      if (i.type === "ADMIN") sorteduserobject["ADMIN"] += 1;
-      if (i.type === "DOCTOR") sorteduserobject["DOCTOR"] += 1;
+      if (i.type === "USER") sorteduserobject.USER += 1;
+      if (i.type === "ADMIN") sorteduserobject.ADMIN += 1;
+      if (i.type === "DOCTOR") sorteduserobject.DOCTOR += 1;
     }
   };
   const prepareCanvasObject = (canvasObject) => {

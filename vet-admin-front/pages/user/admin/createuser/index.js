@@ -2,7 +2,7 @@ import { useState } from "react";
 import UserView from "../../index";
 import styles from "../../../../styles/UserCreate.module.css";
 import YesOrNoDialog from "../../../../components/yesornodialoguser";
-import {userCreate} from '../../../../utils/auth/createUser'
+import {userCreate} from '../../../../utils/auth/createUser';
 export default function CreateUser(props) {
   console.log(props);
   const [email, setEmail] = useState("");
@@ -22,8 +22,7 @@ export default function CreateUser(props) {
   };
   const createuserchildren = async(user)=>{
     await userCreate(user.email,user.password,user.userType);
-  }
-  
+  };
   return (
     <div>
       <UserView userdata={props.userdata}>
