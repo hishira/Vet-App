@@ -4,8 +4,9 @@ import styles from "../../../../styles/CreatePet.module.css";
 import { getAllUsers } from "../../../../utils/api/userApi";
 import { getUserFromCookie } from "../../../../utils/auth/userCookies";
 import Loader from "../../../../components/loader";
-import {createPet} from '../../../../utils/api/petApi'
-import SuccessfullMessage from '../../../../components/successfulmessage';
+import { createPet } from "../../../../utils/api/petApi";
+import SuccessfullMessage from "../../../../components/successfulmessage";
+
 export default function CreatePet(props) {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
@@ -13,62 +14,62 @@ export default function CreatePet(props) {
   const [userID, setUserID] = useState("");
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState("false");
-  const [messageOpen,setMessageOpen] = useState(false);
-  const [messageText,setMessageText] = useState("");
-  const [messageColor,setMessageColor] = useState("");
+  const [messageOpen, setMessageOpen] = useState(false);
+  const [messageText, setMessageText] = useState("");
+  const [messageColor, setMessageColor] = useState("");
+  const setMessageInformation = (messageText, messageColor, timeout) => {
+    setMessageText(messageText);
+    setMessageColor(messageColor);
+    setMessageOpen(!messageOpen);
+    setTimeout(() => setMessageOpen(false), timeout);
+  };
   const createPetHandle = async () => {
-    let obj = {
+    let petObj = {
       name: name,
       age: age,
       species: species,
       userID: userID,
     };
-    const token = getUserFromCookie()["token"]
-    console.log(obj,token);
-    
-    
-    let data = await createPet(obj,token).then(response=>{
-      if(response.status === 200)
-        return response.json();
-      return false
-    })
-    if(data === false){ 
-      setMessageText("Problem with pet create");
-      setMessageColor("lightcoral");
-      setMessageOpen(!messageOpen);
-      setTimeout(()=>setMessageOpen(false),1500);
-      return;
+    const token = getUserFromCookie()["token"];
+    let pet = await createPet(petObj, token).then((response) => {
+      if (response.status === 200) return response.json();
+      return false;
+    });
+    if (pet === false) {
+      setMessageInformation("Problem with pet create", "lightcoral", 1500);
+      
+    }else
+      setMessageInformation("OK, pet created", "", 1500);
+  };
+  const prepareAllUserData = async(userToken)=>{
+    let usersData = await getAllUsers({}, userToken).then((response) => {
+      if (response.status === 200) return response.json();
+      return false;
+    });
+    if (usersData === false) throw new Error("error");
+    if (usersData.length !== 0) setUserID(usersData[0]["userID"]);
+    setUsers(usersData);
+  }
+  const fetchUsersData = async () => {
+    const token = getUserFromCookie()["token"];
+    setLoading("yes");
+    try {
+      await prepareAllUserData(token);
+      setLoading("end");
+    } catch (e) {
+      setLoading("error");
     }
-    setMessageText("OK, pet created");
-    setMessageColor("");
-    setMessageOpen(!messageOpen);
-    setTimeout(()=>setMessageOpen(false),1500);
-    
-    
   };
   useEffect(() => {
-    const fetchData = async () => {
-      const token = getUserFromCookie()["token"];
-      setLoading("yes");
-      try {
-        let data = await getAllUsers({}, token).then((response) => {
-          if (response.status === 200) return response.json();
-          return false;
-        });
-        if (data === false) throw new Error("error");
-        if(data.length!== 0)
-            setUserID(data[0]["userID"]);
-        setUsers(data);
-        setLoading("end");
-      } catch (e) {
-        setLoading("error");
-      }
-    };
-    fetchData();
+    fetchUsersData();
   }, []);
   return (
     <UserView userdata={props.userdata}>
-      <SuccessfullMessage open={messageOpen} color={messageColor} message={messageText}/>
+      <SuccessfullMessage
+        open={messageOpen}
+        color={messageColor}
+        message={messageText}
+      />
       <div className={styles.maincomponent}>
         <div className={styles.petcreateform}>
           <div>
@@ -78,7 +79,7 @@ export default function CreatePet(props) {
                 className={styles.nameinput}
                 placeholder="Name"
                 type="text"
-                onChange={(e)=>setName(e.target.value)}
+                onChange={(e) => setName(e.target.value)}
               />
             </label>
           </div>
@@ -89,7 +90,7 @@ export default function CreatePet(props) {
                 className={styles.ageinput}
                 placeholder="0"
                 type="number"
-                onChange={(e)=>setAge(e.target.value)}
+                onChange={(e) => setAge(e.target.value)}
               />
             </label>
           </div>
