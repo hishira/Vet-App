@@ -18,29 +18,24 @@
 .emaillabel,.passwordlabel,.choicelabel{
     font-size: 1.1rem;
     padding: .3rem;
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width:23rem;
+    margin-top: .6rem;
+}
+.labeltext{
+    font-size: 1.1rem;
 }
 .emailinput,.passwordinput,.usertypeselect{
-    padding: .3rem;
-    margin-left: 1rem;
+    padding: .2rem;
     border: 1px solid  slategray;
     background: transparent;
     backdrop-filter: blur(10px);
     background-color: rgba(255, 255, 255, 1);
     outline: none;
-    border-radius: 10px;
-}
-.emailinput{
-    margin-left: 3.2rem;
-    margin-top:.5rem;
-}
-.passwordinput{
-    margin-top: .5rem;
-}
-.usertypeselect{
-    margin-top: .5rem;
-    width:10rem;
-    margin-right: 1.5rem;
+    border-radius: 5px;
+    width:15rem;
 }
 .usercreatesubmitbutton{
     padding:.5rem;
@@ -52,4 +47,5 @@
     width:10rem;
     border: 0.1rem solid slategray;
     margin-left: 1rem;
+    font-size: 1.1rem;
 }

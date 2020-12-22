@@ -39,7 +39,7 @@ export default function CreateUser(props) {
         </div>
         <form className={styles.createuserform}>
           <label className={styles.emaillabel}>
-            Email
+            <div className={styles.labeltext}>Email</div>
             <input
               name="email"
               autoComplete="off"
@@ -49,7 +49,7 @@ export default function CreateUser(props) {
             />
           </label>
           <label className={styles.passwordlabel}>
-            Password
+            <div className={styles.labeltext}>Password</div>
             <input
               name="password"
               onChange={(e) => setPassword(e.target.value)}
@@ -58,7 +58,7 @@ export default function CreateUser(props) {
             />
           </label>
           <label className={styles.choicelabel}>
-            User type
+            <div className={styles.labeltext}>User type</div>
             <select
               className={styles.usertypeselect}
               value={userType}
