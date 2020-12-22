@@ -87,10 +87,10 @@ export default function SpecificVisit(props) {
     let elements = document.getElementsByClassName(styles["notes__button"]);
     for (let i of elements) {
       i.addEventListener("mouseover", (event) => {
-        mouseeventlementfunction(event,"inline")
+        mouseeventlementfunction(event,"inline");
       });
       i.addEventListener("mouseout", (event) => {
-        mouseeventlementfunction(event,"none")
+        mouseeventlementfunction(event,"none");
 
       });
     }

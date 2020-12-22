@@ -121,17 +121,19 @@
   display: flex;
   flex-wrap: wrap;
   padding: .3rem;
+  justify-content: center;
+  align-items: center;
 }
 .recipes__recip{
   margin-left: 1.3rem;
   height: fit-content;
-  padding: .3rem 0.1rem;
+  padding: .15rem 0.8rem;
   box-shadow: .05rem .05rem .05rem .05rem lightslategrey;
   background: whitesmoke;
   border-radius: 10px;
-  min-width: 11rem ;
-  min-height: 7rem;
+  min-width: 8rem ;
   display: flex;
+  box-sizing: border-box;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -140,7 +142,7 @@
 }
 .recip__medname{
   line-height: 2rem;
-  font-size: 1.05rem;
+  font-size: 1rem;
   text-align: center;
   width:100%;
 }
