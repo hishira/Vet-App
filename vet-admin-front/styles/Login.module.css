@@ -45,6 +45,11 @@
   outline: none;
   background: #416b75;
 }
+@media (max-width:600px){
+  .inputclass{
+    width: 10rem;
+  }
+}
 .inputclass:focus {
   border: 1px solid black;
 }

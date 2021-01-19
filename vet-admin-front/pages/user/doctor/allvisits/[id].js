@@ -83,6 +83,7 @@ export default function SpecificVisit(props) {
     target.style.top = `${event.target.getBoundingClientRect().top/2 - 25}px`
     target.style.display = displayvalue;
   };
+
   const injectEventHover = () => {
     let elements = document.getElementsByClassName(styles["notes__button"]);
     for (let i of elements) {
@@ -95,6 +96,7 @@ export default function SpecificVisit(props) {
       });
     }
   };
+  
   const addNoteHandle = ({ _id, pet }) => {
     let modalInfo = {
       petID: pet._id,
@@ -105,6 +107,7 @@ export default function SpecificVisit(props) {
       setNoteModalOpen(!noteModalOpen);
     }
   };
+
   const deleteNoteByID = async (noteID,usertoken) =>{
     let obj = {
       noteID: noteID,
@@ -116,6 +119,7 @@ export default function SpecificVisit(props) {
     return data;
 
   }
+
   const deletenoteHandle = async (noteid) => {
     let usertoken = getUserFromCookie()["token"];
     try {
@@ -125,15 +129,19 @@ export default function SpecificVisit(props) {
       console.log(e);
     }
   };
+
   const handleClose = () => {
     setNoteModalOpen(!noteModalOpen);
   };
+
   const handleCloseRecip = () => {
     setRecipModalOpen(!recipModalOpen);
   };
+
   const reloadHandle = () => {
     setReloadInfo(!reloadInfo);
   };
+
   const prepareMedicines = (arrayofmedicines) => {
     let onenamearrayofmedicines = [];
     let setofmedicines = new Set(arrayofmedicines.map((a) => a.name).slice());

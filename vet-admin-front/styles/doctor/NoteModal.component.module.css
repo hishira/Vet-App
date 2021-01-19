@@ -10,8 +10,20 @@
   margin-right: auto;
   backdrop-filter: blur(10px);
   box-sizing: border-box;
+  border: .12rem solid lightsteelblue;
+  
   padding: 0.5rem;
   border-radius: 10px;
+  opacity: 0;
+  animation: appear .4s ease-in-out forwards;
+}
+@keyframes appear{
+  from{
+    opacity: 0;
+  }
+  to{
+    opacity: 1;
+  }
 }
 .noteModalComponent__header {
   width: 100%;

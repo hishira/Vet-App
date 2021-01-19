@@ -27,7 +27,7 @@
     align-items: center;
     padding: .7rem;
     box-sizing: border-box;
-    border-right: .1rem solid slategray;
+    border-right: .1rem solid lightsteelblue;
 }
 .doctorinfo__petinfo > *{
   width: 50%;
@@ -53,13 +53,13 @@
     width: 7rem;
     font-size: 1rem;
     border: none;
-    outline:none;
-    padding: .2rem;
-    border: .01rem solid slategray;
+    outline: none;
+    padding: .3rem;
+    border: .01rem solid lightsteelblue;
     border-radius: 5px;
     margin-left: auto;
     margin-right: auto;
-    background-color: lightblue;
+    background-color: lightsteelblue;
     backdrop-filter: blur(10px);
     margin-top: .3rem;
 }
@@ -128,9 +128,9 @@
   margin-left: 1.3rem;
   height: fit-content;
   padding: .15rem 0.8rem;
-  box-shadow: .05rem .05rem .05rem .05rem lightslategrey;
+  box-shadow: .15rem .15rem .15rem .05rem lightsteelblue;
   background: whitesmoke;
-  border-radius: 10px;
+  border-radius: 5px;
   min-width: 8rem ;
   display: flex;
   box-sizing: border-box;
@@ -141,13 +141,13 @@
 
 }
 .recip__medname{
-  line-height: 2rem;
-  font-size: 1rem;
+  line-height: 1.5rem;
+  font-size: .9rem;
   text-align: center;
   width:100%;
 }
 .recip__medname:not(:first-child){
-  border-top:.1rem solid slategray;
+  border-top:.1rem solid lightsteelblue;
 }
 @media (max-width: 700px){
   .maincomponent__doctorinfo{
